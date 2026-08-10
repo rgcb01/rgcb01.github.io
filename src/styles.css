@@ -775,13 +775,48 @@ h3 {
   font-weight: 650;
 }
 
+.cert-icon,
 .cert-card svg {
   flex: 0 0 auto;
   color: var(--accent);
 }
 
+.cert-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.cert-image {
+  flex: 0 0 auto;
+  width: 92px;
+  height: 68px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f8fafc;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cert-copy {
+  min-width: 0;
+}
+
 .cert-card h3 {
   margin-bottom: 3px;
+}
+
+.cert-meta {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 650;
 }
 
 .credential-placeholder {
@@ -790,6 +825,21 @@ h3 {
   color: var(--muted);
   font-size: 0.84rem;
   font-weight: 700;
+}
+
+.credential-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.credential-link:hover {
+  color: #183f63;
+  text-decoration: underline;
 }
 
 .section-intro {
@@ -1024,6 +1074,7 @@ h3 {
   .project-card,
   .experience-card,
   .skill-card,
+  .cert-card,
   .contact-panel,
   .linkedin-badge-card,
   .featured-project-card,
@@ -1049,5 +1100,14 @@ h3 {
 
   .linkedin-badge-card {
     min-height: 220px;
+  }
+
+  .cert-card {
+    gap: 14px;
+  }
+
+  .cert-image {
+    width: 76px;
+    height: 58px;
   }
 }
