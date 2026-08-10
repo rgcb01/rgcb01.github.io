@@ -1,0 +1,37 @@
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+
+export default function Hero({ profile }) {
+  return (
+    <section className="hero section" id="home">
+      <div className="hero-content">
+        <p className="eyebrow">Mechatronics Engineering Portfolio</p>
+        <h1>{profile.name}</h1>
+        <p className="hero-subtitle">{profile.headline}</p>
+        <p className="hero-description">{profile.summary}</p>
+        <div className="hero-actions" aria-label="Portfolio actions">
+          <a className="button primary" href="#projects">
+            View Projects <ArrowRight size={18} />
+          </a>
+          <a className="button secondary" href={profile.resumePath}>
+            Download Resume
+          </a>
+          <a className="icon-link" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
+            <Github size={21} />
+          </a>
+          <a className="icon-link" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+            <Linkedin size={21} />
+          </a>
+          <a className="icon-link" href={`mailto:${profile.email}`} aria-label="Email">
+            <Mail size={21} />
+          </a>
+        </div>
+      </div>
+      <aside className="hero-panel" aria-label="Portfolio focus">
+        <span>Manufacturing Data</span>
+        <span>Industrial Vision</span>
+        <span>Automation Logic</span>
+        <span>Quality & Process Improvement</span>
+      </aside>
+    </section>
+  );
+}
