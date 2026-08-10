@@ -22,10 +22,10 @@ export default function Hero({ profile, badges }) {
           <a className="button secondary" href={profile.resumePath}>
             Download Resume
           </a>
-          <a className="icon-link" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
+          <a className="icon-link" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
             <Github size={21} />
           </a>
-          <a className="icon-link" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+          <a className="icon-link" href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
             <Linkedin size={21} />
           </a>
           <a className="icon-link" href={`mailto:${profile.email}`} aria-label="Email">

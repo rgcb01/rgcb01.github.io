@@ -15,10 +15,10 @@ export default function Contact({ profile }) {
             <a href={`mailto:${profile.email}`}>
               <Mail size={18} /> {profile.email}
             </a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer">
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
               <Linkedin size={18} /> LinkedIn
             </a>
-            <a href={profile.github} target="_blank" rel="noreferrer">
+            <a href={profile.github} target="_blank" rel="noopener noreferrer">
               <Github size={18} /> GitHub
             </a>
             <span>

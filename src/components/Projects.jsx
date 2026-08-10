@@ -1,50 +1,52 @@
-import { ExternalLink } from "lucide-react";
+import { Clock, Wrench } from "lucide-react";
 
-export default function Projects({ projects }) {
+export default function Projects({ currentProject, upcomingProjects }) {
   return (
     <section className="section" id="projects">
       <div className="section-heading">
-        <p className="eyebrow">Featured Projects</p>
-        <h2>Portfolio projects built around manufacturing, quality and automation workflows.</h2>
+        <p className="eyebrow">Engineering Projects</p>
+        <h2>Current and upcoming portfolio work across vision, data, testing and automation.</h2>
       </div>
-      <div className="project-grid">
-        {projects.map((project) => (
-          <article className="project-card" key={project.title}>
-            <div className="card-topline">
-              <h3>{project.title}</h3>
-              <span className={`status ${project.status.toLowerCase().replaceAll(" ", "-")}`}>{project.status}</span>
-            </div>
-            <p>{project.description}</p>
-            <div className="tag-list">
-              {project.tags.map((tag) => (
-                <span className="tag" key={tag}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="metric-list" aria-label={`${project.title} key metrics`}>
-              {project.metrics.map((metric) => (
-                <span key={metric}>{metric}</span>
-              ))}
-            </div>
-            <div className="card-actions">
-              {project.github ? (
-                <a href={project.github} target="_blank" rel="noreferrer">
-                  View GitHub <ExternalLink size={16} />
-                </a>
-              ) : (
-                <span className="disabled-link">GitHub coming soon</span>
-              )}
-              {project.caseStudy ? (
-                <a className="secondary-link" href={project.caseStudy} target="_blank" rel="noreferrer">
-                  View Screenshots <ExternalLink size={16} />
-                </a>
-              ) : (
-                <span className="disabled-link">Case study coming soon</span>
-              )}
-            </div>
-          </article>
-        ))}
+      <div className="engineering-projects-layout">
+        <article className="project-card current-project-card">
+          <div className="card-topline">
+            <h3>{currentProject.title}</h3>
+            <span className="status in-progress">{currentProject.status}</span>
+          </div>
+          <p>{currentProject.description}</p>
+          <div className="tag-list">
+            {currentProject.tags.map((tag) => (
+              <span className="tag" key={tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="metric-list" aria-label={`${currentProject.title} planned metrics`}>
+            {currentProject.metrics.map((metric) => (
+              <span key={metric}>{metric}</span>
+            ))}
+          </div>
+          <div className="card-actions">
+            <span className="disabled-link">
+              <Wrench size={16} /> Repository in progress
+            </span>
+            <span className="disabled-link">
+              <Clock size={16} /> Case study coming soon
+            </span>
+          </div>
+        </article>
+
+        <div className="upcoming-panel">
+          <h3>Upcoming</h3>
+          <div className="upcoming-list">
+            {upcomingProjects.map((project) => (
+              <article className="upcoming-item" key={project.title}>
+                <strong>{project.title}</strong>
+                <p>{project.focus}</p>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

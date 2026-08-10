@@ -15,7 +15,7 @@ export default function Certifications({ certifications }) {
               <h3>{certification.title}</h3>
               <p>{certification.issuer}</p>
               {certification.credentialUrl ? (
-                <a href={certification.credentialUrl} target="_blank" rel="noreferrer">
+                <a href={certification.credentialUrl} target="_blank" rel="noopener noreferrer">
                   Credential link
                 </a>
               ) : (

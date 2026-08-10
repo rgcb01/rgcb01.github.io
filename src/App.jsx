@@ -6,21 +6,30 @@ import Highlights from "./components/Highlights.jsx";
 import PortfolioRoadmap from "./components/PortfolioRoadmap.jsx";
 import FeaturedGithub from "./components/FeaturedGithub.jsx";
 import Experience from "./components/Experience.jsx";
+import Education from "./components/Education.jsx";
 import Skills from "./components/Skills.jsx";
 import Certifications from "./components/Certifications.jsx";
+import CredlyBadges from "./components/CredlyBadges.jsx";
+import EngineeringNumbers from "./components/EngineeringNumbers.jsx";
+import RecruiterSnapshot from "./components/RecruiterSnapshot.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import {
   certifications,
+  credlyBadgeIds,
+  currentProject,
+  education,
+  engineeringMetrics,
   experiences,
-  featuredGithub,
+  featuredProject,
   heroBadges,
   highlights,
   navItems,
   profile,
-  projects,
+  recruiterSnapshot,
   roadmap,
   skillGroups,
+  upcomingProjects,
 } from "./data.js";
 
 export default function App() {
@@ -30,13 +39,17 @@ export default function App() {
       <main>
         <Hero profile={profile} badges={heroBadges} />
         <About />
+        <RecruiterSnapshot snapshot={recruiterSnapshot} />
         <Highlights highlights={highlights} />
-        <Projects projects={projects} />
+        <FeaturedGithub project={featuredProject} />
+        <Projects currentProject={currentProject} upcomingProjects={upcomingProjects} />
         <PortfolioRoadmap roadmap={roadmap} />
-        <FeaturedGithub project={featuredGithub} />
+        <EngineeringNumbers metrics={engineeringMetrics} />
         <Experience experiences={experiences} />
+        <Education education={education} />
         <Skills skillGroups={skillGroups} />
         <Certifications certifications={certifications} />
+        <CredlyBadges badgeIds={credlyBadgeIds} />
         <Contact profile={profile} />
       </main>
       <Footer profile={profile} />
