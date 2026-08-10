@@ -8,9 +8,7 @@ export default function Contact({ profile }) {
         <h2>Open to New College Grad and entry-level engineering opportunities.</h2>
       </div>
       <div className="contact-panel">
-        <p>
-          Open to New College Grad, entry-level engineering, manufacturing, automation, quality, production and validation opportunities.
-        </p>
+        <p>{profile.availability}</p>
         <div className="contact-links">
           <a href={`mailto:${profile.email}`}>
             <Mail size={18} /> {profile.email}

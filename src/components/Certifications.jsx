@@ -9,9 +9,19 @@ export default function Certifications({ certifications }) {
       </div>
       <div className="cert-grid">
         {certifications.map((certification) => (
-          <article className="cert-card" key={certification}>
+          <article className="cert-card" key={certification.title}>
             <Award size={20} />
-            <span>{certification}</span>
+            <div>
+              <h3>{certification.title}</h3>
+              <p>{certification.issuer}</p>
+              {certification.credentialUrl ? (
+                <a href={certification.credentialUrl} target="_blank" rel="noreferrer">
+                  Credential link
+                </a>
+              ) : (
+                <span className="credential-placeholder">Credential link optional</span>
+              )}
+            </div>
           </article>
         ))}
       </div>

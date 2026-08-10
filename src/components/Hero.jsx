@@ -1,6 +1,6 @@
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 
-export default function Hero({ profile }) {
+export default function Hero({ profile, badges }) {
   return (
     <section className="hero section" id="home">
       <div className="hero-content">
@@ -8,6 +8,13 @@ export default function Hero({ profile }) {
         <h1>{profile.name}</h1>
         <p className="hero-subtitle">{profile.headline}</p>
         <p className="hero-description">{profile.summary}</p>
+        <div className="hero-badges" aria-label="Professional credentials and focus areas">
+          {badges.map((badge) => (
+            <span className="proof-chip" key={badge}>
+              {badge}
+            </span>
+          ))}
+        </div>
         <div className="hero-actions" aria-label="Portfolio actions">
           <a className="button primary" href="#projects">
             View Projects <ArrowRight size={18} />
@@ -27,6 +34,8 @@ export default function Hero({ profile }) {
         </div>
       </div>
       <aside className="hero-panel" aria-label="Portfolio focus">
+        <p className="panel-label">Target Roles</p>
+        <strong>Entry-Level Engineering</strong>
         <span>Manufacturing Data</span>
         <span>Industrial Vision</span>
         <span>Automation Logic</span>

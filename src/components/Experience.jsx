@@ -14,6 +14,13 @@ export default function Experience({ experiences }) {
               <p className="meta">
                 {item.dates} | {item.location}
               </p>
+              <div className="mini-tag-list">
+                {item.tags.map((tag) => (
+                  <span className="mini-tag" key={tag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
             <ul>
               {item.bullets.map((bullet) => (

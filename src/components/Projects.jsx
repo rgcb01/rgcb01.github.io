@@ -22,15 +22,26 @@ export default function Projects({ projects }) {
                 </span>
               ))}
             </div>
+            <div className="metric-list" aria-label={`${project.title} key metrics`}>
+              {project.metrics.map((metric) => (
+                <span key={metric}>{metric}</span>
+              ))}
+            </div>
             <div className="card-actions">
               {project.github ? (
                 <a href={project.github} target="_blank" rel="noreferrer">
-                  GitHub <ExternalLink size={16} />
+                  View GitHub <ExternalLink size={16} />
                 </a>
               ) : (
                 <span className="disabled-link">GitHub coming soon</span>
               )}
-              <span className="disabled-link">Case study coming soon</span>
+              {project.caseStudy ? (
+                <a className="secondary-link" href={project.caseStudy} target="_blank" rel="noreferrer">
+                  View Screenshots <ExternalLink size={16} />
+                </a>
+              ) : (
+                <span className="disabled-link">Case study coming soon</span>
+              )}
             </div>
           </article>
         ))}

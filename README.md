@@ -1,12 +1,33 @@
-# Romulo Giancarlo Colorado Balboa - Engineering Portfolio
+# Romulo Colorado - Mechatronics Engineering Portfolio
 
-Professional portfolio website for a New College Grad Mechatronics Engineer focused on manufacturing data, automation, industrial vision, production engineering, quality and process improvement.
+Professional portfolio website for Romulo Giancarlo Colorado Balboa, a Mechatronics Engineer focused on manufacturing data, automation, industrial vision, production engineering, quality and process improvement.
+
+## Live Site
+
+https://rgcb01.github.io
+
+## Preview
+
+![Portfolio desktop preview](assets/screenshots/portfolio-polished-desktop.png)
+
+## Project Overview
+
+This site is designed for New College Grad and entry-level engineering applications across manufacturing, process, quality, automation, production, validation, continuous improvement and engineering trainee roles.
+
+The portfolio highlights:
+
+- Professional engineering experience
+- GitHub portfolio projects
+- Manufacturing and quality metrics
+- Computer vision and automation skills
+- Certifications and contact links
 
 ## Tech Stack
 
 - React
 - Vite
 - CSS
+- lucide-react icons
 - GitHub Pages
 - GitHub Actions
 
@@ -23,9 +44,9 @@ npm run dev
 npm run build
 ```
 
-## Deploy to GitHub Pages
+## Deploy
 
-This repo includes a GitHub Actions workflow at `.github/workflows/deploy.yml`.
+This repo uses GitHub Actions for deployment.
 
 Recommended GitHub Pages settings:
 
@@ -34,7 +55,7 @@ Recommended GitHub Pages settings:
 3. Set source to `GitHub Actions`.
 4. Push to `main`.
 
-The workflow builds the Vite app and publishes the `dist` folder.
+The workflow at `.github/workflows/deploy.yml` builds the Vite app and publishes the `dist` folder.
 
 ## Project Structure
 
@@ -45,6 +66,18 @@ rgcb01.github.io/
     resume.pdf
   src/
     components/
+      About.jsx
+      Certifications.jsx
+      Contact.jsx
+      Experience.jsx
+      FeaturedGithub.jsx
+      Footer.jsx
+      Hero.jsx
+      Highlights.jsx
+      Navbar.jsx
+      PortfolioRoadmap.jsx
+      Projects.jsx
+      Skills.jsx
     App.jsx
     data.js
     main.jsx
@@ -54,24 +87,31 @@ rgcb01.github.io/
   vite.config.js
 ```
 
-## Update Projects
+## Update Projects, Skills and Certifications
 
-Edit the `projects` array in `src/data.js`.
+Most site content is editable in:
 
-Each project supports:
+```txt
+src/data.js
+```
 
-- title
-- status
-- description
-- tags
-- GitHub link
-- case study link
+Update these arrays and objects:
 
-Use honest labels such as `Published`, `In progress` and `Planned`.
+- `profile`
+- `heroBadges`
+- `highlights`
+- `projects`
+- `roadmap`
+- `featuredGithub`
+- `experiences`
+- `skillGroups`
+- `certifications`
+
+Use honest project statuses such as `Published`, `In Progress` and `Planned`.
 
 ## Add Resume PDF
 
-Place your PDF resume here:
+Place the resume file here:
 
 ```txt
 public/resume.pdf
@@ -85,6 +125,6 @@ resumePath: "/resume.pdf"
 
 If the PDF is not ready yet, keep `resumePath` pointing to `#contact`.
 
-## Content Notes
+## Notes About Portfolio Projects
 
-Portfolio project descriptions should clearly state when synthetic data, portfolio datasets or industrial-style workflows are used. Avoid claims involving confidential data, production deployment or experience that cannot be defended in an interview.
+Portfolio project descriptions should clearly state when synthetic data, portfolio datasets or industrial-style workflows are used. Avoid claims involving confidential company data, production deployment or experience that cannot be defended in an interview.
