@@ -271,6 +271,17 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.profile-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f1f5f9;
+  object-fit: cover;
+  object-position: center top;
+}
+
 .panel-label {
   margin: 0;
   color: var(--muted);
@@ -981,6 +992,24 @@ h3 {
     padding-top: 46px;
   }
 
+  .hero-panel {
+    grid-template-columns: minmax(150px, 0.55fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .hero-panel .panel-label,
+  .hero-panel strong,
+  .hero-panel span {
+    grid-column: 2;
+  }
+
+  .profile-photo {
+    grid-row: 1 / span 6;
+    align-self: stretch;
+    height: 100%;
+    min-height: 260px;
+  }
+
   .project-grid,
   .highlight-grid,
   .skills-grid,
@@ -1100,6 +1129,25 @@ h3 {
 
   .linkedin-badge-card {
     min-height: 220px;
+  }
+
+  .hero-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-panel .panel-label,
+  .hero-panel strong,
+  .hero-panel span,
+  .profile-photo {
+    grid-column: auto;
+  }
+
+  .profile-photo {
+    grid-row: auto;
+    height: auto;
+    min-height: 0;
+    max-height: 360px;
+    object-position: center 16%;
   }
 
   .cert-card {

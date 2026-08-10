@@ -34,6 +34,7 @@ export default function Hero({ profile, badges }) {
         </div>
       </div>
       <aside className="hero-panel" aria-label="Portfolio focus">
+        <img className="profile-photo" src={profile.photo} alt={profile.photoAlt} loading="eager" />
         <p className="panel-label">Target Roles</p>
         <strong>Entry-Level Engineering</strong>
         <span>Manufacturing Data</span>

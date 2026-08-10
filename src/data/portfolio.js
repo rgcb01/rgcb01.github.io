@@ -5,6 +5,8 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/rgcb",
   github: "https://github.com/rgcb01",
   resumePath: "#contact",
+  photo: "/assets/profile/romulo-colorado-profile.jpg",
+  photoAlt: "Professional portrait of Romulo Giancarlo Colorado Balboa.",
   headline:
     "Mechatronics Engineer | Manufacturing Data | Automation | Industrial Vision | Production Engineering",
   summary:
