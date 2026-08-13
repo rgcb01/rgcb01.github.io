@@ -65,6 +65,13 @@ export default function TrophyGamePage({ slug }) {
               {game.game.publisher && <b>Publisher: {game.game.publisher}</b>}
               {game.sync?.enrichmentStatus && <b>Metadata: {game.sync.enrichmentStatus}</b>}
             </div>
+            {!!game.game.genres?.length && (
+              <div className="source-chip-row trophy-genre-row">
+                {game.game.genres.slice(0, 5).map((genre) => (
+                  <span key={genre}>{genre}</span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

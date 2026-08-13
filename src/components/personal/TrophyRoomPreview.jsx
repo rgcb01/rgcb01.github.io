@@ -10,6 +10,11 @@ export default function TrophyRoomPreview() {
           <span>PSN / rgcb01</span>
           <strong>PlayStation Trophy Room</strong>
           <p>PSN provides trophy progress, IGDB provides metadata and artwork, and ratings stay manually maintained.</p>
+          <div className="source-chip-row">
+            <span>PSN FACTS</span>
+            <span>IGDB ART</span>
+            <span>LOCAL NOTES</span>
+          </div>
         </div>
         <a className="trophy-room-link" href="/personal/trophies">Open Trophy Room</a>
       </article>

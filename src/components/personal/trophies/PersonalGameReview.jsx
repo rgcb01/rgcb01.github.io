@@ -35,7 +35,7 @@ export default function PersonalGameReview({ manual = {} }) {
           {manual.developerTake && <p>{manual.developerTake}</p>}
         </div>
       ) : (
-        <div className="empty-slot">Personal review not logged yet.</div>
+        <div className="empty-slot premium-empty">Player notes not logged yet.</div>
       )}
     </section>
   );

@@ -49,7 +49,7 @@ function statCards(profile, games) {
 function FeaturedTrophyCard({ title, game, personalData, empty }) {
   if (!game) {
     return (
-      <article className="console-card trophy-feature-card">
+      <article className="console-card trophy-feature-card empty-feature">
         <span>{title}</span>
         <strong>{empty}</strong>
       </article>
@@ -57,10 +57,15 @@ function FeaturedTrophyCard({ title, game, personalData, empty }) {
   }
   const manual = getManualEntry(personalData, game.sources?.psnTitleId);
   const cover = game.game?.cover || game.game?.psnIcon;
+  const artwork = game.game?.artwork || game.game?.screenshots?.[0] || cover;
+  const isPlatinum = title.toLowerCase().includes("platinum");
 
   return (
-    <article className="console-card trophy-feature-card">
-      <span>{title}</span>
+    <article className={`console-card trophy-feature-card ${isPlatinum ? "latest-platinum-card" : "active-hunt-card"}`} style={artwork ? { "--feature-art": `url("${artwork}")` } : undefined}>
+      <div className="feature-card-topline">
+        <span>{title}</span>
+        <b>{isPlatinum ? "PLATINUM EARNED" : "ACTIVE HUNT"}</b>
+      </div>
       <div className="trophy-feature-layout">
         {cover ? <img src={cover} alt={`${game.game.title} cover`} loading="lazy" /> : <CoverFallback title={game.game.title} />}
         <div>
@@ -127,6 +132,11 @@ export default function TrophyRoom() {
           <p className="console-kicker">PlayStation Trophy Room</p>
           <h2>Trophy progress from PSN, metadata from IGDB, opinions from my own notes.</h2>
           <p>{profile.synchronized ? `Last synchronized ${formatDate(profile.syncedAt)}.` : "Trophy data has not been synchronized yet."}</p>
+          <div className="source-chip-row" aria-label="Trophy Room data sources">
+            <span>PSN</span>
+            <span>IGDB</span>
+            <span>LOCAL</span>
+          </div>
         </div>
         <div className="player-stat-grid trophy-stat-grid">
           {statCards(profile, games).map(([label, value]) => (

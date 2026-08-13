@@ -7,10 +7,12 @@ export default function TrophyGameCard({ game, personalData, variant = "library"
   const title = game.game?.title || "Untitled trophy set";
   const cover = game.game?.cover || game.game?.psnIcon;
   const platinumDate = game.trophyProgress?.platinumEarnedDate;
+  const progress = game.trophyProgress?.progressPercent ?? 0;
+  const state = game.trophyProgress?.platinumEarned ? "platinum-earned" : progress === 100 ? "completed" : progress > 5 ? "in-progress" : "low-progress";
   const href = `/personal/trophies/${game.slug}`;
 
   return (
-    <a className={`trophy-game-card ${variant}`} href={href}>
+    <a className={`trophy-game-card ${variant} ${state}`} href={href}>
       {cover ? <img src={cover} alt={`${title} cover`} loading="lazy" /> : <CoverFallback title={title} />}
       <div className="trophy-game-card-copy">
         <span>{platformLabel(game.game?.platforms)}</span>

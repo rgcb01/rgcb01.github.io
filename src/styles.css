@@ -1623,6 +1623,475 @@ h3 {
   color: #cbd5e1;
 }
 
+.personal-page {
+  --ps-bg: #050b1d;
+  --ps-bg-2: #071634;
+  --ps-surface: rgba(8, 24, 54, 0.76);
+  --ps-surface-strong: rgba(10, 32, 72, 0.88);
+  --ps-panel: rgba(4, 13, 34, 0.78);
+  --ps-line: rgba(97, 166, 255, 0.24);
+  --ps-line-strong: rgba(96, 181, 255, 0.48);
+  --ps-blue: #1578ff;
+  --ps-blue-soft: #63b3ff;
+  --ps-cyan: #8edbff;
+  --ps-text: #f6fbff;
+  --ps-muted: #abc1dc;
+  --ps-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  background:
+    linear-gradient(120deg, rgba(21, 120, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, #06132d 0%, #050b1d 46%, #081427 100%);
+  position: relative;
+  isolation: isolate;
+}
+
+.personal-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(101, 169, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(101, 169, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 24%, rgba(0, 0, 0, 0.2));
+  background-size: 56px 56px, 56px 56px, 100% 100%;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.38));
+}
+
+.trophy-room-page {
+  background:
+    linear-gradient(135deg, rgba(21, 120, 255, 0.18), transparent 32%),
+    linear-gradient(205deg, rgba(142, 219, 255, 0.1), transparent 28%),
+    linear-gradient(180deg, #061839 0%, #050b1d 52%, #071124 100%);
+}
+
+.personal-nav {
+  border-bottom: 1px solid rgba(84, 156, 255, 0.16);
+  background: rgba(3, 11, 28, 0.78);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.2);
+}
+
+.personal-nav a {
+  border-color: rgba(96, 181, 255, 0.24);
+  background: rgba(7, 22, 52, 0.56);
+}
+
+.personal-nav a:hover {
+  border-color: rgba(118, 198, 255, 0.72);
+  background: rgba(21, 120, 255, 0.16);
+  box-shadow: 0 0 0 1px rgba(21, 120, 255, 0.2), 0 12px 28px rgba(21, 120, 255, 0.12);
+}
+
+.player-status-card,
+.player-stat,
+.console-card,
+.empty-slot,
+.achievement-card,
+.currently-playing-panel,
+.psn-card-panel,
+.trophy-game-card,
+.trophy-list-item {
+  border-color: var(--ps-line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012)),
+    var(--ps-surface);
+  box-shadow: var(--ps-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+}
+
+.player-stat:hover,
+.console-card:hover,
+.achievement-card:hover,
+.game-card:hover,
+.trophy-game-card:hover,
+.trophy-list-item:hover {
+  border-color: var(--ps-line-strong);
+  box-shadow: 0 28px 74px rgba(0, 0, 0, 0.44), 0 0 0 1px rgba(21, 120, 255, 0.14);
+}
+
+.console-kicker,
+.player-status-card span,
+.card-topline span,
+.card-topline em,
+.player-stat span,
+.console-card span,
+.achievement-card span,
+.trophy-game-card-copy > span,
+.psn-card-panel span {
+  color: var(--ps-cyan);
+}
+
+.personal-heading h2,
+.player-stat strong,
+.console-card strong,
+.achievement-card strong,
+.trophy-feature-layout h3,
+.trophy-game-card h3,
+.trophy-game-hero h1,
+.card-topline h3 {
+  color: var(--ps-text);
+}
+
+.personal-hero p,
+.console-card p,
+.empty-slot,
+.devlog-entry em,
+.trophy-room-heading p,
+.trophy-game-hero p,
+.trophy-progress-topline span {
+  color: var(--ps-muted);
+}
+
+.source-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.source-chip-row span,
+.feature-card-topline b {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid rgba(142, 219, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(21, 120, 255, 0.12);
+  color: #dcedff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.trophy-room-heading {
+  position: relative;
+  overflow: hidden;
+  padding: 26px;
+  border: 1px solid var(--ps-line);
+  border-radius: 8px;
+  background:
+    linear-gradient(130deg, rgba(21, 120, 255, 0.2), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent),
+    rgba(4, 13, 34, 0.7);
+  box-shadow: var(--ps-shadow);
+}
+
+.trophy-stat-grid .player-stat {
+  min-height: 112px;
+  display: grid;
+  align-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.trophy-stat-grid .player-stat::after {
+  content: "";
+  position: absolute;
+  inset: auto 14px 0;
+  height: 3px;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(90deg, transparent, var(--ps-blue), transparent);
+  opacity: 0.68;
+}
+
+.trophy-stat-grid .player-stat strong {
+  font-size: 1.55rem;
+}
+
+.psn-card-panel {
+  max-width: 560px;
+}
+
+.trophy-preview-card {
+  position: relative;
+  overflow: hidden;
+  align-items: stretch;
+  padding: 24px;
+  background:
+    linear-gradient(120deg, rgba(21, 120, 255, 0.22), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
+    rgba(5, 16, 42, 0.86);
+}
+
+.trophy-preview-card::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(142, 219, 255, 0.08);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.trophy-room-link,
+.trophy-text-link,
+.filter-row button,
+.section-toolbar select {
+  border-color: rgba(110, 188, 255, 0.38);
+  background:
+    linear-gradient(180deg, rgba(44, 140, 255, 0.2), rgba(11, 37, 78, 0.58)),
+    rgba(5, 16, 42, 0.72);
+  color: #eef7ff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.trophy-room-link:hover,
+.trophy-text-link:hover,
+.filter-row button:hover,
+.filter-row button.active {
+  border-color: rgba(142, 219, 255, 0.78);
+  background:
+    linear-gradient(180deg, rgba(21, 120, 255, 0.45), rgba(14, 73, 155, 0.72)),
+    rgba(5, 16, 42, 0.86);
+  box-shadow: 0 14px 32px rgba(21, 120, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.section-toolbar select {
+  color-scheme: dark;
+}
+
+.trophy-feature-card {
+  position: relative;
+  overflow: hidden;
+  padding: 22px;
+  min-height: 320px;
+  background:
+    linear-gradient(110deg, rgba(5, 16, 42, 0.96), rgba(5, 16, 42, 0.7)),
+    var(--feature-art),
+    rgba(5, 16, 42, 0.86);
+  background-size: cover;
+  background-position: center;
+}
+
+.trophy-feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 34%),
+    linear-gradient(90deg, rgba(21, 120, 255, 0.22), transparent 62%);
+  pointer-events: none;
+}
+
+.trophy-feature-card > * {
+  position: relative;
+}
+
+.feature-card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.latest-platinum-card {
+  border-color: rgba(190, 231, 255, 0.46);
+}
+
+.latest-platinum-card .feature-card-topline b,
+.trophy-game-card.platinum-earned .trophy-card-meta b:first-child {
+  border-color: rgba(210, 242, 255, 0.58);
+  background: rgba(196, 232, 255, 0.14);
+  color: #f3fbff;
+  box-shadow: 0 0 24px rgba(142, 219, 255, 0.12);
+}
+
+.active-hunt-card {
+  border-color: rgba(21, 120, 255, 0.56);
+}
+
+.trophy-feature-layout {
+  align-items: center;
+  gap: 20px;
+}
+
+.trophy-feature-layout > img,
+.trophy-feature-layout > .cover-fallback,
+.trophy-detail-cover {
+  width: 150px;
+  border: 1px solid rgba(214, 237, 255, 0.24);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+}
+
+.trophy-progress-topline strong {
+  color: var(--ps-text);
+  text-shadow: 0 0 18px rgba(142, 219, 255, 0.14);
+}
+
+.progress-track {
+  height: 10px;
+  border-color: rgba(142, 219, 255, 0.2);
+  background: rgba(2, 8, 24, 0.82);
+}
+
+.progress-track span {
+  background: linear-gradient(90deg, #1578ff, #63b3ff 58%, #dff6ff);
+  box-shadow: 0 0 22px rgba(21, 120, 255, 0.45);
+}
+
+.trophy-pill {
+  border-color: rgba(142, 219, 255, 0.18);
+  background: rgba(3, 13, 33, 0.62);
+}
+
+.trophy-pill.platinum,
+.trophy-list-item.platinum {
+  border-color: rgba(205, 238, 255, 0.7);
+  color: #e9f8ff;
+}
+
+.trophy-pill.gold,
+.trophy-list-item.gold {
+  border-color: rgba(245, 198, 82, 0.58);
+  color: #ffe7a6;
+}
+
+.trophy-pill.silver,
+.trophy-list-item.silver {
+  border-color: rgba(206, 219, 236, 0.55);
+  color: #e9eff8;
+}
+
+.trophy-pill.bronze,
+.trophy-list-item.bronze {
+  border-color: rgba(211, 131, 73, 0.58);
+  color: #eec097;
+}
+
+.trophy-card-meta b {
+  border-color: rgba(142, 219, 255, 0.18);
+  background: rgba(2, 9, 25, 0.55);
+  color: #d7e7f9;
+}
+
+.trophy-gallery,
+.trophy-library {
+  gap: 18px;
+}
+
+.trophy-game-card {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 36%),
+    rgba(5, 17, 43, 0.72);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.trophy-game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-left: 3px solid transparent;
+  pointer-events: none;
+}
+
+.trophy-game-card.platinum-earned::before {
+  border-left-color: #d8f3ff;
+}
+
+.trophy-game-card.completed::before {
+  border-left-color: #63b3ff;
+}
+
+.trophy-game-card.in-progress::before {
+  border-left-color: #1578ff;
+}
+
+.trophy-game-card.low-progress::before {
+  border-left-color: rgba(171, 193, 220, 0.38);
+}
+
+.trophy-game-card:hover {
+  transform: translateY(-3px);
+  background:
+    linear-gradient(145deg, rgba(21, 120, 255, 0.16), transparent 42%),
+    rgba(7, 24, 58, 0.84);
+}
+
+.trophy-game-card img,
+.trophy-game-card .cover-fallback {
+  border: 1px solid rgba(214, 237, 255, 0.16);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.trophy-game-hero {
+  width: 100%;
+  padding: 44px max(16px, calc((100% - 1120px) / 2)) 54px;
+  border-bottom: 1px solid rgba(142, 219, 255, 0.18);
+}
+
+.trophy-game-hero::before {
+  background:
+    linear-gradient(90deg, rgba(4, 11, 29, 0.96), rgba(5, 17, 43, 0.82) 48%, rgba(5, 17, 43, 0.54)),
+    linear-gradient(180deg, rgba(21, 120, 255, 0.18), transparent 46%),
+    var(--hero-art, linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(8, 13, 24, 0.9)));
+}
+
+.trophy-game-hero-grid {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  gap: 28px;
+}
+
+.trophy-game-hero h1 {
+  max-width: 960px;
+  letter-spacing: 0;
+}
+
+.trophy-genre-row {
+  margin-top: 16px;
+}
+
+.trophy-detail-section .console-card {
+  background:
+    linear-gradient(130deg, rgba(21, 120, 255, 0.1), transparent 44%),
+    rgba(5, 17, 43, 0.76);
+}
+
+.trophy-list {
+  gap: 12px;
+}
+
+.trophy-list-item {
+  align-items: center;
+  padding: 14px;
+  transition: transform 160ms ease, opacity 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.trophy-list-item.earned {
+  background:
+    linear-gradient(90deg, rgba(21, 120, 255, 0.12), transparent 42%),
+    rgba(5, 17, 43, 0.72);
+}
+
+.trophy-list-item.locked {
+  opacity: 0.62;
+  background: rgba(4, 12, 30, 0.64);
+}
+
+.trophy-list-item:hover {
+  transform: translateX(2px);
+}
+
+.trophy-list-item img,
+.trophy-medal {
+  border: 1px solid rgba(142, 219, 255, 0.2);
+  background: rgba(2, 8, 24, 0.74);
+}
+
+.personal-review-panel,
+.premium-empty {
+  border-color: rgba(96, 181, 255, 0.28);
+  background:
+    linear-gradient(120deg, rgba(21, 120, 255, 0.1), transparent 44%),
+    rgba(5, 17, 43, 0.74);
+}
+
 .personal-entry {
   display: inline-flex;
   margin: 6px 0 12px;
