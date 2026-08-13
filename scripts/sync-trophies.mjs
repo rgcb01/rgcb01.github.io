@@ -61,8 +61,10 @@ function normalizeTitle(value = "") {
     .normalize("NFKD")
     .replace(/[\u2122\u00ae\u00a9]/g, "")
     .replace(/['\u2019]/g, "")
+    .replace(/([a-z])(\d)/g, "$1 $2")
     .replace(/[^\w\s:.-]/g, " ")
     .replace(/\b(ps5|ps4|ps3|ps vita|vita|playstation 5|playstation 4|playstation 3)\b/g, "")
+    .replace(/\btrophies\b/g, "")
     .replace(/\b(remastered|remaster|definitive edition|complete edition|deluxe edition|ultimate edition|game of the year edition|goty edition|standard edition|digital deluxe)\b/g, "")
     .replace(/\s+/g, " ")
     .trim();
@@ -315,7 +317,7 @@ async function enrichWithIgdb(auth, title) {
     };
   }
 
-  const query = title.trophyTitleName.replace(/"/g, '\\"');
+  const query = (normalizeTitle(title.trophyTitleName) || title.trophyTitleName).replace(/"/g, '\\"');
   const candidates = await igdbQuery(auth, `search "${query}"; ${fields} limit 10;`);
   return chooseIgdbCandidate(title, candidates);
 }
