@@ -1,52 +1,56 @@
-import { Clock, Wrench } from "lucide-react";
+import { ExternalLink, Github, TrendingUp } from "lucide-react";
 
-export default function Projects({ currentProject, upcomingProjects }) {
+export default function Projects({ upcomingProjects, githubActivity }) {
   return (
-    <section className="section" id="projects">
+    <section className="section compact-section" id="engineering-activity">
       <div className="section-heading">
-        <p className="eyebrow">Engineering Projects</p>
-        <h2>Current and upcoming portfolio work across vision, data, testing and automation.</h2>
+        <p className="eyebrow">Next Engineering Direction</p>
+        <h2>Portfolio progression toward test, validation and semiconductor manufacturing data.</h2>
       </div>
       <div className="engineering-projects-layout">
-        <article className="project-card current-project-card">
-          <div className="card-topline">
-            <h3>{currentProject.title}</h3>
-            <span className="status in-progress">{currentProject.status}</span>
-          </div>
-          <p>{currentProject.description}</p>
-          <div className="tag-list">
-            {currentProject.tags.map((tag) => (
-              <span className="tag" key={tag}>
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="metric-list" aria-label={`${currentProject.title} planned metrics`}>
-            {currentProject.metrics.map((metric) => (
-              <span key={metric}>{metric}</span>
-            ))}
-          </div>
-          <div className="card-actions">
-            <span className="disabled-link">
-              <Wrench size={16} /> Repository in progress
-            </span>
-            <span className="disabled-link">
-              <Clock size={16} /> Case study coming soon
-            </span>
-          </div>
-        </article>
-
         <div className="upcoming-panel">
-          <h3>Upcoming</h3>
+          <h3>Planned / Next</h3>
           <div className="upcoming-list">
             {upcomingProjects.map((project) => (
               <article className="upcoming-item" key={project.title}>
-                <strong>{project.title}</strong>
+                <div className="card-topline">
+                  <strong>{project.title}</strong>
+                  <span className="status next">{project.status}</span>
+                </div>
                 <p>{project.focus}</p>
+                <div className="mini-tag-list">
+                  {project.tags.map((tag) => (
+                    <span className="mini-tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </article>
             ))}
           </div>
         </div>
+
+        <article className="repo-panel">
+          <TrendingUp size={24} />
+          <h3>{githubActivity.title}</h3>
+          <p>{githubActivity.description}</p>
+          <div className="card-actions">
+            {githubActivity.links.map((link) => {
+              const external = link.href.startsWith("http");
+              return (
+                <a
+                  href={link.href}
+                  key={link.label}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                >
+                  <Github size={16} />
+                  {link.label} {external && <ExternalLink size={15} />}
+                </a>
+              );
+            })}
+          </div>
+        </article>
       </div>
     </section>
   );

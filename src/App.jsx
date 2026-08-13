@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./components/About.jsx";
 import Projects from "./components/Projects.jsx";
+import Publications from "./components/Publications.jsx";
 import Highlights from "./components/Highlights.jsx";
 import PortfolioRoadmap from "./components/PortfolioRoadmap.jsx";
 import FeaturedGithub from "./components/FeaturedGithub.jsx";
@@ -17,15 +18,16 @@ import Footer from "./components/Footer.jsx";
 import {
   certifications,
   credlyBadgeIds,
-  currentProject,
   education,
   engineeringMetrics,
   experiences,
-  featuredProject,
+  featuredProjects,
+  githubActivity,
   heroBadges,
   highlights,
   navItems,
   profile,
+  publications,
   recruiterSnapshot,
   roadmap,
   skillGroups,
@@ -41,8 +43,9 @@ export default function App() {
         <About />
         <RecruiterSnapshot snapshot={recruiterSnapshot} />
         <Highlights highlights={highlights} />
-        <FeaturedGithub project={featuredProject} />
-        <Projects currentProject={currentProject} upcomingProjects={upcomingProjects} />
+        <FeaturedGithub projects={featuredProjects} />
+        <Publications publications={publications} />
+        <Projects upcomingProjects={upcomingProjects} githubActivity={githubActivity} />
         <PortfolioRoadmap roadmap={roadmap} />
         <EngineeringNumbers metrics={engineeringMetrics} />
         <Experience experiences={experiences} />

@@ -408,9 +408,15 @@ h3 {
   font-weight: 800;
 }
 
-.status.published {
+.status.published,
+.status.released {
   color: #166534;
   background: #dcfce7;
+}
+
+.status.prototype {
+  color: #92400e;
+  background: #fef3c7;
 }
 
 .status.in-progress {
@@ -506,7 +512,8 @@ h3 {
 .education-card,
 .number-card,
 .credly-card,
-.featured-project-card {
+.featured-project-card,
+.publication-card {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--card);
@@ -538,6 +545,11 @@ h3 {
   font-weight: 750;
 }
 
+.featured-projects-grid {
+  display: grid;
+  gap: 18px;
+}
+
 .featured-project-card {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.85fr);
@@ -561,8 +573,33 @@ h3 {
   object-fit: cover;
 }
 
+.project-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #f1f5f9;
+  color: var(--muted);
+  font-weight: 800;
+}
+
 .featured-copy {
   min-width: 0;
+}
+
+.project-problem {
+  color: #334155;
+  font-weight: 700;
+}
+
+.evidence-list {
+  margin: 18px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.evidence-list li + li {
+  margin-top: 7px;
 }
 
 .engineering-projects-layout {
@@ -587,6 +624,56 @@ h3 {
 .upcoming-item p {
   margin: 4px 0 0;
   color: var(--muted);
+}
+
+.repo-panel {
+  padding: 22px;
+}
+
+.repo-panel svg {
+  color: var(--accent);
+}
+
+.repo-panel h3 {
+  margin-top: 10px;
+}
+
+.publication-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.publication-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px;
+}
+
+.publication-card > svg {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+
+.publication-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.publication-type {
+  display: inline-flex;
+  margin-bottom: 6px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.publication-meta {
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .roadmap-timeline {
@@ -1014,6 +1101,7 @@ h3 {
   .highlight-grid,
   .skills-grid,
   .cert-grid,
+  .publication-grid,
   .contact-layout,
   .snapshot-grid,
   .engineering-projects-layout,
@@ -1104,6 +1192,7 @@ h3 {
   .experience-card,
   .skill-card,
   .cert-card,
+  .publication-card,
   .contact-panel,
   .linkedin-badge-card,
   .featured-project-card,

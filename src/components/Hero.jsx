@@ -37,10 +37,11 @@ export default function Hero({ profile, badges }) {
         <img className="profile-photo" src={profile.photo} alt={profile.photoAlt} loading="eager" />
         <p className="panel-label">Target Roles</p>
         <strong>Entry-Level Engineering</strong>
-        <span>Manufacturing Data</span>
-        <span>Industrial Vision</span>
-        <span>Automation Logic</span>
-        <span>Quality & Process Improvement</span>
+        <span>Manufacturing Analytics</span>
+        <span>Quality Diagnostics</span>
+        <span>Industrial Computer Vision</span>
+        <span>PLC / Modbus Automation</span>
+        <span>Test & Validation</span>
       </aside>
     </section>
   );

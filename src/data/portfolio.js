@@ -8,9 +8,9 @@ export const profile = {
   photo: "/assets/profile/romulo-colorado-profile.jpg",
   photoAlt: "Professional portrait of Romulo Giancarlo Colorado Balboa.",
   headline:
-    "Mechatronics Engineer | Manufacturing Data | Automation | Industrial Vision | Production Engineering",
+    "Mechatronics Engineer | Manufacturing | Quality | Automation | Industrial Data & Vision",
   summary:
-    "I build practical engineering tools that combine Python, manufacturing data, computer vision, automation logic and process improvement to support production, quality and engineering decision-making.",
+    "I build practical engineering systems that combine manufacturing data, quality engineering, computer vision, PLC automation and software tools to analyze production losses, automate industrial processes and support engineering decision-making.",
   availability:
     "Available for entry-level engineering opportunities in manufacturing, automation, quality, production, validation and process improvement.",
 };
@@ -18,6 +18,7 @@ export const profile = {
 export const navItems = [
   { label: "Home", href: "#home" },
   { label: "Projects", href: "#projects" },
+  { label: "Publications", href: "#publications" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Credentials", href: "#certifications" },
@@ -25,11 +26,13 @@ export const navItems = [
 ];
 
 export const heroBadges = [
-  "Manufacturing Data",
-  "Industrial Vision",
-  "Automation",
+  "Manufacturing",
   "Quality",
-  "Validation",
+  "Automation",
+  "Python",
+  "C++",
+  "Industrial Vision",
+  "Test & Validation",
   "English C2",
 ];
 
@@ -46,8 +49,13 @@ export const highlights = [
   },
   {
     label: "Manufacturing OEE Dashboard",
-    title: "Published engineering portfolio project",
+    title: "Released manufacturing analytics project",
     detail: "Synthetic data, KPI monitoring and loss analysis",
+  },
+  {
+    label: "Visual Quality Inspection",
+    title: "Published computer vision case study",
+    detail: "Classical OpenCV inspection with DOI and technical paper",
   },
   {
     label: "Open to Relocation",
@@ -67,82 +75,152 @@ export const recruiterSnapshot = {
     "Engineering Trainee",
   ],
   strengths: [
-    "Python engineering tools",
-    "Manufacturing data",
-    "Computer vision",
+    "Manufacturing analytics",
+    "Quality diagnostics",
+    "Industrial computer vision",
+    "PLC / Modbus automation",
+    "Python & C++ engineering tools",
     "Technical documentation",
     "Cross-functional coordination",
     "English C2",
   ],
 };
 
-export const featuredProject = {
-  title: "Manufacturing OEE Dashboard",
-  status: "Published",
-  description:
-    "A manufacturing analytics dashboard that turns synthetic production, downtime and scrap records into OEE monitoring, loss detection, Pareto analysis and engineering insights.",
-  tags: ["Python", "Streamlit", "pandas", "Plotly", "Manufacturing KPIs"],
-  metrics: ["OEE", "Scrap Rate", "Downtime", "Throughput"],
-  github: "https://github.com/rgcb01/manufacturing-oee-dashboard",
-  caseStudy: "https://github.com/rgcb01/manufacturing-oee-dashboard#screenshots",
-  screenshot: "/assets/manufacturing-oee-dashboard-v2.png",
-  screenshotAlt:
-    "Manufacturing OEE Dashboard V2 showing KPI scorecards, manufacturing status and line by shift OEE analysis.",
-  note: "This project uses synthetic data and was created as a professional portfolio project.",
-};
+export const featuredProjects = [
+  {
+    title: "Manufacturing OEE Dashboard",
+    status: "Released",
+    statusClass: "released",
+    problem:
+      "Manufacturing teams need a practical way to identify where OEE losses originate across lines, shifts, products, downtime and scrap.",
+    solution:
+      "A Streamlit analytics and diagnostics platform using reproducible synthetic production data, SQLite, KPI logic, Pareto analysis and engineering insight rules.",
+    tags: ["Python", "Streamlit", "pandas", "Plotly", "SQLite", "pytest", "OEE", "Pareto Analysis"],
+    evidence: [
+      "Aggregate OEE calculated from production quantities, not row averages",
+      "Downtime and scrap Pareto analysis",
+      "Line, shift and product diagnostics",
+      "Before/after improvement analysis",
+      "SPC-style monitoring and automated tests",
+    ],
+    github: "https://github.com/rgcb01/manufacturing-oee-dashboard",
+    caseStudy: "https://github.com/rgcb01/manufacturing-oee-dashboard",
+    caseStudyLabel: "View Case Study",
+    screenshot: "/assets/projects/manufacturing-oee-dashboard.png",
+    screenshotAlt:
+      "Manufacturing OEE Dashboard showing KPI scorecards, manufacturing status and production loss analysis.",
+    note: "Synthetic manufacturing study / portfolio engineering project.",
+  },
+  {
+    title: "Automated Visual Quality Inspection",
+    status: "Released",
+    statusClass: "released",
+    problem:
+      "Quality teams need explainable visual inspection workflows that measure parts, classify pass/fail results and expose inspection risk.",
+    solution:
+      "A released classical computer vision project using OpenCV for industrial-style inspection, dimensional measurement, SPC, capability and threshold studies.",
+    tags: ["Python", "OpenCV", "Computer Vision", "SPC", "Dimensional Inspection", "pytest"],
+    evidence: [
+      "Frozen reproducible experiment: 240 images, seed 42",
+      "Baseline threshold 95 with nominal 50.00 mm, LSL 49.80 mm, USL 50.20 mm",
+      "Technical paper and GitHub release v1.0.0",
+      "DOI: 10.5281/zenodo.21883473",
+    ],
+    github: "https://github.com/rgcb01/opencv-industrial-inspection",
+    caseStudy: "https://doi.org/10.5281/zenodo.21883473",
+    caseStudyLabel: "View DOI",
+    paper: "https://doi.org/10.5281/zenodo.21883473",
+    screenshot: "/assets/projects/opencv-industrial-inspection.png",
+    screenshotAlt:
+      "Automated visual quality inspection dashboard showing inspection summary and quality metrics.",
+    note: "Released reproducible engineering project using classical computer vision, not AI or deep learning.",
+  },
+  {
+    title: "Industrial Automation Cell Simulator",
+    status: "Working Prototype",
+    statusClass: "prototype",
+    problem:
+      "Controls engineers need software-in-the-loop environments to reason about sensors, actuators, interlocks, PLC logic, faults and recovery before hardware is available.",
+    solution:
+      "A C++17 DigitalPlant connected to OpenPLC Runtime v4 through Modbus TCP, with Streamlit HMI diagnostics, logs, metrics and deterministic control logic.",
+    tags: ["C++17", "OpenPLC", "IEC 61131-3", "Ladder Logic", "Modbus TCP", "Streamlit HMI"],
+    evidence: [
+      "Real OpenPLC-controlled normal cycle completed through Modbus TCP",
+      "Validated local result: 1 total part, 1 good part, 0 rejected, active fault code 0",
+      "Mean cycle time approximately 6.12 s",
+      "Local software-in-the-loop Modbus average round trip approximately 0.395 ms",
+    ],
+    github: "https://github.com/rgcb01/industrial-automation-cell-simulator",
+    caseStudy: "https://github.com/rgcb01/industrial-automation-cell-simulator#known-limitation",
+    caseStudyLabel: "View Status",
+    screenshot: "/assets/projects/industrial-automation-cell-simulator.png",
+    screenshotAlt:
+      "Industrial automation cell simulator screenshot showing a normal production cycle and control state.",
+    note:
+      "Working software-in-the-loop prototype. Final PLC fault/reset validation is pending because generated ST execution ordering still requires validation.",
+  },
+];
 
-export const currentProject = {
-  title: "OpenCV Industrial Inspection",
-  status: "In Progress",
+export const publications = [
+  {
+    title: "Classical Computer Vision for Automated Industrial Quality Inspection",
+    author: "Romulo Colorado",
+    year: "2026",
+    type: "Technical Paper",
+    doi: "10.5281/zenodo.21883473",
+    doiUrl: "https://doi.org/10.5281/zenodo.21883473",
+    repository: "https://github.com/rgcb01/opencv-industrial-inspection",
+    description:
+      "Reproducible engineering study documenting a classical OpenCV inspection workflow, dimensional limits, threshold sensitivity and quality metrics.",
+  },
+  {
+    title: "OEE-Based Manufacturing Loss Diagnostics",
+    author: "Romulo Colorado",
+    year: "2026",
+    type: "Engineering Case Study",
+    doi: "",
+    doiUrl: "",
+    repository: "https://github.com/rgcb01/manufacturing-oee-dashboard",
+    description:
+      "Synthetic manufacturing case study documenting OEE loss analysis, Pareto diagnostics, improvement comparison and limitations.",
+  },
+];
+
+export const githubActivity = {
+  title: "Engineering Activity",
   description:
-    "Computer vision portfolio project for industrial-style visual inspection, defect detection, dimensional checks and pass/fail classification using synthetic or self-generated images.",
-  tags: ["Python", "OpenCV", "Computer Vision", "Quality Inspection"],
-  metrics: ["Accuracy", "Recall", "False Accept", "Pass/Fail"],
+    "Current GitHub work focuses on reproducible manufacturing analytics, classical computer vision for inspection, and software-in-the-loop PLC automation prototypes.",
+  links: [
+    { label: "GitHub Profile", href: "https://github.com/rgcb01" },
+    { label: "Flagship Projects", href: "#projects" },
+  ],
 };
 
 export const upcomingProjects = [
   {
-    title: "Industrial Log Analyzer",
-    focus: "Equipment logs, alarms, downtime, MTBF and MTTR trends.",
-  },
-  {
-    title: "Test & Validation Data Analyzer",
-    focus: "Pass/fail results, test limits, drift trends and validation reports.",
-  },
-  {
-    title: "Six Sigma DMAIC Case Study",
-    focus: "Synthetic scrap reduction case study with Pareto and control charts.",
-  },
-  {
-    title: "PLC-Style Automation Cell Simulator",
-    focus: "Sensors, actuators, state-machine behavior, interlocks and fault handling.",
+    title: "Semiconductor Test & Yield Analyzer",
+    status: "Planned / Next",
+    focus:
+      "Semiconductor manufacturing test data, yield analysis, wafer maps, statistical diagnostics, failure-bin analysis and anomaly investigation.",
+    tags: ["Python", "pandas", "NumPy", "Statistics", "Yield Analysis", "Semiconductor Manufacturing"],
   },
 ];
 
 export const roadmap = [
   {
-    stage: "Published",
-    statusClass: "published",
-    items: ["Manufacturing OEE Dashboard"],
+    stage: "Released",
+    statusClass: "released",
+    items: ["Manufacturing OEE Dashboard", "Automated Visual Quality Inspection"],
   },
   {
-    stage: "Building",
-    statusClass: "building",
-    items: ["OpenCV Industrial Inspection"],
+    stage: "Working Prototype",
+    statusClass: "prototype",
+    items: ["Industrial Automation Cell Simulator"],
   },
   {
-    stage: "Next",
+    stage: "Planned / Next",
     statusClass: "next",
-    items: ["Industrial Log Analyzer"],
-  },
-  {
-    stage: "Planned",
-    statusClass: "planned",
-    items: [
-      "Test & Validation Data Analyzer",
-      "Six Sigma DMAIC Case Study",
-      "PLC-Style Automation Cell Simulator",
-    ],
+    items: ["Semiconductor Test & Yield Analyzer"],
   },
 ];
 
@@ -203,48 +281,78 @@ export const education = {
 export const skillGroups = [
   {
     title: "Programming & Data",
-    skills: ["Python", "C++", "Linux command line", "pandas", "MATLAB", "Simulink", "Excel"],
+    skills: ["Python", "C++", "pandas", "NumPy", "SQLite", "MATLAB", "Simulink", "Excel", "Linux command line"],
   },
   {
     title: "Manufacturing & Quality",
     skills: [
       "OEE",
-      "scrap analysis",
-      "downtime analysis",
+      "SPC",
+      "Pareto Analysis",
+      "Scrap Analysis",
+      "Downtime Analysis",
       "Six Sigma",
-      "production tracking",
-      "technical documentation",
+      "Process Improvement",
+      "Dimensional Inspection",
+      "Technical Documentation",
     ],
   },
   {
     title: "Computer Vision",
     skills: [
       "OpenCV",
-      "preprocessing",
-      "segmentation",
-      "edge detection",
-      "contour analysis",
-      "camera and lighting setup",
+      "Image Processing",
+      "Segmentation",
+      "Edge Detection",
+      "Contour Analysis",
+      "Classical Computer Vision",
+      "Industrial Inspection",
+      "Camera / Lighting Setup",
     ],
   },
   {
-    title: "Automation & Industrial Systems",
+    title: "Automation & Controls",
     skills: [
-      "PLC Siemens",
+      "PLC",
+      "OpenPLC",
+      "IEC 61131-3",
+      "Ladder Logic",
+      "Modbus TCP",
+      "Sensors",
+      "Actuators",
+      "Interlocks",
+      "Fault Handling",
+      "State Machines",
       "TIA Portal",
-      "Ladder logic",
-      "sensors",
-      "actuators",
+      "Siemens PLC",
+    ],
+  },
+  {
+    title: "Test & Validation",
+    skills: [
+      "Test Data Analysis",
+      "Pass/Fail Analysis",
+      "Engineering Validation",
+      "Measurement Limits",
+      "Reproducible Experiments",
+      "Automated Testing",
+    ],
+  },
+  {
+    title: "Engineering Tools & Systems",
+    skills: [
+      "SolidWorks",
+      "Fusion 360",
+      "CATIA",
+      "AutoCAD",
+      "ANSYS",
+      "Simscape",
       "SAP",
       "Teamcenter",
       "MES",
       "FANUC",
       "RobotStudio",
     ],
-  },
-  {
-    title: "Engineering Tools",
-    skills: ["SolidWorks", "Fusion 360", "CATIA", "AutoCAD", "ANSYS", "Simscape"],
   },
 ];
 
