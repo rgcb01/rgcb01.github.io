@@ -1,0 +1,16 @@
+{
+  "source": "playstation",
+  "psnOnlineId": "rgcb01",
+  "synchronized": false,
+  "syncedAt": null,
+  "profile": null,
+  "stats": {
+    "gameCount": 0,
+    "averageCompletion": null,
+    "completeGameCount": 0,
+    "latestPlatinumSlug": null,
+    "currentPlatinumHuntSlug": null,
+    "igdbMatched": 0,
+    "igdbUnresolved": 0
+  }
+}

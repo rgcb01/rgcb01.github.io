@@ -5,6 +5,8 @@ import Projects from "./components/Projects.jsx";
 import Publications from "./components/Publications.jsx";
 import GitHubActivity from "./components/GitHubActivity.jsx";
 import PersonalPage from "./components/PersonalPage.jsx";
+import TrophyRoom from "./components/personal/trophies/TrophyRoom.jsx";
+import TrophyGamePage from "./components/personal/trophies/TrophyGamePage.jsx";
 import ProjectCaseStudy from "./components/projects/ProjectCaseStudy.jsx";
 import Highlights from "./components/Highlights.jsx";
 import PortfolioRoadmap from "./components/PortfolioRoadmap.jsx";
@@ -47,6 +49,7 @@ function setPageMeta(title, description) {
 export default function App() {
   const path = window.location.pathname.replace(/\/$/, "") || "/";
   const projectMatch = path.match(/^\/projects\/([^/]+)$/);
+  const trophyGameMatch = path.match(/^\/personal\/trophies\/([^/]+)$/);
 
   if (path === "/personal") {
     setPageMeta(
@@ -54,6 +57,22 @@ export default function App() {
       "Personal space for gaming, media, devlogs, roadmaps and experiments."
     );
     return <PersonalPage />;
+  }
+
+  if (path === "/personal/trophies") {
+    setPageMeta(
+      "Romulo Colorado | Trophy Room",
+      "PlayStation Trophy Room for rgcb01 with PSN trophy progress, IGDB game metadata and manual personal ratings."
+    );
+    return <TrophyRoom />;
+  }
+
+  if (trophyGameMatch) {
+    setPageMeta(
+      "Trophy Game File | Romulo Colorado",
+      "Individual PlayStation trophy progress and manual review file."
+    );
+    return <TrophyGamePage slug={trophyGameMatch[1]} />;
   }
 
   if (projectMatch) {

@@ -5,6 +5,7 @@ const indexPath = join("dist", "index.html");
 const fallbackPath = join("dist", "404.html");
 const spaRoutes = [
   "personal",
+  join("personal", "trophies"),
   join("projects", "manufacturing-oee-dashboard"),
   join("projects", "automated-visual-quality-inspection"),
   join("projects", "industrial-automation-cell-simulator"),

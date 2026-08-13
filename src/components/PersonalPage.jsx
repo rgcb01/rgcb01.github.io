@@ -6,6 +6,7 @@ import PersonalHero from "./personal/PersonalHero.jsx";
 import PersonalNav from "./personal/PersonalNav.jsx";
 import PlayerNotes from "./personal/PlayerNotes.jsx";
 import PersonalRoadmap from "./personal/PersonalRoadmap.jsx";
+import TrophyRoomPreview from "./personal/TrophyRoomPreview.jsx";
 import {
   achievementPreview,
   currentlyPlaying,
@@ -22,6 +23,7 @@ export default function PersonalPage() {
     <main className="personal-page">
       <PersonalHero profile={personalProfile} />
       <PersonalNav />
+      <TrophyRoomPreview />
       <GamingSection currentlyPlaying={currentlyPlaying} gaming={gamingLibrary} />
       <PlayerNotes notes={playerNotes} />
       <MediaSection media={mediaLog} />

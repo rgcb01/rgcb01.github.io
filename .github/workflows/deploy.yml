@@ -4,6 +4,8 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  schedule:
+    - cron: "17 */8 * * *"
 
 permissions:
   contents: read
@@ -17,6 +19,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PSN_NPSSO: ${{ secrets.PSN_NPSSO }}
+      IGDB_CLIENT_ID: ${{ secrets.IGDB_CLIENT_ID }}
+      IGDB_CLIENT_SECRET: ${{ secrets.IGDB_CLIENT_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,6 +33,14 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Sync trophy data
+        if: ${{ env.PSN_NPSSO != '' }}
+        run: npm run sync:trophies
+      - name: Skip trophy sync
+        if: ${{ env.PSN_NPSSO == '' }}
+        run: echo "PSN_NPSSO is not configured; using committed generated trophy placeholders."
+      - name: Validate trophy data
+        run: npm run validate:trophies
       - name: Build
         run: npm run build
       - name: Setup Pages
