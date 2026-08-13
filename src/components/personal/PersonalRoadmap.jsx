@@ -1,14 +1,17 @@
 export default function PersonalRoadmap({ roadmap }) {
   return (
-    <section className="personal-section">
+    <section className="personal-section" id="roadmap">
       <div className="personal-heading">
         <p className="console-kicker">Roadmap</p>
-        <h2>A low-pressure plan for the personal side of the site.</h2>
+        <h2>A lightweight roadmap, not a promise board.</h2>
       </div>
-      <div className="console-grid three">
+      <div className="game-roadmap">
         {roadmap.map((stage) => (
           <article className="console-card" key={stage.stage}>
-            <span>{stage.stage}</span>
+            <div className="card-topline">
+              <span>{stage.stage}</span>
+              <em>{stage.status}</em>
+            </div>
             <ul>
               {stage.items.map((item) => (
                 <li key={item}>{item}</li>

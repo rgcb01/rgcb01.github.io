@@ -3,7 +3,7 @@ export default function AchievementsPreview({ achievements }) {
     <section className="personal-section">
       <div className="personal-heading">
         <p className="console-kicker">Achievements</p>
-        <h2>Infrastructure preview for a future personal achievement system.</h2>
+        <h2>System preview for future milestones across projects, games and life.</h2>
       </div>
       <div className="achievement-grid">
         {achievements.map((achievement) => (
