@@ -1,4 +1,12 @@
+import { Trophy } from "lucide-react";
 import { totalTrophies } from "./trophyUtils.js";
+
+const TROPHY_TYPES = [
+  ["platinum", "Platinum"],
+  ["gold", "Gold"],
+  ["silver", "Silver"],
+  ["bronze", "Bronze"],
+];
 
 export default function TrophyProgress({ progress }) {
   const counts = progress?.counts || {};
@@ -18,9 +26,11 @@ export default function TrophyProgress({ progress }) {
         <span style={{ width: `${Math.min(100, Math.max(0, percent))}%` }} />
       </div>
       <div className="trophy-count-row">
-        {["platinum", "gold", "silver", "bronze"].map((type) => (
-          <span className={`trophy-pill ${type}`} key={type}>
-            {type.slice(0, 1).toUpperCase()} {counts[type] ?? 0}
+        {TROPHY_TYPES.map(([type, label]) => (
+          <span className={`trophy-pill ${type}`} key={type} title={`${label}: ${counts[type] ?? 0}`}>
+            <Trophy aria-hidden="true" size={14} strokeWidth={2.4} />
+            <span className="sr-only">{label}: </span>
+            <span className="trophy-pill-count">{counts[type] ?? 0}</span>
           </span>
         ))}
       </div>
