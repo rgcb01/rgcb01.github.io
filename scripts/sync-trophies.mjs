@@ -27,7 +27,27 @@ function requiredEnv(name) {
 }
 
 function safeError(error) {
-  return String(error?.message || error).replace(/[A-Za-z0-9_-]{48,}/g, "[redacted]");
+  return String(error?.message || error)
+    .replace(/npsso\s*=\s*[^"\s;]+/gi, "npsso=[redacted]")
+    .replace(/[A-Za-z0-9_-]{48,}/g, "[redacted]");
+}
+
+function normalizeNpssoInput(value) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) throw new Error("Missing required environment variable: PSN_NPSSO");
+
+  try {
+    const parsed = JSON.parse(trimmed);
+    if (parsed?.npsso) return String(parsed.npsso).trim();
+  } catch {
+    // The expected value is the raw token, but this also tolerates common copy formats.
+  }
+
+  return trimmed
+    .replace(/^npsso\s*=\s*/i, "")
+    .replace(/^["']|["']$/g, "")
+    .replace(/\s+/g, "")
+    .trim();
 }
 
 function normalizeTitle(value = "") {
@@ -104,7 +124,7 @@ async function fetchPlayedGames(authorization) {
 }
 
 async function authenticatePsn() {
-  const accessCode = await exchangeNpssoForAccessCode(requiredEnv("PSN_NPSSO"));
+  const accessCode = await exchangeNpssoForAccessCode(normalizeNpssoInput(requiredEnv("PSN_NPSSO")));
   const tokens = await exchangeAccessCodeForAuthTokens(accessCode);
   return { accessToken: tokens.accessToken };
 }
