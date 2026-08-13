@@ -11,6 +11,9 @@ export default function Footer({ profile }) {
           GitHub
         </a>
       </div>
+      <a className="personal-entry" href="/personal">
+        Off the clock →
+      </a>
       <p>© 2026 {profile.name}. Built with React, Vite and GitHub Pages.</p>
     </footer>
   );

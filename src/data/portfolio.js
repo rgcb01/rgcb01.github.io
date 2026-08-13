@@ -104,7 +104,7 @@ export const featuredProjects = [
       "SPC-style monitoring and automated tests",
     ],
     github: "https://github.com/rgcb01/manufacturing-oee-dashboard",
-    caseStudy: "https://github.com/rgcb01/manufacturing-oee-dashboard",
+    caseStudy: "/projects/manufacturing-oee-dashboard",
     caseStudyLabel: "View Case Study",
     screenshot: "/assets/projects/manufacturing-oee-dashboard.png",
     screenshotAlt:
@@ -127,8 +127,8 @@ export const featuredProjects = [
       "DOI: 10.5281/zenodo.21883473",
     ],
     github: "https://github.com/rgcb01/opencv-industrial-inspection",
-    caseStudy: "https://doi.org/10.5281/zenodo.21883473",
-    caseStudyLabel: "View DOI",
+    caseStudy: "/projects/automated-visual-quality-inspection",
+    caseStudyLabel: "View Case Study",
     paper: "https://doi.org/10.5281/zenodo.21883473",
     screenshot: "/assets/projects/opencv-industrial-inspection.png",
     screenshotAlt:
@@ -151,8 +151,8 @@ export const featuredProjects = [
       "Local software-in-the-loop Modbus average round trip approximately 0.395 ms",
     ],
     github: "https://github.com/rgcb01/industrial-automation-cell-simulator",
-    caseStudy: "https://github.com/rgcb01/industrial-automation-cell-simulator#known-limitation",
-    caseStudyLabel: "View Status",
+    caseStudy: "/projects/industrial-automation-cell-simulator",
+    caseStudyLabel: "View Case Study",
     screenshot: "/assets/projects/industrial-automation-cell-simulator.png",
     screenshotAlt:
       "Industrial automation cell simulator screenshot showing a normal production cycle and control state.",
@@ -187,13 +187,37 @@ export const publications = [
 ];
 
 export const githubActivity = {
-  title: "Engineering Activity",
+  username: "rgcb01",
+  title: "GitHub / Engineering Activity",
   description:
-    "Current GitHub work focuses on reproducible manufacturing analytics, classical computer vision for inspection, and software-in-the-loop PLC automation prototypes.",
-  links: [
-    { label: "GitHub Profile", href: "https://github.com/rgcb01" },
-    { label: "Flagship Projects", href: "#projects" },
+    "Current GitHub work focuses on reproducible manufacturing analytics, classical computer vision for inspection, software-in-the-loop PLC automation and this portfolio site.",
+  repositories: [
+    {
+      name: "manufacturing-oee-dashboard",
+      url: "https://github.com/rgcb01/manufacturing-oee-dashboard",
+      description: "Manufacturing analytics and OEE loss diagnostics with synthetic production data.",
+      technologies: ["Python", "Streamlit", "pandas", "Plotly", "SQLite"],
+    },
+    {
+      name: "opencv-industrial-inspection",
+      url: "https://github.com/rgcb01/opencv-industrial-inspection",
+      description: "Classical OpenCV quality inspection study with dimensional measurement and DOI.",
+      technologies: ["Python", "OpenCV", "SPC", "pytest"],
+    },
+    {
+      name: "industrial-automation-cell-simulator",
+      url: "https://github.com/rgcb01/industrial-automation-cell-simulator",
+      description: "OpenPLC, Modbus TCP and C++ DigitalPlant software-in-the-loop prototype.",
+      technologies: ["C++17", "OpenPLC", "Modbus TCP", "Ladder Logic"],
+    },
+    {
+      name: "rgcb01.github.io",
+      url: "https://github.com/rgcb01/rgcb01.github.io",
+      description: "React/Vite professional portfolio and personal profile site.",
+      technologies: ["React", "Vite", "CSS", "GitHub Pages"],
+    },
   ],
+  profileUrl: "https://github.com/rgcb01",
 };
 
 export const upcomingProjects = [

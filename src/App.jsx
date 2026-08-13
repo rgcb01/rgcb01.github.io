@@ -3,6 +3,9 @@ import Hero from "./components/Hero.jsx";
 import About from "./components/About.jsx";
 import Projects from "./components/Projects.jsx";
 import Publications from "./components/Publications.jsx";
+import GitHubActivity from "./components/GitHubActivity.jsx";
+import PersonalPage from "./components/PersonalPage.jsx";
+import ProjectCaseStudy from "./components/projects/ProjectCaseStudy.jsx";
 import Highlights from "./components/Highlights.jsx";
 import PortfolioRoadmap from "./components/PortfolioRoadmap.jsx";
 import FeaturedGithub from "./components/FeaturedGithub.jsx";
@@ -33,8 +36,40 @@ import {
   skillGroups,
   upcomingProjects,
 } from "./data.js";
+import { caseStudies } from "./data/caseStudies.js";
+
+function setPageMeta(title, description) {
+  document.title = title;
+  const meta = document.querySelector("meta[name='description']");
+  if (meta) meta.setAttribute("content", description);
+}
 
 export default function App() {
+  const path = window.location.pathname.replace(/\/$/, "") || "/";
+  const projectMatch = path.match(/^\/projects\/([^/]+)$/);
+
+  if (path === "/personal") {
+    setPageMeta(
+      "Romulo Colorado | Player Profile",
+      "Personal space for gaming, media, devlogs, roadmaps and experiments."
+    );
+    return <PersonalPage />;
+  }
+
+  if (projectMatch) {
+    const study = caseStudies.find((item) => item.slug === projectMatch[1]);
+    setPageMeta(
+      study ? `${study.title} | Romulo Colorado Case Study` : "Project Case Study | Romulo Colorado",
+      study?.summary || "Engineering project case study from Romulo Colorado's mechatronics portfolio."
+    );
+    return <ProjectCaseStudy study={study} />;
+  }
+
+  setPageMeta(
+    "Romulo Colorado | Mechatronics, Manufacturing & Automation Engineer",
+    "Mechatronics engineering portfolio focused on manufacturing analytics, quality engineering, industrial computer vision, PLC automation, test and validation."
+  );
+
   return (
     <>
       <Navbar navItems={navItems} resumePath={profile.resumePath} />
@@ -45,7 +80,8 @@ export default function App() {
         <Highlights highlights={highlights} />
         <FeaturedGithub projects={featuredProjects} />
         <Publications publications={publications} />
-        <Projects upcomingProjects={upcomingProjects} githubActivity={githubActivity} />
+        <Projects upcomingProjects={upcomingProjects} />
+        <GitHubActivity activity={githubActivity} />
         <PortfolioRoadmap roadmap={roadmap} />
         <EngineeringNumbers metrics={engineeringMetrics} />
         <Experience experiences={experiences} />

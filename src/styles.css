@@ -37,6 +37,12 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.45);
+  outline-offset: 3px;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -676,6 +682,363 @@ h3 {
   font-weight: 700;
 }
 
+.github-activity-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+  gap: 18px;
+}
+
+.activity-summary {
+  align-self: start;
+}
+
+.repo-list {
+  display: grid;
+  gap: 12px;
+}
+
+.repo-activity-card,
+.recent-commit-panel,
+.case-section {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  box-shadow: 0 10px 28px rgba(31, 41, 55, 0.05);
+}
+
+.repo-activity-card,
+.recent-commit-panel,
+.case-section {
+  padding: 18px;
+}
+
+.repo-activity-card p,
+.recent-commit-panel p,
+.case-section p,
+.muted-copy {
+  color: var(--muted);
+}
+
+.repo-meta {
+  display: block;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.recent-commit-panel {
+  margin-top: 18px;
+}
+
+.commit-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.commit-list a {
+  display: grid;
+  grid-template-columns: auto 150px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.commit-list svg {
+  color: var(--accent);
+}
+
+.commit-list span,
+.commit-list em {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.case-study-page {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.case-hero {
+  padding-top: 58px;
+}
+
+.case-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1.1fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.case-hero-media {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #e2e8f0;
+  box-shadow: var(--shadow);
+}
+
+.case-hero-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.case-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding-top: 16px;
+}
+
+.case-section h2 {
+  font-size: 1.35rem;
+}
+
+.case-list {
+  margin: 14px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.case-list li + li {
+  margin-top: 8px;
+}
+
+.case-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.case-evidence a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.architecture-flow {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.architecture-node-wrap {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+}
+
+.architecture-node {
+  display: inline-flex;
+  padding: 10px 12px;
+  border: 1px solid rgba(31, 78, 121, 0.24);
+  border-radius: 8px;
+  background: #f1f7fd;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.architecture-arrow {
+  padding-left: 18px;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.personal-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(26, 36, 57, 0.96), rgba(11, 16, 29, 0.98)),
+    #0b101d;
+  color: #e5eefb;
+}
+
+.personal-hero,
+.personal-section {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.personal-hero {
+  padding: 64px 0 42px;
+}
+
+.personal-back {
+  display: inline-flex;
+  margin-bottom: 32px;
+  color: #9cc7ff;
+  font-weight: 800;
+}
+
+.console-kicker {
+  margin: 0 0 10px;
+  color: #7dd3fc;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.personal-hero h1 {
+  color: #f8fbff;
+}
+
+.personal-hero p,
+.console-card p,
+.empty-slot,
+.devlog-entry em {
+  color: #9fb1ca;
+}
+
+.player-stat-grid,
+.quest-grid,
+.console-grid,
+.achievement-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.player-stat-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.quest-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.console-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.console-grid.three,
+.achievement-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.personal-section {
+  padding: 38px 0;
+}
+
+.personal-heading h2 {
+  color: #f8fbff;
+}
+
+.player-stat,
+.console-card,
+.empty-slot,
+.achievement-card {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.72);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.player-stat,
+.console-card,
+.empty-slot,
+.achievement-card {
+  padding: 18px;
+}
+
+.player-stat span,
+.console-card span,
+.achievement-card span {
+  display: block;
+  color: #7dd3fc;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.player-stat strong,
+.console-card strong,
+.achievement-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #f8fbff;
+  font-size: 1.05rem;
+}
+
+.console-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.console-chip-list b {
+  padding: 7px 10px;
+  border: 1px solid rgba(125, 211, 252, 0.26);
+  border-radius: 999px;
+  color: #dbeafe;
+  background: rgba(14, 165, 233, 0.1);
+  font-size: 0.84rem;
+}
+
+.media-item + .media-item,
+.devlog-entry + .devlog-entry {
+  margin-top: 10px;
+}
+
+.devlog-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.console-card ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: #9fb1ca;
+}
+
+.achievement-card.locked {
+  opacity: 0.68;
+}
+
+.achievement-card.unlocked {
+  border-color: rgba(125, 211, 252, 0.55);
+}
+
+.achievement-card em {
+  display: inline-flex;
+  margin-top: 12px;
+  color: #bae6fd;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.personal-entry {
+  display: inline-flex;
+  margin: 6px 0 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
 .roadmap-timeline {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1102,6 +1465,14 @@ h3 {
   .skills-grid,
   .cert-grid,
   .publication-grid,
+  .github-activity-grid,
+  .case-hero-grid,
+  .case-layout,
+  .player-stat-grid,
+  .quest-grid,
+  .console-grid.two,
+  .console-grid.three,
+  .achievement-grid,
   .contact-layout,
   .snapshot-grid,
   .engineering-projects-layout,
@@ -1140,6 +1511,15 @@ h3 {
 
   .experience-card {
     grid-template-columns: 1fr;
+  }
+
+  .commit-list a {
+    grid-template-columns: auto 1fr;
+  }
+
+  .commit-list strong,
+  .commit-list em {
+    grid-column: 2;
   }
 }
 
@@ -1203,8 +1583,24 @@ h3 {
   }
 
   .numbers-grid,
-  .credly-grid {
+  .credly-grid,
+  .player-stat-grid,
+  .quest-grid,
+  .console-grid.two,
+  .console-grid.three,
+  .achievement-grid {
     grid-template-columns: 1fr;
+  }
+
+  .personal-hero,
+  .personal-section {
+    width: min(360px, calc(100% - 24px));
+    margin-left: 12px;
+    margin-right: auto;
+  }
+
+  .case-hero {
+    padding-top: 36px;
   }
 
   .credly-grid {
@@ -1246,5 +1642,16 @@ h3 {
   .cert-image {
     width: 76px;
     height: 58px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

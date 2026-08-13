@@ -44,9 +44,14 @@ export default function FeaturedGithub({ projects }) {
                   Repository <ExternalLink size={16} />
                 </a>
                 {project.caseStudy && (
-                  <a className="button secondary" href={project.caseStudy} target="_blank" rel="noopener noreferrer">
+                  <a className="button secondary" href={project.caseStudy}>
                     <FileText size={17} />
-                    {project.caseStudyLabel} <ExternalLink size={16} />
+                    {project.caseStudyLabel}
+                  </a>
+                )}
+                {project.paper && (
+                  <a className="button secondary" href={project.paper} target="_blank" rel="noopener noreferrer">
+                    DOI / Paper <ExternalLink size={16} />
                   </a>
                 )}
               </div>

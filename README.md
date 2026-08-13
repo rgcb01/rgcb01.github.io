@@ -28,7 +28,7 @@ The content is data-driven and highlights three flagship engineering projects:
 - Automated Visual Quality Inspection
 - Industrial Automation Cell Simulator
 
-It also includes technical publications, credentials, engineering metrics, skills and recruiter-oriented role fit.
+It also includes technical publications, reusable case study pages, GitHub engineering activity, credentials, engineering metrics, skills and recruiter-oriented role fit.
 
 ## Tech Stack
 
@@ -51,6 +51,8 @@ npm run dev
 ```bash
 npm run build
 ```
+
+The build creates `dist/404.html` from the compiled app so GitHub Pages can serve SPA routes such as `/personal` and `/projects/manufacturing-oee-dashboard`.
 
 ## Deploy
 
@@ -77,7 +79,11 @@ rgcb01.github.io/
       projects/
   src/
     components/
+      personal/
+      projects/
     data/
+      caseStudies.js
+      personal.js
       portfolio.js
     App.jsx
     data.js
@@ -104,6 +110,8 @@ Key data objects:
 - `featuredProjects`
 - `publications`
 - `githubActivity`
+- `caseStudies`
+- `personalProfile`
 - `upcomingProjects`
 - `roadmap`
 - `experiences`
@@ -115,3 +123,12 @@ Use accurate project statuses such as `Released`, `Working Prototype`, `In Devel
 ## Notes
 
 The recruiter-facing site intentionally avoids personal/gaming content. A separate personal section or site can be added later without changing the professional navigation.
+
+Current non-primary routes:
+
+- `/projects/manufacturing-oee-dashboard`
+- `/projects/automated-visual-quality-inspection`
+- `/projects/industrial-automation-cell-simulator`
+- `/personal`
+
+The personal route is intentionally not part of the main recruiter navigation.
