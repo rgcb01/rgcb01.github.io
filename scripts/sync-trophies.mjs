@@ -18,7 +18,12 @@ const GENERATED_DIR = join("public", "data", "generated");
 const DETAIL_DIR = join(GENERATED_DIR, "trophy-details");
 const TMP_DIR = join(GENERATED_DIR, ".tmp-trophies");
 const PSN_PAGE_SIZE = 800;
+const PLAYED_GAMES_PAGE_SIZE = 200;
 const TROPHY_PAGE_SIZE = 800;
+const IGDB_RATE_LIMIT_MS = 350;
+const IGDB_RETRY_DELAYS_MS = [1200, 2600, 5200];
+const PREVIOUS_GENERATED_URL = "https://rgcb01.github.io/data/generated/trophy-games.json";
+let lastIgdbRequestAt = 0;
 
 function requiredEnv(name) {
   const value = process.env[name];
@@ -63,6 +68,10 @@ function normalizeTitle(value = "") {
     .trim();
 }
 
+function compactTitle(value = "") {
+  return normalizeTitle(value).replace(/[^a-z0-9]/g, "");
+}
+
 function slugify(value, fallback) {
   const slug = normalizeTitle(value)
     .replace(/[^a-z0-9]+/g, "-")
@@ -90,7 +99,7 @@ function uniqueSlug(baseSlug, usedSlugs, fallback) {
 function pickImage(items = [], preferred = "cover") {
   const image = items[0];
   if (!image?.image_id) return null;
-  const size = preferred === "cover" ? "cover_big" : "screenshot_big";
+  const size = preferred === "cover" ? "cover_big_2x" : "1080p";
   return `https://images.igdb.com/igdb/image/upload/t_${size}/${image.image_id}.jpg`;
 }
 
@@ -114,13 +123,17 @@ async function fetchPlayedGames(authorization) {
   let offset = 0;
   let total = Infinity;
   while (offset < total) {
-    const response = await getUserPlayedGames(authorization, "me", { limit: PSN_PAGE_SIZE, offset });
+    const response = await getUserPlayedGames(authorization, "me", { limit: PLAYED_GAMES_PAGE_SIZE, offset });
     all.push(...(response.titles || []));
     total = response.totalItemCount ?? all.length;
     if (!response.nextOffset || response.nextOffset <= offset) break;
     offset = response.nextOffset;
   }
   return all;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function authenticatePsn() {
@@ -150,26 +163,46 @@ async function authenticateIgdb() {
   });
   if (!response.ok) throw new Error(`IGDB auth failed with status ${response.status}`);
   const payload = await response.json();
+  console.log("IGDB authentication: OK");
+  console.log("IGDB enrichment enabled");
   return { clientId, accessToken: payload.access_token };
 }
 
 async function igdbQuery(auth, body) {
-  const response = await fetch("https://api.igdb.com/v4/games", {
-    method: "POST",
-    headers: {
-      "Client-ID": auth.clientId,
-      Authorization: ["Bearer", auth.accessToken].join(" "),
-      Accept: "application/json",
-      "Content-Type": "text/plain",
-    },
-    body,
-  });
-  if (!response.ok) throw new Error(`IGDB request failed with status ${response.status}`);
-  return response.json();
+  for (let attempt = 0; attempt <= IGDB_RETRY_DELAYS_MS.length; attempt += 1) {
+    const elapsed = Date.now() - lastIgdbRequestAt;
+    if (elapsed < IGDB_RATE_LIMIT_MS) await sleep(IGDB_RATE_LIMIT_MS - elapsed);
+    lastIgdbRequestAt = Date.now();
+
+    const response = await fetch("https://api.igdb.com/v4/games", {
+      method: "POST",
+      headers: {
+        "Client-ID": auth.clientId,
+        Authorization: ["Bearer", auth.accessToken].join(" "),
+        Accept: "application/json",
+        "Content-Type": "text/plain",
+      },
+      body,
+    });
+
+    if (response.ok) return response.json();
+    if (response.status === 429 && attempt < IGDB_RETRY_DELAYS_MS.length) {
+      await sleep(IGDB_RETRY_DELAYS_MS[attempt]);
+      continue;
+    }
+    throw new Error(`IGDB request failed with status ${response.status}`);
+  }
+  throw new Error("IGDB request failed after retries");
 }
 
 function mapIgdbGame(game) {
   if (!game) return null;
+  const developers = (game.involved_companies || [])
+    .filter((item) => item.developer && item.company?.name)
+    .map((item) => item.company.name);
+  const publishers = (game.involved_companies || [])
+    .filter((item) => item.publisher && item.company?.name)
+    .map((item) => item.company.name);
   return {
     igdbId: game.id,
     title: game.name || null,
@@ -179,36 +212,156 @@ function mapIgdbGame(game) {
     releaseDate: game.first_release_date ? new Date(game.first_release_date * 1000).toISOString() : null,
     platforms: (game.platforms || []).map((item) => item.abbreviation || item.name).filter(Boolean),
     genres: (game.genres || []).map((item) => item.name).filter(Boolean),
-    developer: (game.involved_companies || []).find((item) => item.developer)?.company?.name || null,
-    publisher: (game.involved_companies || []).find((item) => item.publisher)?.company?.name || null,
+    developer: developers.length ? developers.join(", ") : null,
+    publisher: publishers.length ? publishers.join(", ") : null,
     summary: game.summary || null,
+  };
+}
+
+function igdbPlatforms(candidate) {
+  return (candidate.platforms || [])
+    .flatMap((platform) => [platform.abbreviation, platform.name])
+    .filter(Boolean)
+    .map((platform) => String(platform).toUpperCase());
+}
+
+function hasCompatiblePlatform(title, candidate) {
+  const psnPlatforms = normalizePlatforms(title.trophyTitlePlatform);
+  const candidatePlatforms = igdbPlatforms(candidate);
+  if (!psnPlatforms.length || !candidatePlatforms.length) return false;
+  return psnPlatforms.some((platform) => {
+    if (platform === "PSVita") return candidatePlatforms.some((item) => item.includes("VITA"));
+    return candidatePlatforms.includes(platform) || candidatePlatforms.includes(platform.replace("PS", "PLAYSTATION "));
+  });
+}
+
+function scoreIgdbCandidate(title, candidate) {
+  const psnNormalized = normalizeTitle(title.trophyTitleName);
+  const candidateNormalized = normalizeTitle(candidate.name);
+  const psnCompact = compactTitle(title.trophyTitleName);
+  const candidateCompact = compactTitle(candidate.name);
+  let score = 0;
+  const reasons = [];
+
+  if (candidateNormalized === psnNormalized) {
+    score += 0.7;
+    reasons.push("normalized-title");
+  } else if (candidateCompact === psnCompact) {
+    score += 0.66;
+    reasons.push("compact-title");
+  } else if (candidateNormalized.includes(psnNormalized) || psnNormalized.includes(candidateNormalized)) {
+    score += 0.38;
+    reasons.push("title-contains");
+  }
+
+  if (hasCompatiblePlatform(title, candidate)) {
+    score += 0.22;
+    reasons.push("platform");
+  }
+
+  if (candidate.category === 0 || candidate.category === undefined) {
+    score += 0.04;
+  } else {
+    score -= 0.08;
+    reasons.push("non-main-category");
+  }
+
+  return { candidate, score: Math.max(0, Math.min(1, Number(score.toFixed(2)))), reasons };
+}
+
+function chooseIgdbCandidate(title, candidates) {
+  if (!Array.isArray(candidates) || !candidates.length) {
+    return { status: "unresolved", game: null, matchMethod: "no-candidates", matchConfidence: null };
+  }
+
+  const scored = candidates
+    .map((candidate) => scoreIgdbCandidate(title, candidate))
+    .filter((item) => item.score >= 0.66)
+    .sort((a, b) => b.score - a.score);
+
+  if (!scored.length) {
+    return { status: "unresolved", game: null, matchMethod: "low-confidence", matchConfidence: null };
+  }
+
+  const [best, second] = scored;
+  if (second && best.score - second.score < 0.08) {
+    return {
+      status: "ambiguous",
+      game: null,
+      matchMethod: "ambiguous-candidates",
+      matchConfidence: best.score,
+    };
+  }
+
+  return {
+    status: "matched",
+    game: mapIgdbGame(best.candidate),
+    matchMethod: best.reasons.join("-") || "scored",
+    matchConfidence: best.score,
   };
 }
 
 async function enrichWithIgdb(auth, title) {
   if (!auth) return { status: "igdb-skipped", game: null };
   const override = gameOverrides[title.npCommunicationId];
-  const fields = "fields id,name,summary,first_release_date,cover.image_id,artworks.image_id,screenshots.image_id,platforms.name,platforms.abbreviation,genres.name,involved_companies.developer,involved_companies.publisher,involved_companies.company.name;";
+  const fields = "fields id,name,summary,first_release_date,category,version_title,cover.image_id,artworks.image_id,screenshots.image_id,platforms.name,platforms.abbreviation,genres.name,involved_companies.developer,involved_companies.publisher,involved_companies.company.name;";
   if (override?.igdbId) {
     const [game] = await igdbQuery(auth, `${fields} where id = ${Number(override.igdbId)}; limit 1;`);
-    return { status: game ? "manual-override" : "manual-override-unresolved", game: mapIgdbGame(game) };
+    return {
+      status: game ? "manual-override" : "manual-override-unresolved",
+      game: mapIgdbGame(game),
+      matchMethod: "manual-override",
+      matchConfidence: game ? 1 : null,
+    };
   }
 
   const query = title.trophyTitleName.replace(/"/g, '\\"');
   const candidates = await igdbQuery(auth, `search "${query}"; ${fields} limit 10;`);
-  const normalized = normalizeTitle(title.trophyTitleName);
-  const exactMatches = candidates.filter((candidate) => normalizeTitle(candidate.name) === normalized);
-  if (exactMatches.length === 1) return { status: "matched", game: mapIgdbGame(exactMatches[0]) };
-  return { status: "unresolved", game: null };
+  return chooseIgdbCandidate(title, candidates);
 }
 
-async function safelyEnrichWithIgdb(auth, title) {
+async function safelyEnrichWithIgdb(auth, title, previousIgdbCache) {
   try {
-    return await enrichWithIgdb(auth, title);
+    return await enrichTitle(auth, title, previousIgdbCache);
   } catch (error) {
     console.warn(`IGDB enrichment unavailable for ${title.npCommunicationId}: ${safeError(error)}`);
-    return { status: "igdb-unavailable", game: null };
+    return { status: "igdb-unavailable", game: null, matchMethod: "igdb-error", matchConfidence: null };
   }
+}
+
+async function loadPreviousIgdbCache() {
+  const cache = new Map();
+  try {
+    const response = await fetch(PREVIOUS_GENERATED_URL, { cache: "no-store" });
+    if (!response.ok) return cache;
+    const payload = await response.json();
+    for (const game of payload.games || []) {
+      const psnTitleId = game.sources?.psnTitleId;
+      const igdbId = game.sources?.igdbId;
+      if (psnTitleId && igdbId) cache.set(psnTitleId, igdbId);
+    }
+  } catch (error) {
+    console.warn(`Previous IGDB cache unavailable: ${safeError(error)}`);
+  }
+  return cache;
+}
+
+async function enrichTitle(auth, title, previousIgdbCache) {
+  if (!auth) return { status: "igdb-skipped", game: null, matchMethod: "igdb-disabled", matchConfidence: null };
+  const cachedIgdbId = previousIgdbCache.get(title.npCommunicationId);
+  if (cachedIgdbId && !gameOverrides[title.npCommunicationId]?.igdbId) {
+    const fields = "fields id,name,summary,first_release_date,category,version_title,cover.image_id,artworks.image_id,screenshots.image_id,platforms.name,platforms.abbreviation,genres.name,involved_companies.developer,involved_companies.publisher,involved_companies.company.name;";
+    const [game] = await igdbQuery(auth, `${fields} where id = ${Number(cachedIgdbId)}; limit 1;`);
+    if (game) {
+      return {
+        status: "matched",
+        game: mapIgdbGame(game),
+        matchMethod: "previous-igdb-id",
+        matchConfidence: 1,
+      };
+    }
+  }
+  return enrichWithIgdb(auth, title);
 }
 
 function normalizePlatforms(value = "") {
@@ -296,6 +449,8 @@ function buildGameRecord(title, enrichment, trophies, playedGame, recentGame, sy
       psnUpdatedAt: title.lastUpdatedDateTime || syncedAt,
       igdbUpdatedAt: enrichment.game ? syncedAt : null,
       enrichmentStatus: enrichment.status,
+      matchMethod: enrichment.matchMethod || null,
+      matchConfidence: enrichment.matchConfidence ?? null,
     },
   };
 }
@@ -358,6 +513,7 @@ async function main() {
   try {
     const authorization = await authenticatePsn();
     const igdbAuth = await fetchOptional("IGDB authentication", () => authenticateIgdb(), null);
+    const previousIgdbCache = igdbAuth ? await loadPreviousIgdbCache() : new Map();
     const profileSummary = await getUserTrophyProfileSummary(authorization, "me");
     const titles = await fetchPsnPage((offset) => getUserTitles(authorization, "me", { limit: PSN_PAGE_SIZE, offset }));
     const recentGames = await fetchOptional("Recently played games", () => getRecentlyPlayedGames(authorization, { limit: 20 }), null);
@@ -372,7 +528,7 @@ async function main() {
       const [titleTrophies, userTrophies, enrichment] = await Promise.all([
         fetchPsnPage((offset) => getTitleTrophies(authorization, title.npCommunicationId, "all", { ...options, offset })),
         fetchPsnPage((offset) => getUserTrophiesEarnedForTitle(authorization, "me", title.npCommunicationId, "all", { ...options, offset })),
-        safelyEnrichWithIgdb(igdbAuth, title),
+        safelyEnrichWithIgdb(igdbAuth, title, previousIgdbCache),
       ]);
       const trophies = mergeTrophies(titleTrophies, userTrophies);
       const playedGame = playedGames.find((item) => item.name === title.trophyTitleName || item.titleName === title.trophyTitleName);
@@ -387,7 +543,18 @@ async function main() {
     const completeGameCount = records.filter((game) => game.trophyProgress.progressPercent === 100).length;
     const averageCompletion = records.length ? Math.round(records.reduce((sum, game) => sum + Number(game.trophyProgress.progressPercent || 0), 0) / records.length) : null;
     const igdbMatched = records.filter((game) => game.sync.enrichmentStatus === "matched" || game.sync.enrichmentStatus === "manual-override").length;
+    const igdbManualOverrides = records.filter((game) => game.sync.enrichmentStatus === "manual-override").length;
+    const igdbAmbiguous = records.filter((game) => game.sync.enrichmentStatus === "ambiguous").length;
     const igdbUnresolved = records.filter((game) => game.sync.enrichmentStatus.includes("unresolved") || game.sync.enrichmentStatus === "igdb-unavailable").length;
+    const metadataCoverage = {
+      covers: records.filter((game) => game.game.cover).length,
+      artwork: records.filter((game) => game.game.artwork).length,
+      screenshots: records.filter((game) => game.game.screenshots?.length).length,
+      developers: records.filter((game) => game.game.developer).length,
+      publishers: records.filter((game) => game.game.publisher).length,
+      genres: records.filter((game) => game.game.genres?.length).length,
+      releaseDates: records.filter((game) => game.game.releaseDate).length,
+    };
     const profilePayload = {
       source: "playstation",
       psnOnlineId: PSN_ONLINE_ID,
@@ -401,7 +568,10 @@ async function main() {
         latestPlatinumSlug,
         currentPlatinumHuntSlug: chooseCurrentHunt(records),
         igdbMatched,
+        igdbManualOverrides,
+        igdbAmbiguous,
         igdbUnresolved,
+        metadataCoverage,
       },
     };
     const gamesPayload = { source: "playstation", synchronized: true, syncedAt, games: records };
@@ -413,8 +583,33 @@ async function main() {
     console.log(`User: ${PSN_ONLINE_ID}`);
     console.log(`Titles: ${records.length}`);
     console.log(`Platinums: ${records.filter((game) => game.trophyProgress.platinumEarned).length}`);
-    console.log(igdbAuth ? `IGDB matched: ${igdbMatched}` : "IGDB enrichment: skipped");
-    if (igdbAuth) console.log(`IGDB unresolved: ${igdbUnresolved}`);
+    if (igdbAuth) {
+      console.log("");
+      console.log("IGDB Enrichment");
+      console.log(`Matched: ${igdbMatched}`);
+      console.log(`Manual overrides: ${igdbManualOverrides}`);
+      console.log(`Ambiguous: ${igdbAmbiguous}`);
+      console.log(`Unresolved: ${igdbUnresolved}`);
+      console.log("");
+      console.log("Metadata");
+      console.log(`Covers: ${metadataCoverage.covers}`);
+      console.log(`Artwork: ${metadataCoverage.artwork}`);
+      console.log(`Screenshots: ${metadataCoverage.screenshots}`);
+      console.log(`Developers: ${metadataCoverage.developers}`);
+      console.log(`Publishers: ${metadataCoverage.publishers}`);
+      console.log(`Genres: ${metadataCoverage.genres}`);
+      console.log(`Release dates: ${metadataCoverage.releaseDates}`);
+      const needsReview = records.filter((game) => ["ambiguous", "unresolved", "igdb-unavailable", "manual-override-unresolved"].includes(game.sync.enrichmentStatus));
+      if (needsReview.length) {
+        console.log("");
+        console.log("Needs review:");
+        for (const game of needsReview) {
+          console.log(`- ${game.game.title} - ${game.sources.psnTitleId} - ${game.game.platforms.join(", ") || "Platform unknown"} - ${game.sync.enrichmentStatus}`);
+        }
+      }
+    } else {
+      console.log("IGDB enrichment: skipped");
+    }
     console.log("Generated: public/data/generated/trophy-games.json");
   } catch (error) {
     rmSync(TMP_DIR, { recursive: true, force: true });
