@@ -16,9 +16,17 @@ for (const path of [profilePath, gamesPath]) {
 
 const profile = readJson(profilePath);
 const gamesPayload = readJson(gamesPath);
-const forbiddenPattern = /npsso|accessToken|refreshToken|clientSecret|client_secret|Authorization|Bearer/i;
+const forbiddenKeyPattern = /npsso|accessToken|refreshToken|clientSecret|client_secret|Authorization/i;
+const forbiddenSecretStringPattern = /npsso\s*=|Bearer\s+[A-Za-z0-9._-]{20,}/i;
+function containsForbiddenSecretMarker(value) {
+  if (Array.isArray(value)) return value.some((item) => containsForbiddenSecretMarker(item));
+  if (value && typeof value === "object") {
+    return Object.entries(value).some(([key, item]) => forbiddenKeyPattern.test(key) || containsForbiddenSecretMarker(item));
+  }
+  return typeof value === "string" && forbiddenSecretStringPattern.test(value);
+}
 if (!Array.isArray(gamesPayload.games)) throw new Error("trophy-games.json must contain a games array");
-if (forbiddenPattern.test(JSON.stringify([profile, gamesPayload]))) {
+if (containsForbiddenSecretMarker([profile, gamesPayload])) {
   throw new Error("Generated trophy summary contains a forbidden secret/token marker");
 }
 
@@ -45,7 +53,7 @@ for (const game of gamesPayload.games) {
 if (profile.synchronized && existsSync(detailDir)) {
   for (const file of readdirSync(detailDir).filter((item) => item.endsWith(".json"))) {
     const detail = readJson(join(detailDir, file));
-    if (forbiddenPattern.test(JSON.stringify(detail))) {
+    if (containsForbiddenSecretMarker(detail)) {
       throw new Error(`${file} contains a forbidden secret/token marker`);
     }
     if (!Array.isArray(detail.trophies)) throw new Error(`${file} must contain a trophies array`);
