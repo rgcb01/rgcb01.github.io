@@ -1,4 +1,6 @@
 export default function Navbar({ navItems, resumePath }) {
+  const hasResume = resumePath && !resumePath.startsWith("#");
+
   return (
     <header className="site-header">
       <nav className="navbar" aria-label="Primary navigation">
@@ -11,7 +13,7 @@ export default function Navbar({ navItems, resumePath }) {
               {item.label}
             </a>
           ))}
-          <a className="nav-resume" href={resumePath}>
+          <a className="nav-resume" href={resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined}>
             Resume
           </a>
         </div>

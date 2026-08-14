@@ -16,13 +16,16 @@ import Education from "./components/Education.jsx";
 import Skills from "./components/Skills.jsx";
 import Certifications from "./components/Certifications.jsx";
 import CredlyBadges from "./components/CredlyBadges.jsx";
+import Awards from "./components/Awards.jsx";
 import EngineeringNumbers from "./components/EngineeringNumbers.jsx";
 import RecruiterSnapshot from "./components/RecruiterSnapshot.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import {
+  about,
+  awards,
   certifications,
-  credlyBadgeIds,
+  credentialBadges,
   education,
   engineeringMetrics,
   experiences,
@@ -35,15 +38,47 @@ import {
   publications,
   recruiterSnapshot,
   roadmap,
+  siteMeta,
   skillGroups,
   upcomingProjects,
 } from "./data.js";
 import { caseStudies } from "./data/caseStudies.js";
 
-function setPageMeta(title, description) {
+function upsertMeta(selector, attributes) {
+  let element = document.querySelector(selector);
+  if (!element) {
+    element = document.createElement("meta");
+    document.head.appendChild(element);
+  }
+  Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+}
+
+function setCanonical(href) {
+  let link = document.querySelector("link[rel='canonical']");
+  if (!link) {
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+  link.setAttribute("href", href);
+}
+
+function setPageMeta(title, description, options = {}) {
+  const canonicalUrl = `${siteMeta.siteUrl}${options.path || window.location.pathname}`;
+  const imageUrl = `${siteMeta.siteUrl}${options.image || siteMeta.socialImage}`;
+
   document.title = title;
-  const meta = document.querySelector("meta[name='description']");
-  if (meta) meta.setAttribute("content", description);
+  upsertMeta("meta[name='description']", { name: "description", content: description });
+  upsertMeta("meta[property='og:title']", { property: "og:title", content: title });
+  upsertMeta("meta[property='og:description']", { property: "og:description", content: description });
+  upsertMeta("meta[property='og:url']", { property: "og:url", content: canonicalUrl });
+  upsertMeta("meta[property='og:image']", { property: "og:image", content: imageUrl });
+  upsertMeta("meta[name='twitter:card']", { name: "twitter:card", content: siteMeta.twitterCard });
+  upsertMeta("meta[name='twitter:title']", { name: "twitter:title", content: title });
+  upsertMeta("meta[name='twitter:description']", { name: "twitter:description", content: description });
+  upsertMeta("meta[name='twitter:image']", { name: "twitter:image", content: imageUrl });
+  upsertMeta("meta[name='theme-color']", { name: "theme-color", content: siteMeta.themeColor });
+  setCanonical(canonicalUrl);
 }
 
 export default function App() {
@@ -54,7 +89,8 @@ export default function App() {
   if (path === "/personal") {
     setPageMeta(
       "Romulo Colorado | Player Profile",
-      "Personal space for gaming, media, devlogs, roadmaps and experiments."
+      "Personal space for gaming, media, devlogs, roadmaps and experiments.",
+      { path: "/personal" }
     );
     return <PersonalPage />;
   }
@@ -62,7 +98,8 @@ export default function App() {
   if (path === "/personal/trophies") {
     setPageMeta(
       "Romulo Colorado | Trophy Room",
-      "PlayStation Trophy Room for rgcb01 with PSN trophy progress, IGDB game metadata and manual personal ratings."
+      "PlayStation Trophy Room for rgcb01 with PSN trophy progress, IGDB game metadata and manual personal ratings.",
+      { path: "/personal/trophies" }
     );
     return <TrophyRoom />;
   }
@@ -70,7 +107,8 @@ export default function App() {
   if (trophyGameMatch) {
     setPageMeta(
       "Trophy Game File | Romulo Colorado",
-      "Individual PlayStation trophy progress and manual review file."
+      "Individual PlayStation trophy progress and manual review file.",
+      { path }
     );
     return <TrophyGamePage slug={trophyGameMatch[1]} />;
   }
@@ -79,14 +117,16 @@ export default function App() {
     const study = caseStudies.find((item) => item.slug === projectMatch[1]);
     setPageMeta(
       study ? `${study.title} | Romulo Colorado Case Study` : "Project Case Study | Romulo Colorado",
-      study?.summary || "Engineering project case study from Romulo Colorado's mechatronics portfolio."
+      study?.summary || "Engineering project case study from Romulo Colorado's mechatronics portfolio.",
+      { path, image: study?.image }
     );
     return <ProjectCaseStudy study={study} />;
   }
 
   setPageMeta(
-    "Romulo Colorado | Mechatronics, Manufacturing & Automation Engineer",
-    "Mechatronics engineering portfolio focused on manufacturing analytics, quality engineering, industrial computer vision, PLC automation, test and validation."
+    siteMeta.title,
+    siteMeta.description,
+    { path: "/" }
   );
 
   return (
@@ -94,20 +134,21 @@ export default function App() {
       <Navbar navItems={navItems} resumePath={profile.resumePath} />
       <main>
         <Hero profile={profile} badges={heroBadges} />
-        <About />
         <RecruiterSnapshot snapshot={recruiterSnapshot} />
+        <About about={about} />
         <Highlights highlights={highlights} />
         <FeaturedGithub projects={featuredProjects} />
+        <Experience experiences={experiences} />
+        <EngineeringNumbers metrics={engineeringMetrics} />
         <Publications publications={publications} />
-        <Projects upcomingProjects={upcomingProjects} />
         <GitHubActivity activity={githubActivity} />
         <PortfolioRoadmap roadmap={roadmap} />
-        <EngineeringNumbers metrics={engineeringMetrics} />
-        <Experience experiences={experiences} />
-        <Education education={education} />
+        <Projects upcomingProjects={upcomingProjects} />
         <Skills skillGroups={skillGroups} />
+        <Education education={education} />
         <Certifications certifications={certifications} />
-        <CredlyBadges badgeIds={credlyBadgeIds} />
+        <Awards awards={awards} />
+        <CredlyBadges badges={credentialBadges} />
         <Contact profile={profile} />
       </main>
       <Footer profile={profile} />

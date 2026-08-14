@@ -2,7 +2,9 @@ import { useEffect } from "react";
 
 const CREDLY_SCRIPT_ID = "credly-embed-script";
 
-export default function CredlyBadges({ badgeIds }) {
+export default function CredlyBadges({ badges, badgeIds }) {
+  const credentialBadges = badges || badgeIds?.map((id) => ({ id, provider: "Credly" })) || [];
+
   useEffect(() => {
     if (document.getElementById(CREDLY_SCRIPT_ID)) {
       return;
@@ -27,12 +29,12 @@ export default function CredlyBadges({ badgeIds }) {
         </p>
       </div>
       <div className="credly-grid">
-        {badgeIds.map((id) => (
-          <div className="credly-card" key={id}>
+        {credentialBadges.map((badge) => (
+          <div className="credly-card" key={badge.id} aria-label={`${badge.provider || "Credly"} credential badge`}>
             <div
               data-iframe-width="150"
               data-iframe-height="270"
-              data-share-badge-id={id}
+              data-share-badge-id={badge.id}
               data-share-badge-host="https://www.credly.com"
             />
           </div>

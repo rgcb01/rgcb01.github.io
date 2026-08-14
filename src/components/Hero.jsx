@@ -1,6 +1,8 @@
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 
 export default function Hero({ profile, badges }) {
+  const hasResume = profile.resumePath && !profile.resumePath.startsWith("#");
+
   return (
     <section className="hero section" id="home">
       <div className="hero-content">
@@ -19,8 +21,8 @@ export default function Hero({ profile, badges }) {
           <a className="button primary" href="#projects">
             View Projects <ArrowRight size={18} />
           </a>
-          <a className="button secondary" href={profile.resumePath}>
-            Download Resume
+          <a className="button secondary" href={profile.resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined}>
+            {profile.resumeLabel || "View Resume"}
           </a>
           <a className="icon-link" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
             <Github size={21} />
@@ -35,13 +37,11 @@ export default function Hero({ profile, badges }) {
       </div>
       <aside className="hero-panel" aria-label="Portfolio focus">
         <img className="profile-photo" src={profile.photo} alt={profile.photoAlt} loading="eager" />
-        <p className="panel-label">Target Roles</p>
-        <strong>Entry-Level Engineering</strong>
-        <span>Manufacturing Analytics</span>
-        <span>Quality Diagnostics</span>
-        <span>Industrial Computer Vision</span>
-        <span>PLC / Modbus Automation</span>
-        <span>Test & Validation</span>
+        <p className="panel-label">{profile.heroPanel.label}</p>
+        <strong>{profile.heroPanel.title}</strong>
+        {profile.heroPanel.items.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
       </aside>
     </section>
   );

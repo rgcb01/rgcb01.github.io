@@ -206,23 +206,100 @@ Most professional content is centralized in:
 src/data/portfolio.js
 ```
 
-Key data objects:
+Project case study pages are centralized in:
+
+```txt
+src/data/caseStudies.js
+```
+
+Key professional data objects:
 
 - `profile`
+- `siteMeta`
+- `about`
 - `heroBadges`
 - `highlights`
 - `featuredProjects`
 - `publications`
 - `githubActivity`
-- `caseStudies`
-- `personalProfile`
 - `upcomingProjects`
 - `roadmap`
 - `experiences`
 - `skillGroups`
 - `certifications`
+- `awards`
+- `credentialBadges`
 
 Use accurate project statuses such as `Released`, `Working Prototype`, `In Development` and `Planned`. Portfolio experiments should clearly state when they use synthetic data or software-in-the-loop validation.
+
+### To Add a New Professional Project
+
+1. Add a project object to `featuredProjects` in `src/data/portfolio.js`.
+2. Put the screenshot or visual asset in `public/assets/projects/`.
+3. Add a matching case study object to `src/data/caseStudies.js`.
+4. Add repository, DOI or evidence links only when they exist.
+5. Run `npm run build`.
+6. Push to `main` so GitHub Actions deploys the site.
+
+Recommended project fields:
+
+```js
+{
+  title,
+  status,
+  statusClass,
+  problem,
+  solution,
+  tags,
+  evidence,
+  github,
+  caseStudy,
+  caseStudyLabel,
+  screenshot,
+  screenshotAlt,
+  note
+}
+```
+
+### To Add a Certification
+
+1. Add a certification object to `certifications` in `src/data/portfolio.js`.
+2. Add the certificate image under `public/assets/certificates/` when available.
+3. Add the credential URL or credential ID when available.
+4. Run `npm run build` and deploy.
+
+### To Add an Award or Recognition
+
+1. Add an award object to `awards` in `src/data/portfolio.js`.
+2. Add a verification URL only if there is a public one.
+3. Run `npm run build` and deploy.
+
+### To Update Experience
+
+1. Edit or add an object in `experiences` in `src/data/portfolio.js`.
+2. Update `profile.headline`, `profile.summary` or `profile.availability.text` if your target role changes.
+3. Hide availability by setting `profile.availability.visible` to `false`.
+4. Run `npm run build` and deploy.
+
+### To Update Resume / CV
+
+Replace:
+
+```txt
+public/assets/resume/romulo-colorado-resume.pdf
+```
+
+Then update `profile.resumePath` in `src/data/portfolio.js` only if the filename changes.
+
+### To Add a Dedicated Social Preview Image
+
+Add:
+
+```txt
+public/assets/social/portfolio-preview.png
+```
+
+Then update `siteMeta.socialImage` in `src/data/portfolio.js`. Until then, the site uses the professional profile photo as the social preview fallback.
 
 ## Notes
 

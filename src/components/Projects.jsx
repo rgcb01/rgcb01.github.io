@@ -1,6 +1,6 @@
 export default function Projects({ upcomingProjects }) {
   return (
-    <section className="section compact-section" id="engineering-activity">
+    <section className="section compact-section" id="next-direction">
       <div className="section-heading">
         <p className="eyebrow">Next Engineering Direction</p>
         <h2>Portfolio progression toward test, validation and semiconductor manufacturing data.</h2>

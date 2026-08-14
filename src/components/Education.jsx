@@ -15,7 +15,7 @@ export default function Education({ education }) {
           <p className="meta">
             {education.dates} | {education.location}
           </p>
-          <span className="recognition-badge">{education.recognition}</span>
+          {education.recognition ? <span className="recognition-badge">{education.recognition}</span> : null}
         </div>
       </article>
     </section>

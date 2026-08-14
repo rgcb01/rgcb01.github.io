@@ -4,22 +4,47 @@ export const profile = {
   email: "rgcb01@live.com.mx",
   linkedin: "https://www.linkedin.com/in/rgcb",
   github: "https://github.com/rgcb01",
-  resumePath: "#contact",
+  resumePath: "/assets/resume/romulo-colorado-resume.pdf",
+  resumeLabel: "View Resume",
   photo: "/assets/profile/romulo-colorado-profile.jpg",
   photoAlt: "Professional portrait of Romulo Giancarlo Colorado Balboa.",
   headline:
     "Mechatronics Engineer | Manufacturing | Quality | Automation | Industrial Data & Vision",
   summary:
     "I build practical engineering systems that combine manufacturing data, quality engineering, computer vision, PLC automation and software tools to analyze production losses, automate industrial processes and support engineering decision-making.",
-  availability:
-    "Available for entry-level engineering opportunities in manufacturing, automation, quality, production, validation and process improvement.",
+  availability: {
+    visible: true,
+    text:
+      "Available for entry-level engineering opportunities in manufacturing, automation, quality, production, validation and process improvement.",
+  },
+  heroPanel: {
+    label: "Target Roles",
+    title: "Entry-Level Engineering",
+    items: [
+      "Manufacturing Analytics",
+      "Quality Diagnostics",
+      "Industrial Computer Vision",
+      "PLC / Modbus Automation",
+      "Test & Validation",
+    ],
+  },
+};
+
+export const siteMeta = {
+  siteUrl: "https://rgcb01.github.io",
+  title: "Romulo Colorado | Mechatronics, Manufacturing & Automation Engineer",
+  description:
+    "Mechatronics engineering portfolio focused on manufacturing analytics, quality engineering, industrial computer vision, PLC automation, test and validation.",
+  socialImage: "/assets/profile/romulo-colorado-profile.jpg",
+  twitterCard: "summary_large_image",
+  themeColor: "#1f4e79",
 };
 
 export const navItems = [
   { label: "Home", href: "#home" },
   { label: "Projects", href: "#projects" },
-  { label: "Publications", href: "#publications" },
   { label: "Experience", href: "#experience" },
+  { label: "Publications", href: "#publications" },
   { label: "Skills", href: "#skills" },
   { label: "Credentials", href: "#certifications" },
   { label: "Contact", href: "#contact" },
@@ -63,6 +88,15 @@ export const highlights = [
     detail: "Manufacturing, quality, automation and validation roles",
   },
 ];
+
+export const about = {
+  eyebrow: "About",
+  title: "Practical engineering tools for production and quality teams.",
+  paragraphs: [
+    "I am a recently graduated Mechatronics Engineer with experience in industrial vision, automotive manufacturing support, technical documentation and cross-functional coordination. My work combines Python, OpenCV, manufacturing data analysis and structured problem solving to build practical tools for engineering decisions.",
+    "I am especially interested in entry-level roles where I can support production monitoring, quality analysis, automation projects, validation work and continuous improvement. My portfolio uses synthetic or portfolio datasets so every project is transparent, reproducible and safe to discuss in interviews.",
+  ],
+};
 
 export const recruiterSnapshot = {
   availableFor: [
@@ -252,18 +286,26 @@ export const engineeringMetrics = [
   {
     value: "95%",
     label: "Industrial vision classification accuracy",
+    context: "Recyctum industrial vision work with Python and OpenCV.",
+    sourceHref: "#experience",
   },
   {
     value: "40%",
     label: "Reduction in material classification time",
+    context: "Material classification workflow improvement at Recyctum.",
+    sourceHref: "#experience",
   },
   {
     value: "15%",
     label: "Reduction in prototype delivery time",
+    context: "FORVIA Lucid Air serial life program support.",
+    sourceHref: "#experience",
   },
   {
     value: "80-100",
     label: "Engineering changes coordinated",
+    context: "Engineering release and change coordination across internal and supplier teams.",
+    sourceHref: "#experience",
   },
 ];
 
@@ -299,8 +341,19 @@ export const education = {
   degree: "Bachelor's Degree in Mechatronics Engineering",
   dates: "2019 - 2025",
   location: "Puebla, Mexico",
-  recognition: "Premio CENEVAL al Desempeno de Excelencia - EGEL, 2025",
 };
+
+export const awards = [
+  {
+    title: "Premio CENEVAL al Desempeno de Excelencia - EGEL",
+    issuer: "CENEVAL",
+    issued: "2025",
+    category: "Academic Recognition",
+    description:
+      "Academic performance recognition connected to the EGEL professional exam.",
+    verificationUrl: "",
+  },
+];
 
 export const skillGroups = [
   {
@@ -427,14 +480,16 @@ export const certifications = [
   },
 ];
 
-export const credlyBadgeIds = [
-  "95a74172-2d89-4da6-aa0f-6767840e1ae4",
-  "9a4cb8cd-628f-4a15-a56b-8f1751a4d7f7",
-  "81d1985d-fa62-488e-9b0b-808df047bf97",
-  "d41d8656-5e83-4904-8211-ff6e56b2dcc4",
-  "80e03361-1634-464d-96a8-7feda88d2bb6",
-  "7ae696ff-4463-47c7-9ed7-978fbb212ecc",
-  "e997c114-bcf3-4e50-9fe3-ff944e308176",
-  "df4c78a0-90f2-4091-ba3e-d6b32c8f87a8",
-  "a80d7fc3-bde1-497b-a15b-a02014e161e9",
+export const credentialBadges = [
+  { id: "95a74172-2d89-4da6-aa0f-6767840e1ae4", provider: "Credly" },
+  { id: "9a4cb8cd-628f-4a15-a56b-8f1751a4d7f7", provider: "Credly" },
+  { id: "81d1985d-fa62-488e-9b0b-808df047bf97", provider: "Credly" },
+  { id: "d41d8656-5e83-4904-8211-ff6e56b2dcc4", provider: "Credly" },
+  { id: "80e03361-1634-464d-96a8-7feda88d2bb6", provider: "Credly" },
+  { id: "7ae696ff-4463-47c7-9ed7-978fbb212ecc", provider: "Credly" },
+  { id: "e997c114-bcf3-4e50-9fe3-ff944e308176", provider: "Credly" },
+  { id: "df4c78a0-90f2-4091-ba3e-d6b32c8f87a8", provider: "Credly" },
+  { id: "a80d7fc3-bde1-497b-a15b-a02014e161e9", provider: "Credly" },
 ];
+
+export const credlyBadgeIds = credentialBadges.map((badge) => badge.id);

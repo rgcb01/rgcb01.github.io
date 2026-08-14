@@ -10,6 +10,8 @@ export default function EngineeringNumbers({ metrics }) {
           <article className="number-card" key={metric.label}>
             <strong>{metric.value}</strong>
             <span>{metric.label}</span>
+            {metric.context ? <p>{metric.context}</p> : null}
+            {metric.sourceHref ? <a href={metric.sourceHref}>View evidence</a> : null}
           </article>
         ))}
       </div>
