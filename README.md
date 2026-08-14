@@ -54,9 +54,26 @@ npm run build
 
 The build creates `dist/404.html` from the compiled app so GitHub Pages can serve SPA routes such as `/personal` and `/projects/manufacturing-oee-dashboard`.
 
-## Trophy Room
+## Personal Console Home and Trophy Room
 
-The personal site includes a PlayStation Trophy Room at `/personal/trophies`.
+The personal site includes a public console-style home at `/personal` and a PlayStation Trophy Room at `/personal/trophies`.
+
+The `/personal` home derives live widgets from the generated Trophy Room summary files when available:
+
+- player stats
+- latest platinum
+- recently played games
+- closest-to-platinum candidates
+- recent trophy activity
+- personal milestones
+
+Manual personal content remains in:
+
+```txt
+src/data/personal.js
+```
+
+Use this file for authored build-log entries, currently-into items, player thoughts, roadmap labels and manual milestone definitions. Do not copy generated PSN trophy totals into manual data.
 
 Its data is intentionally split into three layers:
 

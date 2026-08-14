@@ -88,8 +88,8 @@ export default function App() {
 
   if (path === "/personal") {
     setPageMeta(
-      "Romulo Colorado | Player Profile",
-      "Personal space for gaming, media, devlogs, roadmaps and experiments.",
+      "Romulo Colorado | Console Home",
+      "Personal console home for rgcb01 with Trophy Room data, recent gaming activity, build log, media notes and personal milestones.",
       { path: "/personal" }
     );
     return <PersonalPage />;

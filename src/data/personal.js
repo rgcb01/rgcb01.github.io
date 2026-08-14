@@ -1,55 +1,48 @@
 export const personalProfile = {
   name: "Romulo Colorado",
+  handle: "rgcb01",
   introLines: ["Engineer by profession.", "Builder by curiosity.", "Player by nature."],
-  status: "ONLINE / EXPLORING",
-  currently: ["Building things", "Playing games", "Chasing platinum trophies", "Learning whatever catches my attention"],
-  fields: [
-    { label: "Current Focus", value: "Personal profile V0.2" },
-    { label: "Mode", value: "Manual log" },
-    { label: "Location", value: "Puebla, Mexico" },
-  ],
+  status: "ONLINE",
+  statusChips: ["ONLINE", "PSN LINKED", "PROFILE SYNCED"],
+  location: "Puebla, Mexico",
+  currentGameOverride: null,
 };
 
-export const currentlyPlaying = [];
+export const manualActivity = [
+  {
+    type: "build",
+    label: "BUILD LOG",
+    title: "Separating professional mode from personal mode",
+    detail: "The public site now has a recruiter portfolio and a personal console layer with different jobs.",
+    date: "2026-08-13",
+    href: "/personal#build-log",
+    source: "LOCAL",
+  },
+  {
+    type: "build",
+    label: "BUILD LOG",
+    title: "Industrial Automation Cell Simulator notes",
+    detail: "State-machine debugging notes from the OpenPLC / Modbus simulator work.",
+    date: "2026-08-13",
+    href: "https://github.com/rgcb01/industrial-automation-cell-simulator",
+    source: "LOCAL",
+  },
+];
 
-export const gamingLibrary = {
-  platforms: ["PlayStation", "Steam"],
-  categories: [
-    {
-      title: "Recently Played",
-      items: [],
-      empty: "No sessions logged yet.",
-    },
-    {
-      title: "Completed",
-      items: [],
-      empty: "Completed games will be added manually.",
-    },
-    {
-      title: "Platinum Targets",
-      items: [],
-      empty: "No platinum target selected yet.",
-    },
-    {
-      title: "Backlog / Next Games",
-      items: [],
-      empty: "Backlog entries coming soon.",
-    },
-  ],
+export const currentlyInto = {
+  playing: [],
+  watching: [],
+  reading: [],
+  listening: [],
 };
 
-export const playerNotes = [];
-
-export const mediaLog = {
-  watchingNow: [],
-  recentlyWatched: [],
-  favorites: [],
-};
+export const playerThoughts = [];
 
 export const devlogEntries = [
   {
     date: "2026-08-13",
     project: "Industrial Automation Cell Simulator",
+    category: "AUTOMATION",
     title: "The interesting part was the state bug",
     summary:
       "Spent a long stretch chasing PLC state behavior. The lesson was less about one bug and more about how quickly duplicated state becomes impossible to reason about.",
@@ -59,6 +52,7 @@ export const devlogEntries = [
   {
     date: "2026-08-13",
     project: "Portfolio",
+    category: "SITE",
     title: "Separating professional mode from personal mode",
     summary:
       "The professional site needs to stay clean for recruiters, but the personal page can become a small console for games, media and experiments.",
@@ -69,39 +63,71 @@ export const devlogEntries = [
 
 export const personalRoadmap = [
   {
-    stage: "Now",
-    status: "Active",
-    items: ["Polish personal profile", "Update CV", "Keep personal data manual and honest"],
+    stage: "Live",
+    status: "Running",
+    items: ["Player Profile", "PSN Sync", "Trophy Room", "IGDB Enrichment", "Game Detail Pages"],
+  },
+  {
+    stage: "Building",
+    status: "In Progress",
+    items: ["Console Home", "Manual Game Reviews", "IGDB Match Cleanup", "Recent Activity"],
   },
   {
     stage: "Next",
-    status: "Planned",
-    items: ["Add real gaming entries", "Add media notes", "Expand devlog"],
+    status: "Queued",
+    items: ["Steam Integration", "Media Tracking", "Personal Milestones"],
   },
   {
     stage: "Later",
-    status: "Future",
-    items: ["PlayStation integration", "Steam integration", "Trophy / achievement tracking", "Life Console prototype"],
+    status: "Concept",
+    items: ["Life Console", "XP / Daily Check-In", "Questlines", "Seasons", "Save Data"],
   },
 ];
 
-export const achievementPreview = [
+export const milestoneDefinitions = [
   {
-    title: "Achievement Slot",
-    state: "Locked",
-    rarity: "System Preview",
-    description: "Future milestone slot for verified games, projects and personal systems.",
-  },
-  {
-    title: "Rare Slot",
-    state: "Locked",
-    rarity: "Rare",
-    description: "Reserved for meaningful milestones, not filler stats.",
-  },
-  {
-    title: "Platinum Slot",
-    state: "Locked",
+    title: "25 Platinums",
+    type: "platinum",
+    value: 25,
     rarity: "Platinum",
-    description: "Eventually this will track verified long-form goals.",
+    description: "Unlocked when the PSN profile reaches 25 earned platinum trophies.",
+  },
+  {
+    title: "80 Games Tracked",
+    type: "game-count",
+    value: 80,
+    rarity: "Rare",
+    description: "Unlocked when the generated Trophy Room tracks at least 80 trophy titles.",
+  },
+  {
+    title: "2,500 Trophies",
+    type: "trophy-count",
+    value: 2500,
+    rarity: "Epic",
+    description: "Future trophy-count milestone derived from the synced PSN profile.",
+  },
+  {
+    title: "Trophy Room Online",
+    type: "manual",
+    value: 1,
+    current: 1,
+    rarity: "System",
+    description: "Unlocked when the public PSN-powered Trophy Room became available.",
+  },
+  {
+    title: "Personal Console Online",
+    type: "manual",
+    value: 1,
+    current: 1,
+    rarity: "System",
+    description: "Unlocked when /personal became the public console home layer.",
+  },
+  {
+    title: "First Published Engineering Paper",
+    type: "manual",
+    value: 1,
+    current: 1,
+    rarity: "Legendary",
+    description: "Unlocked by publishing the classical computer vision inspection paper with DOI.",
   },
 ];

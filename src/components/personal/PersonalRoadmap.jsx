@@ -7,7 +7,7 @@ export default function PersonalRoadmap({ roadmap }) {
       </div>
       <div className="game-roadmap">
         {roadmap.map((stage) => (
-          <article className="console-card" key={stage.stage}>
+          <article className={`console-card roadmap-state-card ${stage.stage.toLowerCase()}`} key={stage.stage}>
             <div className="card-topline">
               <span>{stage.stage}</span>
               <em>{stage.status}</em>

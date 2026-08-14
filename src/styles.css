@@ -921,8 +921,15 @@ h3 {
 
 .personal-hero h1 {
   color: #f8fbff;
-  font-size: clamp(3rem, 7vw, 6.4rem);
+  font-size: 4.6rem;
   line-height: 0.95;
+}
+
+.player-handle {
+  margin: 12px 0 0;
+  color: #67e8f9;
+  font-size: 1.25rem;
+  font-weight: 900;
 }
 
 .personal-hero p,
@@ -1022,7 +1029,7 @@ h3 {
 }
 
 .player-stat-grid.compact {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .console-grid.two {
@@ -1042,6 +1049,13 @@ h3 {
 .game-row,
 .player-notes-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.console-home-gaming-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .personal-section {
@@ -1193,6 +1207,102 @@ h3 {
   margin: 5px 0 8px;
   color: #f8fbff;
   font-size: 1.08rem;
+}
+
+.console-game-link {
+  color: inherit;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.mini-progress-track {
+  width: 100%;
+  height: 7px;
+  margin: 10px 0;
+  overflow: hidden;
+  border: 1px solid rgba(142, 219, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.58);
+}
+
+.mini-progress-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1578ff, #8edbff);
+  box-shadow: 0 0 14px rgba(21, 120, 255, 0.34);
+}
+
+.closest-platinum-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.currently-into-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.into-item span {
+  margin-bottom: 2px;
+}
+
+.activity-feed {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.activity-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.42);
+  color: inherit;
+}
+
+.activity-row:hover {
+  border-color: rgba(103, 232, 249, 0.46);
+}
+
+.activity-row span,
+.activity-meta b {
+  display: inline-flex;
+  color: #67e8f9;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.activity-row strong {
+  display: block;
+  margin-top: 5px;
+  color: #f8fbff;
+}
+
+.activity-row p {
+  margin: 6px 0 0;
+  color: #9fb1ca;
+}
+
+.activity-meta {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  color: #9fb1ca;
+  text-align: right;
+}
+
+.activity-meta em {
+  font-style: normal;
+  font-weight: 750;
 }
 
 .library-column {
@@ -1843,6 +1953,66 @@ h3 {
   border: 1px solid rgba(142, 219, 255, 0.08);
   border-radius: 8px;
   pointer-events: none;
+}
+
+.console-home-trophy-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr) auto;
+  gap: 18px;
+  align-items: center;
+}
+
+.trophy-preview-main {
+  position: relative;
+  z-index: 1;
+}
+
+.sync-caption {
+  display: inline-flex;
+  margin-top: 12px;
+  color: var(--ps-muted);
+  font-size: 0.84rem;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.home-trophy-feature-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-trophy-mini {
+  padding: 14px;
+  box-shadow: none;
+}
+
+.home-trophy-mini a {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+  color: inherit;
+}
+
+.home-trophy-mini img,
+.home-trophy-mini .cover-fallback {
+  width: 58px;
+  border-radius: 6px;
+}
+
+.home-trophy-mini strong {
+  margin-top: 0;
+  font-size: 0.95rem;
+}
+
+.home-trophy-mini em {
+  color: var(--ps-cyan);
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 850;
 }
 
 .trophy-room-link,
@@ -2618,11 +2788,15 @@ h3 {
   .trophy-stat-grid,
   .trophy-feature-grid,
   .trophy-gallery,
-  .trophy-library,
-  .review-stat-grid,
-  .library-grid,
-  .game-row,
-  .player-notes-grid,
+    .trophy-library,
+    .review-stat-grid,
+    .library-grid,
+    .console-home-gaming-grid,
+    .currently-into-grid,
+    .console-home-trophy-card,
+    .home-trophy-feature-grid,
+    .game-row,
+    .player-notes-grid,
   .game-roadmap,
   .console-grid.two,
   .console-grid.three,
@@ -2690,7 +2864,20 @@ h3 {
   .trophy-preview-card,
   .trophy-game-hero-grid {
     align-items: stretch;
+  }
+
+  .trophy-preview-card,
+  .trophy-game-hero-grid {
     flex-direction: column;
+  }
+
+  .activity-row {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-meta {
+    justify-items: start;
+    text-align: left;
   }
 }
 
@@ -2760,10 +2947,13 @@ h3 {
   .trophy-stat-grid,
   .trophy-feature-grid,
   .trophy-gallery,
-  .trophy-library,
-  .review-stat-grid,
-  .library-grid,
-  .game-row,
+    .trophy-library,
+    .review-stat-grid,
+    .library-grid,
+    .console-home-gaming-grid,
+    .currently-into-grid,
+    .home-trophy-feature-grid,
+    .game-row,
   .player-notes-grid,
   .game-roadmap,
   .console-grid.two,
@@ -2785,7 +2975,7 @@ h3 {
   }
 
   .personal-hero h1 {
-    font-size: clamp(2.55rem, 16vw, 4.2rem);
+    font-size: 3.1rem;
   }
 
   .player-status-card,

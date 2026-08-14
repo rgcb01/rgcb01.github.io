@@ -1,17 +1,22 @@
-export default function AchievementsPreview({ achievements }) {
+function progressText(achievement) {
+  if (achievement.unlocked) return "Unlocked";
+  return `${achievement.current || 0}/${achievement.value}`;
+}
+
+export default function AchievementsPreview({ achievements, loading }) {
   return (
-    <section className="personal-section">
+    <section className="personal-section" id="milestones">
       <div className="personal-heading">
-        <p className="console-kicker">Achievements</p>
-        <h2>System preview for future milestones across projects, games and life.</h2>
+        <p className="console-kicker">Personal Milestones</p>
+        <h2>Real public milestones from PSN progress and portfolio history.</h2>
       </div>
       <div className="achievement-grid">
         {achievements.map((achievement) => (
-          <article className={`achievement-card ${achievement.state.toLowerCase()}`} key={achievement.title}>
+          <article className={`achievement-card ${achievement.unlocked ? "unlocked" : "locked"}`} key={achievement.title}>
             <span>{achievement.rarity}</span>
             <strong>{achievement.title}</strong>
             <p>{achievement.description}</p>
-            <em>{achievement.state}</em>
+            <em>{loading ? "Syncing" : progressText(achievement)}</em>
           </article>
         ))}
       </div>
