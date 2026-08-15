@@ -883,7 +883,7 @@ h3 {
 }
 
 .personal-hero {
-  padding: 52px 0 24px;
+  padding: 42px 0 18px;
 }
 
 .personal-back {
@@ -921,7 +921,7 @@ h3 {
 
 .personal-hero h1 {
   color: #f8fbff;
-  font-size: 4.6rem;
+  font-size: clamp(3rem, 7vw, 4.35rem);
   line-height: 0.95;
 }
 
@@ -941,7 +941,7 @@ h3 {
 
 .player-status-card {
   align-self: stretch;
-  padding: 24px;
+  padding: 20px;
   border: 1px solid rgba(103, 232, 249, 0.28);
   border-radius: 8px;
   background:
@@ -1059,7 +1059,7 @@ h3 {
 }
 
 .personal-section {
-  padding: 40px 0;
+  padding: 34px 0;
 }
 
 .platform-status-section {
@@ -2397,6 +2397,192 @@ h3 {
   font-weight: 800;
 }
 
+.console-route-page .personal-section:first-of-type {
+  padding-top: 26px;
+}
+
+.console-home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(320px, 0.78fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.console-home-layout.lower {
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.86fr);
+}
+
+.console-home-block {
+  min-width: 0;
+}
+
+.continue-grid,
+.home-current-grid,
+.console-app-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.continue-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.continue-card {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 118px;
+  padding: 14px;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.continue-card:hover,
+.home-current-item:hover,
+.console-app-tile:hover,
+.achievement-feature-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(103, 232, 249, 0.48);
+  background:
+    linear-gradient(145deg, rgba(21, 120, 255, 0.14), transparent 42%),
+    rgba(15, 23, 42, 0.76);
+}
+
+.continue-card img,
+.continue-card .cover-fallback,
+.home-current-item img,
+.home-current-item .cover-fallback,
+.achievement-feature-card img,
+.achievement-feature-card .cover-fallback {
+  width: 72px;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(214, 237, 255, 0.18);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.continue-card span,
+.home-current-item span,
+.achievement-feature-card span,
+.console-app-tile span,
+.route-note-card span {
+  color: #67e8f9;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.continue-card strong,
+.home-current-item strong,
+.achievement-feature-card strong,
+.console-app-tile strong,
+.route-note-card strong {
+  display: block;
+  margin-top: 4px;
+  color: #f8fbff;
+}
+
+.continue-card p,
+.home-current-item p,
+.achievement-feature-card p,
+.console-app-tile p,
+.route-note-card p {
+  margin: 5px 0 0;
+  color: #9fb1ca;
+}
+
+.achievement-feature-card {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 228px;
+  padding: 16px;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.achievement-feature-card img,
+.achievement-feature-card .cover-fallback {
+  width: 96px;
+  aspect-ratio: 3 / 4;
+}
+
+.achievement-feature-card em {
+  display: block;
+  margin-top: 8px;
+  color: #d7e7f9;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.achievement-feature-card a {
+  display: inline-flex;
+  margin-top: 14px;
+  color: #dff6ff;
+  font-weight: 900;
+}
+
+.console-home-band {
+  padding-top: 18px;
+}
+
+.home-current-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.home-current-item {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 104px;
+  padding: 14px;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.home-current-item img,
+.home-current-item .cover-fallback {
+  width: 64px;
+}
+
+.home-activity-feed {
+  margin-top: 0;
+}
+
+.console-app-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.console-app-tile {
+  position: relative;
+  display: grid;
+  min-height: 136px;
+  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(96, 165, 250, 0.08), transparent 40%),
+    rgba(15, 23, 42, 0.68);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.console-app-tile em {
+  align-self: end;
+  color: #dff6ff;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.route-note-card {
+  padding: 20px;
+}
+
+.route-activity-feed {
+  margin-top: 18px;
+}
+
 .gaming-hub-hero {
   padding-bottom: 12px;
 }
@@ -3051,6 +3237,9 @@ h3 {
     .gaming-profile-grid,
     .gaming-platform-grid,
     .steam-library-grid,
+    .console-home-layout,
+    .console-home-layout.lower,
+    .home-current-grid,
     .game-row,
     .player-notes-grid,
   .game-roadmap,
@@ -3145,6 +3334,11 @@ h3 {
     grid-column: 2;
     text-align: left;
   }
+
+  .continue-grid,
+  .console-app-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 560px) {
@@ -3223,6 +3417,9 @@ h3 {
     .gaming-profile-grid,
     .gaming-platform-grid,
     .steam-library-grid,
+    .console-home-layout,
+    .console-home-layout.lower,
+    .home-current-grid,
     .game-row,
   .player-notes-grid,
   .game-roadmap,
@@ -3278,6 +3475,28 @@ h3 {
   .steam-library-card img,
   .steam-library-card .cover-fallback {
     width: 72px;
+  }
+
+  .continue-card,
+  .home-current-item {
+    grid-template-columns: 62px minmax(0, 1fr);
+  }
+
+  .continue-card img,
+  .continue-card .cover-fallback,
+  .home-current-item img,
+  .home-current-item .cover-fallback {
+    width: 62px;
+  }
+
+  .achievement-feature-card {
+    grid-template-columns: 82px minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .achievement-feature-card img,
+  .achievement-feature-card .cover-fallback {
+    width: 82px;
   }
 
   .trophy-feature-layout {

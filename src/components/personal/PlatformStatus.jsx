@@ -7,7 +7,7 @@ export default function PlatformStatus({ accounts }) {
         {entries.map(([key, account]) => (
           <a
             className={`platform-status-pill ${account.enabled ? "connected" : "future"}`}
-            href={account.publicProfile || "/personal#roadmap"}
+            href={account.publicProfile || "/personal/system"}
             key={key}
           >
             <span>{account.label}</span>

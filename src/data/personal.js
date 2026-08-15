@@ -15,7 +15,7 @@ export const manualActivity = [
     title: "Separating professional mode from personal mode",
     detail: "The public site now has a recruiter portfolio and a personal console layer with different jobs.",
     date: "2026-08-13",
-    href: "/personal#build-log",
+    href: "/personal/builds",
     source: "LOCAL",
   },
   {

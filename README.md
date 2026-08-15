@@ -54,18 +54,31 @@ npm run build
 
 The build creates `dist/404.html` from the compiled app so GitHub Pages can serve SPA routes such as `/personal` and `/projects/manufacturing-oee-dashboard`.
 
-## Personal Console Home and Trophy Room
+## Personal Console Routes
 
-The personal site includes a public console-style home at `/personal`, a cross-platform Gaming Hub at `/personal/gaming`, and a PlayStation Trophy Room at `/personal/trophies`.
+The personal site is organized like a console home with dedicated apps/sections:
 
-The `/personal` home derives live widgets from the generated Trophy Room summary files when available:
+```txt
+/personal                  summary dashboard
+/personal/gaming           cross-platform Gaming Hub
+/personal/trophies         PlayStation Trophy Room
+/personal/trophies/<slug>  individual PlayStation trophy/game files
+/personal/media            current media shelf
+/personal/activity         full activity timeline
+/personal/thoughts         player thoughts
+/personal/builds           personal build log
+/personal/system           platform status, roadmap and milestones
+```
 
-- player stats
-- latest platinum
-- recently played games
-- closest-to-platinum candidates
-- recent PlayStation and Steam activity
-- personal milestones
+The `/personal` home is intentionally short. It only shows the most important current information:
+
+- player identity and highest-value stats
+- Continue widget
+- latest achievement
+- compact Currently Into preview
+- recent activity preview
+- Console Apps launchers
+- optional platform status strip
 
 Manual personal content remains in:
 
@@ -73,13 +86,24 @@ Manual personal content remains in:
 src/data/personal.js
 ```
 
-Use this file for authored build-log entries, currently-into items, player thoughts, roadmap labels and manual milestone definitions. Do not copy generated PSN trophy totals into manual data.
+Use this file for authored build-log entries, currently-into items, player thoughts, roadmap labels and manual milestone definitions. Do not copy generated PSN or Steam totals into manual data.
 
 Its data is intentionally split into three layers:
 
 - PSN data: trophy facts synchronized by `scripts/sync-trophies.mjs` with `psn-api`.
 - IGDB data: game metadata and images enriched during sync through Twitch/IGDB credentials.
 - Manual data: personal ratings, reviews and opinions in `src/data/trophies/personalTrophyData.js`.
+
+Full content belongs on dedicated routes:
+
+- Gaming overview: `src/components/personal/GamingHub.jsx`
+- Media shelf: `src/components/personal/MediaHub.jsx`
+- Activity timeline: `src/components/personal/ActivityPage.jsx`
+- Thoughts: `src/components/personal/ThoughtsPage.jsx`
+- Build log: `src/components/personal/BuildLogPage.jsx`
+- System/roadmap/milestones: `src/components/personal/SystemPage.jsx`
+
+Home widgets live in `src/components/personal/ConsoleHomeWidgets.jsx` and should stay compact. If a widget needs more than five records, move the full version to its dedicated route.
 
 Generated external data is written only to:
 

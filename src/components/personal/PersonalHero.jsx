@@ -20,10 +20,10 @@ export default function PersonalHero({ profile, trophyData = emptyTrophyData }) 
     return true;
   });
   const stats = [
-    { label: "PSN", value: trophyData.psnOnlineId || handle },
     { label: "Platinums", value: trophyData.loading ? "Syncing" : formatNumber(trophyData.platinumCount) },
-    { label: "Games", value: trophyData.loading ? "Syncing" : formatNumber(trophyData.gameCount) },
+    ...(trophyData.steamConnected ? [{ label: "Steam Games", value: formatNumber(trophyData.steamSummary?.ownedGames || 0) }] : []),
     { label: "Trophies", value: trophyData.loading ? "Syncing" : formatNumber(trophyData.totalTrophies) },
+    { label: "Platforms", value: formatNumber(Object.values(trophyData.platformAccounts || {}).filter((account) => account.enabled).length || 1) },
   ];
 
   return (
@@ -50,7 +50,7 @@ export default function PersonalHero({ profile, trophyData = emptyTrophyData }) 
           <strong>{profile.status}</strong>
           <ul>
             <li>Life is the game. RGCB is the console.</li>
-            <li>{trophyData.hasRealData ? "PSN profile data loaded from the generated Trophy Room summary." : "Trophy data temporarily unavailable on this build."}</li>
+            <li>{trophyData.steamConnected ? "PlayStation and Steam are synced into the console home." : trophyData.hasRealData ? "PlayStation profile data loaded from the generated Trophy Room summary." : "Trophy data temporarily unavailable on this build."}</li>
             {profile.location ? <li>{profile.location}</li> : null}
           </ul>
         </aside>

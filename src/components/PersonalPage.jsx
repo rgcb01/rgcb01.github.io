@@ -1,14 +1,13 @@
-import AchievementsPreview from "./personal/AchievementsPreview.jsx";
-import DevlogSection from "./personal/DevlogSection.jsx";
-import GamingSection from "./personal/GamingSection.jsx";
-import MediaSection from "./personal/MediaSection.jsx";
+import {
+  ConsoleApps,
+  ContinueWidget,
+  CurrentlyIntoPreview,
+  LatestAchievementWidget,
+  RecentActivityPreview,
+} from "./personal/ConsoleHomeWidgets.jsx";
 import PersonalHero from "./personal/PersonalHero.jsx";
 import PersonalNav from "./personal/PersonalNav.jsx";
-import PlayerNotes from "./personal/PlayerNotes.jsx";
-import PersonalRoadmap from "./personal/PersonalRoadmap.jsx";
 import PlatformStatus from "./personal/PlatformStatus.jsx";
-import RecentActivity from "./personal/RecentActivity.jsx";
-import TrophyRoomPreview from "./personal/TrophyRoomPreview.jsx";
 import { useGamingData } from "./personal/useGamingData.js";
 import {
   currentlyInto,
@@ -16,7 +15,6 @@ import {
   manualActivity,
   milestoneDefinitions,
   personalProfile,
-  personalRoadmap,
   playerThoughts,
 } from "../data/personal.js";
 
@@ -26,30 +24,21 @@ export default function PersonalPage() {
     milestoneDefinitions,
     currentGameOverride: personalProfile.currentGameOverride,
   });
-  const roadmap = personalRoadmap.map((stage) => {
-    if (!trophyData.steamConnected) return stage;
-    if (stage.stage === "Live") {
-      return { ...stage, items: [...new Set([...stage.items, "Steam Sync"])] };
-    }
-    if (stage.stage === "Building") {
-      return { ...stage, items: stage.items.filter((item) => item !== "Steam Sync") };
-    }
-    return stage;
-  });
 
   return (
     <main className="personal-page">
       <PersonalHero profile={personalProfile} trophyData={trophyData} />
       <PersonalNav />
       <PlatformStatus accounts={trophyData.platformAccounts} />
-      <TrophyRoomPreview trophyData={trophyData} />
-      <GamingSection trophyData={trophyData} />
-      <RecentActivity events={trophyData.activity} loading={trophyData.loading} error={trophyData.error} />
-      <MediaSection media={currentlyInto} recentlyPlayed={trophyData.recentlyPlayed} />
-      <PlayerNotes notes={playerThoughts} />
-      <DevlogSection entries={devlogEntries} />
-      <PersonalRoadmap roadmap={roadmap} />
-      <AchievementsPreview achievements={trophyData.milestones} loading={trophyData.loading} />
+      <section className="personal-section console-home-layout" aria-label="Console dashboard">
+        <ContinueWidget trophyData={trophyData} media={currentlyInto} devlogEntries={devlogEntries} />
+        <LatestAchievementWidget trophyData={trophyData} />
+      </section>
+      <CurrentlyIntoPreview media={currentlyInto} recentlyPlayed={trophyData.recentlyPlayed} />
+      <section className="personal-section console-home-layout lower" aria-label="Console launchers and activity">
+        <RecentActivityPreview events={trophyData.activity} />
+        <ConsoleApps trophyData={trophyData} devlogEntries={devlogEntries} thoughts={playerThoughts} />
+      </section>
     </main>
   );
 }

@@ -5,7 +5,12 @@ import Projects from "./components/Projects.jsx";
 import Publications from "./components/Publications.jsx";
 import GitHubActivity from "./components/GitHubActivity.jsx";
 import PersonalPage from "./components/PersonalPage.jsx";
+import ActivityPage from "./components/personal/ActivityPage.jsx";
+import BuildLogPage from "./components/personal/BuildLogPage.jsx";
 import GamingHub from "./components/personal/GamingHub.jsx";
+import MediaHub from "./components/personal/MediaHub.jsx";
+import SystemPage from "./components/personal/SystemPage.jsx";
+import ThoughtsPage from "./components/personal/ThoughtsPage.jsx";
 import TrophyRoom from "./components/personal/trophies/TrophyRoom.jsx";
 import TrophyGamePage from "./components/personal/trophies/TrophyGamePage.jsx";
 import ProjectCaseStudy from "./components/projects/ProjectCaseStudy.jsx";
@@ -89,8 +94,8 @@ export default function App() {
 
   if (path === "/personal") {
     setPageMeta(
-      "Romulo Colorado | Console Home",
-      "Personal console home for rgcb01 with Trophy Room data, recent gaming activity, build log, media notes and personal milestones.",
+      "Romulo Colorado | Personal Console",
+      "Summary dashboard for rgcb01 with current activity, latest achievement, media context and launchers into dedicated console sections.",
       { path: "/personal" }
     );
     return <PersonalPage />;
@@ -103,6 +108,51 @@ export default function App() {
       { path: "/personal/gaming" }
     );
     return <GamingHub />;
+  }
+
+  if (path === "/personal/media") {
+    setPageMeta(
+      "Romulo Colorado | Media",
+      "Personal media hub for current games, watching, reading and listening notes.",
+      { path: "/personal/media" }
+    );
+    return <MediaHub />;
+  }
+
+  if (path === "/personal/activity") {
+    setPageMeta(
+      "Romulo Colorado | Activity",
+      "Personal console activity timeline across gaming, builds and local notes.",
+      { path: "/personal/activity" }
+    );
+    return <ActivityPage />;
+  }
+
+  if (path === "/personal/thoughts") {
+    setPageMeta(
+      "Romulo Colorado | Player Thoughts",
+      "Short personal notes for games, design observations and project ideas.",
+      { path: "/personal/thoughts" }
+    );
+    return <ThoughtsPage />;
+  }
+
+  if (path === "/personal/builds") {
+    setPageMeta(
+      "Romulo Colorado | Build Log",
+      "Personal build log for projects, experiments and debugging notes.",
+      { path: "/personal/builds" }
+    );
+    return <BuildLogPage />;
+  }
+
+  if (path === "/personal/system") {
+    setPageMeta(
+      "Romulo Colorado | Console System",
+      "Personal console system page for platform connections, roadmap and milestones.",
+      { path: "/personal/system" }
+    );
+    return <SystemPage />;
   }
 
   if (path === "/personal/trophies") {

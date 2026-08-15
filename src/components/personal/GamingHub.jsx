@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import CoverFallback from "./CoverFallback.jsx";
+import GamingSection from "./GamingSection.jsx";
 import PersonalNav from "./PersonalNav.jsx";
 import PlatformStatus from "./PlatformStatus.jsx";
 import { useGamingData } from "./useGamingData.js";
@@ -144,6 +145,8 @@ export default function GamingHub() {
           )}
         </article>
       </section>
+
+      <GamingSection trophyData={gamingData} />
 
       <section className="personal-section">
         <div className="personal-heading">
