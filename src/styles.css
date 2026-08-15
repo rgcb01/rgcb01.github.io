@@ -1062,6 +1062,48 @@ h3 {
   padding: 40px 0;
 }
 
+.platform-status-section {
+  padding-top: 22px;
+  padding-bottom: 18px;
+}
+
+.platform-status-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.platform-status-pill {
+  display: grid;
+  gap: 5px;
+  min-height: 74px;
+  padding: 14px;
+  border: 1px solid rgba(96, 181, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(7, 22, 52, 0.48);
+  color: #d7e7f9;
+}
+
+.platform-status-pill.connected {
+  border-color: rgba(142, 219, 255, 0.46);
+  background:
+    linear-gradient(135deg, rgba(21, 120, 255, 0.2), rgba(7, 22, 52, 0.58)),
+    rgba(7, 22, 52, 0.58);
+}
+
+.platform-status-pill span {
+  color: var(--ps-cyan);
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.platform-status-pill strong {
+  color: var(--ps-text);
+  font-size: 0.96rem;
+}
+
 .personal-heading h2 {
   max-width: 760px;
   color: #f8fbff;
@@ -1354,6 +1396,32 @@ h3 {
 
 .note-card p b {
   color: #e5eefb;
+}
+
+.review-text-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.review-text-block {
+  padding: 14px;
+  border: 1px solid rgba(142, 219, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(2, 9, 25, 0.42);
+}
+
+.review-text-block span {
+  display: block;
+  color: var(--ps-cyan);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.review-text-block p {
+  margin: 8px 0 0;
 }
 
 .achievement-card.locked {
@@ -2795,6 +2863,7 @@ h3 {
     .currently-into-grid,
     .console-home-trophy-card,
     .home-trophy-feature-grid,
+    .platform-status-strip,
     .game-row,
     .player-notes-grid,
   .game-roadmap,
@@ -2953,6 +3022,7 @@ h3 {
     .console-home-gaming-grid,
     .currently-into-grid,
     .home-trophy-feature-grid,
+    .platform-status-strip,
     .game-row,
   .player-notes-grid,
   .game-roadmap,

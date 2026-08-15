@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { normalizePlayStationGame } from "../../data/gaming.js";
 import { loadJson, byDateNewest } from "./trophies/trophyUtils.js";
 
 function trophyTotal(profile) {
@@ -149,6 +150,7 @@ export function useTrophyData({ manualActivity = [], milestoneDefinitions = [], 
     const closestToPlatinum = deriveClosestToPlatinum(state.games);
     const activity = deriveActivity({ profile: state.profile, games: state.games, manualActivity, latestPlatinum });
     const milestones = deriveMilestones(state.profile, state.games, milestoneDefinitions);
+    const normalizedGames = state.games.map((game) => normalizePlayStationGame(game));
 
     return {
       ...state,
@@ -162,6 +164,7 @@ export function useTrophyData({ manualActivity = [], milestoneDefinitions = [], 
       currentHunt,
       recentlyPlayed,
       closestToPlatinum,
+      normalizedGames,
       activity,
       milestones,
       trophyLevel: state.profile?.profile?.trophyLevel || null,

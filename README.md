@@ -153,6 +153,7 @@ Use the PSN `npCommunicationId` as the key. These values are never overwritten b
 ```js
 export const personalTrophyData = {
   "NPWR00000_00": {
+    sourceGameId: "igdb:12345",
     rating: 9,
     platinumRating: null,
     difficulty: 4,
@@ -161,6 +162,10 @@ export const personalTrophyData = {
     missables: null,
     wouldPlatinumAgain: true,
     favoriteTrophy: "",
+    whatILiked: "",
+    whatDidntWork: "",
+    favoriteMoment: "",
+    platinumWorthIt: "",
     review: "",
     developerTake: "",
     favorite: false,
@@ -170,6 +175,62 @@ export const personalTrophyData = {
 ```
 
 The current platinum hunt can be set manually with `trophyRoomSettings.currentPlatinumHunt`. If it is left `null`, the UI uses a conservative recent-progress heuristic and leaves the slot empty when a single candidate is not clear.
+
+### Gaming V0.4 Multi-Platform Foundation
+
+The gaming system is PlayStation-first today, but records are prepared for a platform-agnostic model:
+
+```txt
+platform account progress -> normalized game identity -> IGDB metadata + local RGCB review
+```
+
+Public account configuration lives in:
+
+```txt
+src/data/gaming.js
+```
+
+This file may contain public usernames and enabled/disabled flags. It must not contain secrets.
+
+Current platform state:
+
+- PlayStation: connected through PSN sync and Trophy Room.
+- Steam: optional future integration through the official Steam Web API.
+- Xbox: future integration only; do not use unofficial profile scraping.
+- Epic: future/manual support only unless an appropriate official API is available.
+
+Future Steam sync should use repository secrets or environment variables:
+
+```bash
+STEAM_API_KEY=
+STEAM_ID=
+```
+
+Expected Steam generated record shape:
+
+```js
+{
+  source: "steam",
+  appId,
+  name,
+  playtimeMinutes,
+  recentlyPlayed,
+  achievements: {
+    earned,
+    total,
+    percent
+  }
+}
+```
+
+Keep terminology source-specific:
+
+- PlayStation uses trophies and platinum.
+- Steam uses achievements.
+- Xbox uses achievements and gamerscore.
+- Epic uses achievements.
+
+Do not calculate one combined cross-platform completion percentage. Platform progress stays separate even when games share IGDB metadata.
 
 ### GitHub Actions Trophy Sync
 

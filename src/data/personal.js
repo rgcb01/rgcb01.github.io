@@ -65,22 +65,22 @@ export const personalRoadmap = [
   {
     stage: "Live",
     status: "Running",
-    items: ["Player Profile", "PSN Sync", "Trophy Room", "IGDB Enrichment", "Game Detail Pages"],
+    items: ["PlayStation Sync", "Trophy Room", "IGDB Enrichment", "Console Home", "Game Detail Pages"],
   },
   {
     stage: "Building",
     status: "In Progress",
-    items: ["Console Home", "Manual Game Reviews", "IGDB Match Cleanup", "Recent Activity"],
+    items: ["IGDB Cleanup", "Manual Reviews", "Multi-Platform Identity Model", "Recent Activity"],
   },
   {
     stage: "Next",
     status: "Queued",
-    items: ["Steam Integration", "Media Tracking", "Personal Milestones"],
+    items: ["Steam Integration", "Media APIs", "Canonical Gaming Hub"],
   },
   {
     stage: "Later",
     status: "Concept",
-    items: ["Life Console", "XP / Daily Check-In", "Questlines", "Seasons", "Save Data"],
+    items: ["Xbox Integration", "Epic Support", "Life Console", "XP / Daily Check-In", "Questlines"],
   },
 ];
 

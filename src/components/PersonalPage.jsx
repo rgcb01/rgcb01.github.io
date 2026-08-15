@@ -6,9 +6,11 @@ import PersonalHero from "./personal/PersonalHero.jsx";
 import PersonalNav from "./personal/PersonalNav.jsx";
 import PlayerNotes from "./personal/PlayerNotes.jsx";
 import PersonalRoadmap from "./personal/PersonalRoadmap.jsx";
+import PlatformStatus from "./personal/PlatformStatus.jsx";
 import RecentActivity from "./personal/RecentActivity.jsx";
 import TrophyRoomPreview from "./personal/TrophyRoomPreview.jsx";
 import { useTrophyData } from "./personal/useTrophyData.js";
+import { gamingAccounts } from "../data/gaming.js";
 import {
   currentlyInto,
   devlogEntries,
@@ -30,6 +32,7 @@ export default function PersonalPage() {
     <main className="personal-page">
       <PersonalHero profile={personalProfile} trophyData={trophyData} />
       <PersonalNav />
+      <PlatformStatus accounts={gamingAccounts} />
       <TrophyRoomPreview trophyData={trophyData} />
       <GamingSection trophyData={trophyData} />
       <RecentActivity events={trophyData.activity} loading={trophyData.loading} error={trophyData.error} />

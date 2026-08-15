@@ -409,8 +409,16 @@ function buildGameRecord(title, enrichment, trophies, playedGame, recentGame, sy
 
   return {
     id: `playstation:${psnTitleId}`,
+    internalGameId: igdb?.igdbId ? `igdb:${igdb.igdbId}` : `psn:${psnTitleId}`,
     source: "playstation",
     slug,
+    identities: {
+      psn: {
+        titleId: psnTitleId,
+        serviceName: title.npServiceName,
+      },
+      ...(igdb?.igdbId ? { igdb: { id: igdb.igdbId } } : {}),
+    },
     sources: {
       psnTitleId,
       psnServiceName: title.npServiceName,

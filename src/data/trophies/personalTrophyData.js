@@ -13,6 +13,7 @@ export const trophyRoomSettings = {
 export const personalTrophyData = {};
 
 export const emptyPersonalTrophyEntry = {
+  sourceGameId: null,
   rating: null,
   platinumRating: null,
   difficulty: null,
@@ -21,6 +22,10 @@ export const emptyPersonalTrophyEntry = {
   missables: null,
   wouldPlatinumAgain: null,
   favoriteTrophy: null,
+  whatILiked: "",
+  whatDidntWork: "",
+  favoriteMoment: "",
+  platinumWorthIt: "",
   review: "",
   developerTake: "",
   favorite: false,
