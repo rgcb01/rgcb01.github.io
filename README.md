@@ -56,7 +56,7 @@ The build creates `dist/404.html` from the compiled app so GitHub Pages can serv
 
 ## Personal Console Home and Trophy Room
 
-The personal site includes a public console-style home at `/personal` and a PlayStation Trophy Room at `/personal/trophies`.
+The personal site includes a public console-style home at `/personal`, a cross-platform Gaming Hub at `/personal/gaming`, and a PlayStation Trophy Room at `/personal/trophies`.
 
 The `/personal` home derives live widgets from the generated Trophy Room summary files when available:
 
@@ -64,7 +64,7 @@ The `/personal` home derives live widgets from the generated Trophy Room summary
 - latest platinum
 - recently played games
 - closest-to-platinum candidates
-- recent trophy activity
+- recent PlayStation and Steam activity
 - personal milestones
 
 Manual personal content remains in:
@@ -88,6 +88,12 @@ public/data/generated/
   psn-profile.json
   trophy-games.json
   trophy-details/
+  steam/
+    profile.json
+    games.json
+    recently-played.json
+    summary.json
+    achievements/
 ```
 
 These files must be safe to publish. Do not put NPSSO values, access tokens, refresh tokens, IGDB client secrets or Twitch secrets in React, public JSON, generated HTML or committed source files.
@@ -176,12 +182,12 @@ export const personalTrophyData = {
 
 The current platinum hunt can be set manually with `trophyRoomSettings.currentPlatinumHunt`. If it is left `null`, the UI uses a conservative recent-progress heuristic and leaves the slot empty when a single candidate is not clear.
 
-### Gaming V0.4 Multi-Platform Foundation
+### Gaming V0.5 Steam Integration
 
-The gaming system is PlayStation-first today, but records are prepared for a platform-agnostic model:
+The gaming system is PlayStation-first for trophy depth, with Steam added as the second live platform for library, playtime and achievement context:
 
 ```txt
-platform account progress -> normalized game identity -> IGDB metadata + local RGCB review
+GitHub Actions -> platform APIs -> sanitized generated JSON -> React / GitHub Pages
 ```
 
 Public account configuration lives in:
@@ -195,18 +201,29 @@ This file may contain public usernames and enabled/disabled flags. It must not c
 Current platform state:
 
 - PlayStation: connected through PSN sync and Trophy Room.
-- Steam: optional future integration through the official Steam Web API.
+- Steam: optional live sync through the official Steam Web API.
 - Xbox: future integration only; do not use unofficial profile scraping.
 - Epic: future/manual support only unless an appropriate official API is available.
 
-Future Steam sync should use repository secrets or environment variables:
+Steam sync uses repository secrets or local environment variables:
 
 ```bash
 STEAM_API_KEY=
 STEAM_ID=
 ```
 
-Expected Steam generated record shape:
+Generated Steam files are written to:
+
+```txt
+public/data/generated/steam/
+  profile.json
+  games.json
+  recently-played.json
+  summary.json
+  achievements/
+```
+
+Expected Steam game record shape:
 
 ```js
 {
@@ -214,14 +231,25 @@ Expected Steam generated record shape:
   appId,
   name,
   playtimeMinutes,
+  playtimeHours,
+  iconUrl,
+  logoUrl,
+  lastPlayed,
   recentlyPlayed,
   achievements: {
     earned,
     total,
-    percent
+    percent,
+    perfect
   }
 }
 ```
+
+The script uses only official Steam Web API endpoints: `IPlayerService/GetOwnedGames`, `IPlayerService/GetRecentlyPlayedGames`, `ISteamUserStats/GetPlayerAchievements`, and `ISteamUser/GetPlayerSummaries`. It does not scrape Steam pages, use cookies, or write the API key into generated JSON.
+
+Steam achievement refresh is intentionally bounded. The sync refreshes recent and most-played games first, reuses existing generated achievement summaries when available, and marks unavailable achievement data as `null` instead of treating it as zero. A Steam perfect game means achievement data exists, the game has at least one achievement, and all achievements are earned. It is not a PlayStation platinum.
+
+Steam data depends on Steam privacy visibility. If credentials are missing, Steam is private, or Steam API calls fail, the build keeps working with safe unavailable placeholders or the last generated dataset.
 
 Keep terminology source-specific:
 
@@ -232,9 +260,17 @@ Keep terminology source-specific:
 
 Do not calculate one combined cross-platform completion percentage. Platform progress stays separate even when games share IGDB metadata.
 
-### GitHub Actions Trophy Sync
+### GitHub Actions Gaming Sync
 
-The deploy workflow runs on pushes, manual `workflow_dispatch`, and every 8 hours. When all trophy secrets are present, it synchronizes PSN and IGDB data before building the Pages artifact. Generated JSON is included in the deployment artifact and is not committed back to the repository by the workflow.
+The deploy workflow runs on pushes, manual `workflow_dispatch`, and every 8 hours. When the required secrets are present, it synchronizes PSN, IGDB and Steam data before building the Pages artifact. Generated JSON is included in the deployment artifact and is not committed back to the repository by the workflow.
+
+Validation commands:
+
+```bash
+npm run validate:trophies
+npm run validate:steam
+npm run build
+```
 
 ## Deploy
 

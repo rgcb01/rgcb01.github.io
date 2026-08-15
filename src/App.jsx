@@ -5,6 +5,7 @@ import Projects from "./components/Projects.jsx";
 import Publications from "./components/Publications.jsx";
 import GitHubActivity from "./components/GitHubActivity.jsx";
 import PersonalPage from "./components/PersonalPage.jsx";
+import GamingHub from "./components/personal/GamingHub.jsx";
 import TrophyRoom from "./components/personal/trophies/TrophyRoom.jsx";
 import TrophyGamePage from "./components/personal/trophies/TrophyGamePage.jsx";
 import ProjectCaseStudy from "./components/projects/ProjectCaseStudy.jsx";
@@ -93,6 +94,15 @@ export default function App() {
       { path: "/personal" }
     );
     return <PersonalPage />;
+  }
+
+  if (path === "/personal/gaming") {
+    setPageMeta(
+      "Romulo Colorado | Gaming Hub",
+      "Cross-platform gaming hub for rgcb01 with PlayStation trophy data and Steam library, playtime and achievement summaries.",
+      { path: "/personal/gaming" }
+    );
+    return <GamingHub />;
   }
 
   if (path === "/personal/trophies") {

@@ -1,10 +1,9 @@
 const links = [
   { label: "Home", href: "/personal#home" },
+  { label: "Gaming", href: "/personal/gaming" },
   { label: "Trophies", href: "/personal/trophies" },
-  { label: "Gaming", href: "/personal#gaming" },
   { label: "Activity", href: "/personal#activity" },
   { label: "Media", href: "/personal#media" },
-  { label: "Thoughts", href: "/personal#thoughts" },
   { label: "Build Log", href: "/personal#build-log" },
   { label: "System", href: "/personal#roadmap" },
 ];

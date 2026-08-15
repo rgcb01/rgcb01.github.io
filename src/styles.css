@@ -1091,6 +1091,13 @@ h3 {
     rgba(7, 22, 52, 0.58);
 }
 
+.platform-status-pill[href="/personal/gaming"].connected {
+  border-color: rgba(125, 211, 252, 0.5);
+  background:
+    linear-gradient(135deg, rgba(28, 120, 168, 0.24), rgba(9, 23, 42, 0.72)),
+    rgba(7, 22, 52, 0.58);
+}
+
 .platform-status-pill span {
   color: var(--ps-cyan);
   font-size: 0.74rem;
@@ -2390,6 +2397,183 @@ h3 {
   font-weight: 800;
 }
 
+.gaming-hub-hero {
+  padding-bottom: 12px;
+}
+
+.gaming-hub-hero h1 {
+  max-width: 980px;
+}
+
+.gaming-profile-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.gaming-platform-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gaming-platform-grid .currently-playing-panel {
+  margin-top: 0;
+}
+
+.steam-panel {
+  border-color: rgba(125, 211, 252, 0.28);
+  background:
+    linear-gradient(135deg, rgba(28, 120, 168, 0.12), transparent 48%),
+    rgba(8, 13, 24, 0.72);
+}
+
+.console-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  margin-top: 14px;
+  padding: 8px 12px;
+  border: 1px solid rgba(103, 232, 249, 0.28);
+  border-radius: 8px;
+  color: #dff6ff;
+  font-weight: 900;
+}
+
+.console-action-link:hover {
+  border-color: rgba(103, 232, 249, 0.6);
+  background: rgba(103, 232, 249, 0.08);
+}
+
+.gaming-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.gaming-filter-row button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.68);
+  color: #cbd5e1;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.gaming-filter-row button.active,
+.gaming-filter-row button:hover {
+  border-color: rgba(103, 232, 249, 0.55);
+  background: rgba(103, 232, 249, 0.1);
+  color: #f8fbff;
+}
+
+.steam-library-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.steam-library-card {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 152px;
+  padding: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(24, 83, 119, 0.16), transparent 45%),
+    rgba(15, 23, 42, 0.68);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.steam-library-card.perfect {
+  border-color: rgba(103, 232, 249, 0.48);
+}
+
+.steam-library-card img,
+.steam-library-card .cover-fallback {
+  width: 84px;
+  aspect-ratio: 3 / 4;
+  border: 1px solid rgba(214, 237, 255, 0.16);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.steam-library-card h3 {
+  margin: 8px 0 6px;
+  color: #f8fbff;
+  font-size: 1rem;
+}
+
+.steam-library-card strong {
+  color: #dff6ff;
+}
+
+.steam-library-card p,
+.steam-library-card small {
+  display: block;
+  margin: 5px 0 0;
+  color: #9fb1ca;
+}
+
+.steam-leaderboard {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.steam-rank-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 110px 190px;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 12px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.66);
+}
+
+.steam-rank-row b {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(103, 232, 249, 0.28);
+  border-radius: 999px;
+  color: #67e8f9;
+}
+
+.steam-rank-row strong {
+  color: #f8fbff;
+}
+
+.steam-rank-row span {
+  color: #dff6ff;
+  font-weight: 900;
+  text-align: right;
+}
+
+.steam-rank-row em {
+  color: #9fb1ca;
+  font-style: normal;
+  text-align: right;
+}
+
+.cross-platform-card span {
+  color: #67e8f9;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
 .roadmap-timeline {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2864,6 +3048,9 @@ h3 {
     .console-home-trophy-card,
     .home-trophy-feature-grid,
     .platform-status-strip,
+    .gaming-profile-grid,
+    .gaming-platform-grid,
+    .steam-library-grid,
     .game-row,
     .player-notes-grid,
   .game-roadmap,
@@ -2948,6 +3135,16 @@ h3 {
     justify-items: start;
     text-align: left;
   }
+
+  .steam-rank-row {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .steam-rank-row span,
+  .steam-rank-row em {
+    grid-column: 2;
+    text-align: left;
+  }
 }
 
 @media (max-width: 560px) {
@@ -3023,6 +3220,9 @@ h3 {
     .currently-into-grid,
     .home-trophy-feature-grid,
     .platform-status-strip,
+    .gaming-profile-grid,
+    .gaming-platform-grid,
+    .steam-library-grid,
     .game-row,
   .player-notes-grid,
   .game-roadmap,
@@ -3069,6 +3269,15 @@ h3 {
   .trophy-game-card img,
   .trophy-game-card .cover-fallback {
     width: 82px;
+  }
+
+  .steam-library-card {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .steam-library-card img,
+  .steam-library-card .cover-fallback {
+    width: 72px;
   }
 
   .trophy-feature-layout {

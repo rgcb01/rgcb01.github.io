@@ -9,8 +9,9 @@ export const gamingAccounts = {
   steam: {
     enabled: false,
     label: "Steam",
-    status: "Not connected",
+    status: "Unavailable",
     requiredConfig: ["STEAM_API_KEY", "STEAM_ID"],
+    publicProfile: "/personal/gaming",
   },
   xbox: {
     enabled: false,
@@ -116,5 +117,55 @@ export function normalizePlayStationGame(game) {
         platinumEarned: Boolean(game?.trophyProgress?.platinumEarned),
       },
     ],
+  };
+}
+
+export function normalizeSteamGame(game) {
+  const appId = game?.appId || game?.identities?.steam?.appId;
+  const igdbId = game?.igdb?.igdbId || game?.identities?.igdb?.id;
+
+  return {
+    internalGameId: game?.internalGameId || canonicalGameId({ igdbId, steamAppId: appId }),
+    igdbId,
+    title: game?.name || "Untitled Steam game",
+    metadata: {
+      source: igdbId ? "igdb" : "steam",
+      status: game?.sync?.enrichmentStatus || "unknown",
+    },
+    identities: {
+      steam: appId ? { appId } : undefined,
+      igdb: igdbId ? { id: igdbId } : undefined,
+    },
+    platformProgress: [
+      {
+        source: "steam",
+        label: "Steam achievements",
+        percent: game?.achievements?.percent ?? null,
+        earned: game?.achievements?.earned ?? null,
+        total: game?.achievements?.total ?? null,
+        perfect: Boolean(game?.achievements?.perfect),
+        playtimeMinutes: game?.playtimeMinutes ?? null,
+        playtimeHours: game?.playtimeHours ?? null,
+      },
+    ],
+  };
+}
+
+export function platformAccountsFromData({ psnOnlineId, steamProfile, steamSummary }) {
+  const steamConnected = Boolean(steamSummary?.available && steamSummary?.synchronized);
+  return {
+    ...gamingAccounts,
+    playstation: {
+      ...gamingAccounts.playstation,
+      enabled: true,
+      username: psnOnlineId || gamingAccounts.playstation.username,
+      status: "Connected",
+    },
+    steam: {
+      ...gamingAccounts.steam,
+      enabled: steamConnected,
+      username: steamConnected ? steamProfile?.personaName || "Connected" : null,
+      status: steamConnected ? "Connected" : "Unavailable",
+    },
   };
 }

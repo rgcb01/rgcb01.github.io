@@ -9,8 +9,7 @@ import PersonalRoadmap from "./personal/PersonalRoadmap.jsx";
 import PlatformStatus from "./personal/PlatformStatus.jsx";
 import RecentActivity from "./personal/RecentActivity.jsx";
 import TrophyRoomPreview from "./personal/TrophyRoomPreview.jsx";
-import { useTrophyData } from "./personal/useTrophyData.js";
-import { gamingAccounts } from "../data/gaming.js";
+import { useGamingData } from "./personal/useGamingData.js";
 import {
   currentlyInto,
   devlogEntries,
@@ -22,24 +21,34 @@ import {
 } from "../data/personal.js";
 
 export default function PersonalPage() {
-  const trophyData = useTrophyData({
+  const trophyData = useGamingData({
     manualActivity,
     milestoneDefinitions,
     currentGameOverride: personalProfile.currentGameOverride,
+  });
+  const roadmap = personalRoadmap.map((stage) => {
+    if (!trophyData.steamConnected) return stage;
+    if (stage.stage === "Live") {
+      return { ...stage, items: [...new Set([...stage.items, "Steam Sync"])] };
+    }
+    if (stage.stage === "Building") {
+      return { ...stage, items: stage.items.filter((item) => item !== "Steam Sync") };
+    }
+    return stage;
   });
 
   return (
     <main className="personal-page">
       <PersonalHero profile={personalProfile} trophyData={trophyData} />
       <PersonalNav />
-      <PlatformStatus accounts={gamingAccounts} />
+      <PlatformStatus accounts={trophyData.platformAccounts} />
       <TrophyRoomPreview trophyData={trophyData} />
       <GamingSection trophyData={trophyData} />
       <RecentActivity events={trophyData.activity} loading={trophyData.loading} error={trophyData.error} />
       <MediaSection media={currentlyInto} recentlyPlayed={trophyData.recentlyPlayed} />
       <PlayerNotes notes={playerThoughts} />
       <DevlogSection entries={devlogEntries} />
-      <PersonalRoadmap roadmap={personalRoadmap} />
+      <PersonalRoadmap roadmap={roadmap} />
       <AchievementsPreview achievements={trophyData.milestones} loading={trophyData.loading} />
     </main>
   );

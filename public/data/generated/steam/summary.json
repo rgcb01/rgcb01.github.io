@@ -1,0 +1,21 @@
+{
+  "source": "steam",
+  "synchronized": false,
+  "available": false,
+  "status": "unavailable",
+  "ownedGames": 0,
+  "totalPlaytimeMinutes": 0,
+  "totalPlaytimeHours": 0,
+  "recentlyPlayedCount": 0,
+  "gamesWithAchievementData": 0,
+  "totalAchievementsEarned": 0,
+  "totalAchievementsAvailable": 0,
+  "perfectGames": 0,
+  "igdbMatched": 0,
+  "igdbAmbiguous": 0,
+  "igdbUnresolved": 0,
+  "achievementCoverageLimited": true,
+  "lastSyncedAt": null,
+  "generatedAt": "2026-08-15T03:45:55.506Z",
+  "reason": "Steam credentials are not configured."
+}

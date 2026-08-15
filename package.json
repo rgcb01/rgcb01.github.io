@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build && node scripts/copy-404.mjs",
     "sync:trophies": "node scripts/sync-trophies.mjs",
+    "sync:steam": "node scripts/sync-steam.mjs",
     "validate:trophies": "node scripts/validate-trophy-data.mjs",
+    "validate:steam": "node scripts/validate-steam-data.mjs",
     "preview": "vite preview",
     "deploy": "npm run build"
   },

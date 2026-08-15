@@ -3,7 +3,7 @@ export const personalProfile = {
   handle: "rgcb01",
   introLines: ["Engineer by profession.", "Builder by curiosity.", "Player by nature."],
   status: "ONLINE",
-  statusChips: ["ONLINE", "PSN LINKED", "PROFILE SYNCED"],
+  statusChips: ["ONLINE", "PSN LINKED", "STEAM READY", "PROFILE SYNCED"],
   location: "Puebla, Mexico",
   currentGameOverride: null,
 };
@@ -65,22 +65,22 @@ export const personalRoadmap = [
   {
     stage: "Live",
     status: "Running",
-    items: ["PlayStation Sync", "Trophy Room", "IGDB Enrichment", "Console Home", "Game Detail Pages"],
+    items: ["PlayStation Sync", "Trophy Room", "IGDB Enrichment", "Console Home", "Gaming Hub"],
   },
   {
     stage: "Building",
     status: "In Progress",
-    items: ["IGDB Cleanup", "Manual Reviews", "Multi-Platform Identity Model", "Recent Activity"],
+    items: ["Steam Sync", "Steam Achievement Coverage", "IGDB Cleanup", "Manual Reviews"],
   },
   {
     stage: "Next",
     status: "Queued",
-    items: ["Steam Integration", "Media APIs", "Canonical Gaming Hub"],
+    items: ["Last.fm", "TMDB / Media"],
   },
   {
     stage: "Later",
     status: "Concept",
-    items: ["Xbox Integration", "Epic Support", "Life Console", "XP / Daily Check-In", "Questlines"],
+    items: ["Xbox", "Epic", "Life Console"],
   },
 ];
 

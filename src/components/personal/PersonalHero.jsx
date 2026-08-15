@@ -14,7 +14,11 @@ const emptyTrophyData = {
 export default function PersonalHero({ profile, trophyData = emptyTrophyData }) {
   const handle = profile.handle || trophyData.psnOnlineId || "rgcb01";
   const showStats = trophyData !== emptyTrophyData;
-  const statusChips = (profile.statusChips || ["ONLINE"]).filter((chip) => chip !== "PROFILE SYNCED" || trophyData.hasRealData);
+  const statusChips = (profile.statusChips || ["ONLINE"]).filter((chip) => {
+    if (chip === "PROFILE SYNCED") return trophyData.hasRealData;
+    if (chip === "STEAM READY") return trophyData.steamConnected;
+    return true;
+  });
   const stats = [
     { label: "PSN", value: trophyData.psnOnlineId || handle },
     { label: "Platinums", value: trophyData.loading ? "Syncing" : formatNumber(trophyData.platinumCount) },
