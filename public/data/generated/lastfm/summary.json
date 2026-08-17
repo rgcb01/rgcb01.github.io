@@ -1,0 +1,9 @@
+{
+  "source": "lastfm",
+  "synchronized": false,
+  "available": false,
+  "username": null,
+  "status": "unavailable",
+  "generatedAt": "2026-08-17T07:14:50.196Z",
+  "reason": "Last.fm credentials are not configured."
+}

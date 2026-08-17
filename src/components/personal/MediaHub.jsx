@@ -1,7 +1,8 @@
 import ConsoleRouteShell from "./ConsoleRouteShell.jsx";
 import MediaSection from "./MediaSection.jsx";
 import { useGamingData } from "./useGamingData.js";
-import { currentlyInto, manualActivity, milestoneDefinitions, personalProfile } from "../../data/personal.js";
+import { useMediaData } from "./useMediaData.js";
+import { currentlyInto, manualActivity, mediaLibrary, milestoneDefinitions, personalProfile } from "../../data/personal.js";
 
 export default function MediaHub() {
   const gamingData = useGamingData({
@@ -9,21 +10,15 @@ export default function MediaHub() {
     milestoneDefinitions,
     currentGameOverride: personalProfile.currentGameOverride,
   });
+  const mediaData = useMediaData({ manualMedia: mediaLibrary, legacyCurrentlyInto: currentlyInto });
 
   return (
     <ConsoleRouteShell
       kicker="Media Hub"
       title="Currently into."
-      subtitle="Manual shelves for games, watching, reading and listening."
+      subtitle="Live listening, enriched media metadata and manual personal status kept separate."
     >
-      <MediaSection media={currentlyInto} recentlyPlayed={gamingData.recentlyPlayed} />
-      <section className="personal-section">
-        <article className="console-card route-note-card">
-          <span>Next</span>
-          <strong>Media APIs stay out of this milestone.</strong>
-          <p>Last.fm, TMDB and reading integrations can plug into this route later without crowding the console home.</p>
-        </article>
-      </section>
+      <MediaSection media={currentlyInto} recentlyPlayed={gamingData.recentlyPlayed} mediaData={mediaData} />
     </ConsoleRouteShell>
   );
 }

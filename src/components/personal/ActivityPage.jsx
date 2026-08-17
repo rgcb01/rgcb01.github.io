@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import ConsoleRouteShell from "./ConsoleRouteShell.jsx";
 import { useGamingData } from "./useGamingData.js";
-import { devlogEntries, manualActivity, milestoneDefinitions, personalProfile } from "../../data/personal.js";
+import { useMediaData } from "./useMediaData.js";
+import { currentlyInto, devlogEntries, manualActivity, mediaLibrary, milestoneDefinitions, personalProfile } from "../../data/personal.js";
 import { formatDate } from "./trophies/trophyUtils.js";
 
 function buildEvents(entries) {
@@ -46,14 +47,15 @@ export default function ActivityPage() {
     milestoneDefinitions,
     currentGameOverride: personalProfile.currentGameOverride,
   });
+  const mediaData = useMediaData({ manualMedia: mediaLibrary, legacyCurrentlyInto: currentlyInto });
   const [filter, setFilter] = useState("ALL");
   const filters = ["ALL", "GAMING", "BUILD", "MEDIA", "THOUGHTS", "SYSTEM"];
   const events = useMemo(() => {
-    const merged = [...gamingData.activity, ...buildEvents(devlogEntries)]
+    const merged = [...gamingData.activity, ...mediaData.activity, ...buildEvents(devlogEntries)]
       .filter((event, index, list) => list.findIndex((item) => `${item.title}-${item.date}` === `${event.title}-${event.date}`) === index)
       .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
     return filter === "ALL" ? merged : merged.filter((event) => groupFor(event) === filter);
-  }, [gamingData.activity, filter]);
+  }, [gamingData.activity, mediaData.activity, filter]);
 
   return (
     <ConsoleRouteShell

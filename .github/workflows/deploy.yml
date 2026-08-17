@@ -25,6 +25,9 @@ jobs:
       IGDB_CLIENT_SECRET: ${{ secrets.IGDB_CLIENT_SECRET }}
       STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
       STEAM_ID: ${{ secrets.STEAM_ID }}
+      LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+      LASTFM_USERNAME: ${{ secrets.LASTFM_USERNAME }}
+      TMDB_READ_ACCESS_TOKEN: ${{ secrets.TMDB_READ_ACCESS_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,6 +64,15 @@ jobs:
       - name: Skip Steam sync
         if: ${{ env.STEAM_API_KEY == '' || env.STEAM_ID == '' }}
         run: npm run sync:steam
+      - name: Sync media data
+        id: media_sync
+        continue-on-error: true
+        run: npm run sync:media
+      - name: Report media sync failure
+        if: ${{ steps.media_sync.outcome == 'failure' }}
+        run: |
+          echo "Media synchronization failed. The Pages build will continue when safe generated media placeholders or cached data are available."
+          echo "Check LASTFM_API_KEY, LASTFM_USERNAME, TMDB_READ_ACCESS_TOKEN, and manual media IDs if this repeats."
       - name: Validate trophy data
         run: npm run validate:trophies
       - name: Validate Steam data
@@ -69,6 +81,8 @@ jobs:
         run: npm run validate:portfolio
       - name: Validate personal data
         run: npm run validate:personal
+      - name: Validate media data
+        run: npm run validate:media
       - name: Build
         run: npm run build
       - name: Setup Pages

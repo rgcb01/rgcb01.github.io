@@ -1,0 +1,8 @@
+{
+  "source": "tmdb",
+  "synchronized": false,
+  "available": false,
+  "generatedAt": "2026-08-17T07:14:50.205Z",
+  "items": [],
+  "reason": "TMDB token is not configured."
+}

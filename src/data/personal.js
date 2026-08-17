@@ -36,6 +36,11 @@ export const currentlyInto = {
   listening: [],
 };
 
+export const mediaLibrary = {
+  watching: [],
+  reading: [],
+};
+
 export const playerThoughts = [];
 
 export const devlogEntries = [
@@ -65,17 +70,17 @@ export const personalRoadmap = [
   {
     stage: "Live",
     status: "Running",
-    items: ["PlayStation Sync", "Trophy Room", "IGDB Enrichment", "Console Home", "Gaming Hub"],
+    items: ["PlayStation Sync", "Trophy Room", "IGDB Enrichment", "Console Home", "Gaming Hub", "Media Hub"],
   },
   {
     stage: "Building",
     status: "In Progress",
-    items: ["Steam Sync", "Steam Achievement Coverage", "IGDB Cleanup", "Manual Reviews"],
+    items: ["Steam Sync", "Steam Achievement Coverage", "Last.fm Sync", "TMDB Metadata", "Open Library Metadata", "Manual Reviews"],
   },
   {
     stage: "Next",
     status: "Queued",
-    items: ["Last.fm", "TMDB / Media"],
+    items: ["Manual media entries", "Player thoughts"],
   },
   {
     stage: "Later",

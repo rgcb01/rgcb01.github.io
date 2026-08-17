@@ -1382,6 +1382,188 @@ h3 {
   object-fit: cover;
 }
 
+.media-hub-section {
+  padding-top: 20px;
+}
+
+.media-source-chip {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 8px;
+  border: 1px solid rgba(103, 232, 249, 0.28);
+  border-radius: 999px;
+  color: #67e8f9;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.media-music-layout,
+.media-card-grid,
+.media-small-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.media-music-layout {
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  margin-top: 20px;
+}
+
+.media-now-card,
+.media-poster-card {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.media-now-card img,
+.media-now-card .cover-fallback {
+  width: 104px;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(214, 237, 255, 0.18);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.media-now-card span:not(.media-source-chip),
+.media-summary-card span,
+.media-small-tile span {
+  display: block;
+  margin-top: 8px;
+  color: #93c5fd;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.media-now-card strong,
+.media-summary-card strong,
+.media-small-tile strong,
+.media-poster-card strong {
+  display: block;
+  margin-top: 5px;
+  color: #f8fbff;
+}
+
+.media-now-card p,
+.media-summary-card p,
+.media-small-tile p,
+.media-poster-card p {
+  margin: 6px 0 0;
+  color: #9fb1ca;
+}
+
+.media-now-card em,
+.media-poster-card em {
+  display: block;
+  margin-top: 8px;
+  color: #d7e7f9;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.media-summary-card {
+  padding: 18px;
+}
+
+.media-list-block {
+  margin-top: 24px;
+}
+
+.media-list-block h3 {
+  margin: 0 0 12px;
+  color: #eaf2ff;
+  font-size: 1rem;
+}
+
+.media-track-list {
+  display: grid;
+  gap: 10px;
+}
+
+.media-track-row {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(148, 192, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(3, 12, 32, 0.58);
+  color: inherit;
+}
+
+.media-track-row:hover,
+.media-small-tile:hover,
+.media-poster-card:hover {
+  border-color: rgba(103, 232, 249, 0.48);
+  background:
+    linear-gradient(145deg, rgba(21, 120, 255, 0.14), transparent 42%),
+    rgba(15, 23, 42, 0.76);
+}
+
+.media-track-row img,
+.media-track-row .cover-fallback {
+  width: 58px;
+  aspect-ratio: 1 / 1;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.media-track-row span:not(.media-source-chip) {
+  color: #67e8f9;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.media-track-row strong {
+  display: block;
+  margin-top: 4px;
+  color: #f8fbff;
+}
+
+.media-track-row p {
+  margin: 4px 0 0;
+  color: #9fb1ca;
+}
+
+.media-small-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.media-small-tile {
+  padding: 16px;
+}
+
+.media-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 20px;
+}
+
+.media-card-grid.compact {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.media-poster-card {
+  grid-template-columns: 86px minmax(0, 1fr);
+}
+
+.media-poster-card img,
+.media-poster-card .cover-fallback {
+  width: 86px;
+  aspect-ratio: 2 / 3;
+  border: 1px solid rgba(214, 237, 255, 0.18);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
 .devlog-list {
   display: grid;
   gap: 12px;
@@ -3346,6 +3528,10 @@ h3 {
     .library-grid,
     .console-home-gaming-grid,
     .currently-into-grid,
+    .media-music-layout,
+    .media-card-grid,
+    .media-card-grid.compact,
+    .media-small-grid,
     .console-home-trophy-card,
     .home-trophy-feature-grid,
     .platform-status-strip,
@@ -3528,6 +3714,10 @@ h3 {
     .library-grid,
     .console-home-gaming-grid,
     .currently-into-grid,
+    .media-music-layout,
+    .media-card-grid,
+    .media-card-grid.compact,
+    .media-small-grid,
     .home-trophy-feature-grid,
     .platform-status-strip,
     .gaming-profile-grid,
@@ -3649,6 +3839,31 @@ h3 {
 
   .media-item {
     grid-template-columns: 54px minmax(0, 1fr);
+  }
+
+  .media-now-card,
+  .media-poster-card {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .media-now-card img,
+  .media-now-card .cover-fallback,
+  .media-poster-card img,
+  .media-poster-card .cover-fallback {
+    width: 72px;
+  }
+
+  .media-track-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .media-track-row .media-source-chip {
+    grid-column: 2;
+  }
+
+  .media-track-row img,
+  .media-track-row .cover-fallback {
+    width: 48px;
   }
 
   .case-hero {

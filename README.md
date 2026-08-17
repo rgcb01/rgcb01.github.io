@@ -126,6 +126,97 @@ Full content belongs on dedicated routes:
 
 Home widgets live in `src/components/personal/ConsoleHomeWidgets.jsx` and should stay compact. If a widget needs more than five records, move the full version to its dedicated route.
 
+## Media Integration
+
+The Media Hub keeps external metadata, external activity and manual personal status separate.
+
+Manual media state lives in:
+
+```txt
+src/data/personal.js
+```
+
+Use `mediaLibrary.watching` for movies/TV and `mediaLibrary.reading` for books. External APIs enrich only the metadata; they do not decide whether something is currently watching, watched, reading or finished.
+
+### Last.fm
+
+Last.fm powers live/recent listening, top artists, top albums and compact music activity. It uses the official Last.fm API from the static sync script and writes sanitized JSON to:
+
+```txt
+public/data/generated/lastfm/
+  profile.json
+  recent-tracks.json
+  top-artists.json
+  top-albums.json
+  summary.json
+```
+
+Expected local or GitHub Actions variables:
+
+```bash
+LASTFM_API_KEY=
+LASTFM_USERNAME=
+```
+
+The frontend never receives the API key. `Now Playing` appears only when Last.fm explicitly marks the most recent track as currently playing; otherwise the UI says `Last listened` or `Recent Track`.
+
+### TMDB
+
+TMDB powers movie and TV metadata/images for manually configured entries. It uses a read access token in the sync script and writes sanitized JSON to:
+
+```txt
+public/data/generated/media/
+  movies.json
+  tv.json
+```
+
+Expected secret:
+
+```bash
+TMDB_READ_ACCESS_TOKEN=
+```
+
+Manual entries should use stable TMDB IDs:
+
+```js
+watching: [
+  {
+    type: "tv",
+    tmdbId: 12345,
+    status: "watching",
+    progress: "Season 2",
+    rating: null,
+    favorite: false,
+    note: ""
+  }
+]
+```
+
+### Open Library
+
+Open Library powers book metadata and covers for manually configured reading entries. It does not require a secret and writes:
+
+```txt
+public/data/generated/media/books.json
+```
+
+Manual reading entries can use an Open Library Work ID or ISBN:
+
+```js
+reading: [
+  {
+    openLibraryKey: "OL12345W",
+    isbn: "",
+    status: "reading",
+    progress: 42,
+    rating: null,
+    note: ""
+  }
+]
+```
+
+If a media provider is unavailable, the site continues with safe generated placeholders or manual fallback content.
+
 Generated external data is written only to:
 
 ```txt
@@ -139,9 +230,19 @@ public/data/generated/
     recently-played.json
     summary.json
     achievements/
+  lastfm/
+    profile.json
+    recent-tracks.json
+    top-artists.json
+    top-albums.json
+    summary.json
+  media/
+    movies.json
+    tv.json
+    books.json
 ```
 
-These files must be safe to publish. Do not put NPSSO values, access tokens, refresh tokens, IGDB client secrets or Twitch secrets in React, public JSON, generated HTML or committed source files.
+These files must be safe to publish. Do not put NPSSO values, access tokens, refresh tokens, Last.fm API keys, TMDB tokens, IGDB client secrets or Twitch secrets in React, public JSON, generated HTML or committed source files.
 
 ### Trophy Room Credentials
 
@@ -314,6 +415,7 @@ Validation commands:
 ```bash
 npm run validate:portfolio
 npm run validate:personal
+npm run validate:media
 npm run validate:trophies
 npm run validate:steam
 npm run build
