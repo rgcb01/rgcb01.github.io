@@ -2,13 +2,15 @@
 
 Recruiter-first professional portfolio for Romulo Giancarlo Colorado Balboa, a Mechatronics Engineer focused on manufacturing analytics, quality engineering, industrial computer vision, PLC automation, test and validation.
 
+## Release Status
+
+Professional Portfolio v1.0 is treated as stable / maintenance mode. The recruiter-facing root experience at `/` and the professional case studies under `/projects/*` should now receive content, asset and bug-fix updates rather than redesign work.
+
+The personal console under `/personal` remains separate and is not part of the professional v1.0 freeze.
+
 ## Live Site
 
 https://rgcb01.github.io
-
-## Preview
-
-![Portfolio desktop preview](assets/screenshots/portfolio-polished-desktop.png)
 
 ## Project Overview
 
