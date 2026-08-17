@@ -25,11 +25,10 @@ function deriveLatestPlatinum(profile, games) {
     .sort((a, b) => byDateNewest(a, b, (game) => game.trophyProgress?.platinumEarnedDate))[0] || null;
 }
 
-function deriveCurrentHunt(profile, games, manualOverride) {
+function deriveCurrentHunt(games, manualOverride) {
   if (!games.length) return null;
-  const override = manualOverride ? games.find((game) => game.slug === manualOverride || game.sources?.psnTitleId === manualOverride) : null;
-  if (override) return override;
-  return games.find((game) => game.slug === profile?.stats?.currentPlatinumHuntSlug) || null;
+  if (!manualOverride) return null;
+  return games.find((game) => game.slug === manualOverride || game.sources?.psnTitleId === manualOverride) || null;
 }
 
 function deriveRecentlyPlayed(games, manualOverride) {
@@ -196,7 +195,7 @@ export function useGamingData({ manualActivity = [], milestoneDefinitions = [], 
 
   return useMemo(() => {
     const latestPlatinum = deriveLatestPlatinum(state.psnProfile, state.psnGames);
-    const currentHunt = deriveCurrentHunt(state.psnProfile, state.psnGames, currentGameOverride);
+    const currentHunt = deriveCurrentHunt(state.psnGames, currentGameOverride);
     const recentlyPlayed = deriveRecentlyPlayed(state.psnGames, currentGameOverride);
     const closestToPlatinum = deriveClosestToPlatinum(state.psnGames);
     const activity = [...derivePsnActivity({ games: state.psnGames, manualActivity, latestPlatinum }), ...deriveSteamActivity(state.steamGames)]
