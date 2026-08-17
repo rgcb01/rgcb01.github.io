@@ -2,8 +2,9 @@ const links = [
   { label: "Home", href: "/personal" },
   { label: "Gaming", href: "/personal/gaming" },
   { label: "Trophies", href: "/personal/trophies" },
-  { label: "Media", href: "/personal/media" },
   { label: "Activity", href: "/personal/activity" },
+  { label: "Media", href: "/personal/media" },
+  { label: "Thoughts", href: "/personal/thoughts" },
   { label: "Builds", href: "/personal/builds" },
   { label: "System", href: "/personal/system" },
 ];

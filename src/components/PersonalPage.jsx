@@ -4,6 +4,7 @@ import {
   CurrentlyIntoPreview,
   LatestAchievementWidget,
   RecentActivityPreview,
+  TrophyGamingOverviewWidget,
 } from "./personal/ConsoleHomeWidgets.jsx";
 import PersonalHero from "./personal/PersonalHero.jsx";
 import PersonalNav from "./personal/PersonalNav.jsx";
@@ -30,6 +31,7 @@ export default function PersonalPage() {
       <PersonalHero profile={personalProfile} trophyData={trophyData} />
       <PersonalNav />
       <PlatformStatus accounts={trophyData.platformAccounts} />
+      <TrophyGamingOverviewWidget trophyData={trophyData} />
       <section className="personal-section console-home-layout" aria-label="Console dashboard">
         <ContinueWidget trophyData={trophyData} media={currentlyInto} devlogEntries={devlogEntries} />
         <LatestAchievementWidget trophyData={trophyData} />

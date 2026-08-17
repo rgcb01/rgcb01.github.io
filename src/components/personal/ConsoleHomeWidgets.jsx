@@ -11,6 +11,14 @@ function formatHours(value) {
   return `${numeric.toFixed(numeric >= 10 ? 0 : 1)} h`;
 }
 
+function gameTitle(game) {
+  return game?.game?.title || game?.name || "Game file";
+}
+
+function gameCover(game) {
+  return game?.game?.cover || game?.game?.psnIcon || game?.cover || game?.logoUrl || game?.iconUrl || "";
+}
+
 function latestBuild(devlogEntries) {
   return devlogEntries.slice().sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))[0] || null;
 }
@@ -37,21 +45,22 @@ function currentMediaItems(media, recentlyPlayed) {
 function continueItems({ trophyData, media, devlogEntries }) {
   const items = [];
   const steamRecent = trophyData.recentSteamGames?.[0];
+  const huntPlatform = platformLabel(trophyData.currentHunt?.game?.platforms);
   const playing = trophyData.currentHunt
     ? {
         label: "Playing",
-        title: trophyData.currentHunt.game?.title || "Current hunt",
-        detail: `${platformLabel(trophyData.currentHunt.game?.platforms)} · Current hunt`,
+        title: gameTitle(trophyData.currentHunt),
+        detail: `${huntPlatform} / Current hunt`,
         href: `/personal/trophies/${trophyData.currentHunt.slug}`,
-        cover: trophyData.currentHunt.game?.cover || trophyData.currentHunt.game?.psnIcon,
+        cover: gameCover(trophyData.currentHunt),
       }
     : steamRecent
       ? {
           label: "Playing",
           title: steamRecent.name,
-          detail: `Steam · ${formatHours(steamRecent.recentPlaytimeHours || steamRecent.playtimeHours)} recent`,
+          detail: `Steam / ${formatHours(steamRecent.recentPlaytimeHours || steamRecent.playtimeHours)} recent`,
           href: "/personal/gaming",
-          cover: steamRecent.cover || steamRecent.logoUrl || steamRecent.iconUrl,
+          cover: gameCover(steamRecent),
         }
       : null;
   if (playing) items.push(playing);
@@ -78,6 +87,15 @@ function continueItems({ trophyData, media, devlogEntries }) {
   }
 
   return items.slice(0, 4);
+}
+
+function trophyStats(trophyData) {
+  return [
+    { label: "Platinums", value: formatNumber(trophyData.platinumCount) },
+    { label: "Trophies", value: formatNumber(trophyData.totalTrophies) },
+    { label: "PSN Games", value: formatNumber(trophyData.gameCount) },
+    { label: "Steam", value: trophyData.steamConnected ? formatNumber(trophyData.steamSummary?.ownedGames) : "Offline" },
+  ];
 }
 
 function latestAchievement(trophyData, milestones) {
@@ -130,6 +148,81 @@ function ContinueCard({ item }) {
         {item.detail ? <p>{item.detail}</p> : null}
       </div>
     </a>
+  );
+}
+
+export function TrophyGamingOverviewWidget({ trophyData }) {
+  const latest = trophyData.latestPlatinum;
+  const hunt = trophyData.currentHunt;
+  const sourceLabel = trophyData.hasRealData
+    ? "Synced from PSN / metadata via IGDB"
+    : "Waiting for live sync data";
+
+  return (
+    <section className="personal-section console-home-band trophy-gaming-overview" aria-label="Trophy and gaming status">
+      <div className="personal-heading compact-heading">
+        <p className="console-kicker">Gaming Status</p>
+        <h2>PlayStation-first progress, with Steam context.</h2>
+      </div>
+      <div className="trophy-gaming-grid">
+        <article className="console-card trophy-status-panel">
+          <div className="trophy-status-header">
+            <span>{sourceLabel}</span>
+            <strong>Trophy Room snapshot</strong>
+          </div>
+          <div className="trophy-mini-stat-grid">
+            {trophyStats(trophyData).map((stat) => (
+              <div className="trophy-mini-stat" key={stat.label}>
+                <b>{stat.value}</b>
+                <em>{stat.label}</em>
+              </div>
+            ))}
+          </div>
+          <div className="trophy-status-actions">
+            <a href="/personal/trophies">Open Trophy Room</a>
+            <a href="/personal/gaming">Open Gaming Hub</a>
+          </div>
+        </article>
+        <article className="console-card trophy-highlight-panel">
+          {latest ? (
+            <>
+              {gameCover(latest) ? <img src={gameCover(latest)} alt={`${gameTitle(latest)} cover`} loading="lazy" /> : <CoverFallback title={gameTitle(latest)} />}
+              <div>
+                <span>Latest Platinum</span>
+                <strong>{gameTitle(latest)}</strong>
+                <p>{latest.trophyProgress?.platinumTrophyName || "Platinum earned"}</p>
+                {latest.trophyProgress?.platinumEarnedDate ? <em>{formatDate(latest.trophyProgress.platinumEarnedDate)}</em> : null}
+              </div>
+            </>
+          ) : (
+            <div className="trophy-empty-state">
+              <span>Latest Platinum</span>
+              <strong>No synced platinum yet</strong>
+              <p>The slot fills from generated PSN timestamps after sync.</p>
+            </div>
+          )}
+        </article>
+        <article className="console-card trophy-highlight-panel">
+          {hunt ? (
+            <>
+              {gameCover(hunt) ? <img src={gameCover(hunt)} alt={`${gameTitle(hunt)} cover`} loading="lazy" /> : <CoverFallback title={gameTitle(hunt)} />}
+              <div>
+                <span>Current Hunt</span>
+                <strong>{gameTitle(hunt)}</strong>
+                <p>{hunt.trophyProgress?.progressPercent ?? 0}% complete</p>
+                <a href={`/personal/trophies/${hunt.slug}`}>Open file</a>
+              </div>
+            </>
+          ) : (
+            <div className="trophy-empty-state">
+              <span>Current Hunt</span>
+              <strong>No manual hunt selected</strong>
+              <p>Set one in personal data when there is a clear active target.</p>
+            </div>
+          )}
+        </article>
+      </div>
+    </section>
   );
 }
 

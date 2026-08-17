@@ -2440,7 +2440,9 @@ h3 {
 .continue-card:hover,
 .home-current-item:hover,
 .console-app-tile:hover,
-.achievement-feature-card:hover {
+.achievement-feature-card:hover,
+.trophy-status-panel:hover,
+.trophy-highlight-panel:hover {
   transform: translateY(-2px);
   border-color: rgba(103, 232, 249, 0.48);
   background:
@@ -2524,6 +2526,119 @@ h3 {
 
 .console-home-band {
   padding-top: 18px;
+}
+
+.trophy-gaming-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) repeat(2, minmax(220px, 0.72fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.trophy-status-panel,
+.trophy-highlight-panel {
+  min-width: 0;
+  padding: 16px;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.trophy-status-header span,
+.trophy-highlight-panel span,
+.trophy-empty-state span {
+  color: #67e8f9;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.trophy-status-header strong,
+.trophy-highlight-panel strong,
+.trophy-empty-state strong {
+  display: block;
+  margin-top: 5px;
+  color: #f8fbff;
+}
+
+.trophy-mini-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.trophy-mini-stat {
+  min-width: 0;
+  padding: 12px 10px;
+  border: 1px solid rgba(148, 192, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(3, 12, 32, 0.58);
+}
+
+.trophy-mini-stat b,
+.trophy-mini-stat em {
+  display: block;
+}
+
+.trophy-mini-stat b {
+  color: #f8fbff;
+  font-size: 1.24rem;
+  line-height: 1.1;
+}
+
+.trophy-mini-stat em {
+  margin-top: 4px;
+  color: #9fb1ca;
+  font-size: 0.76rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.trophy-status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.trophy-status-actions a,
+.trophy-highlight-panel a {
+  color: #dff6ff;
+  font-weight: 900;
+}
+
+.trophy-highlight-panel {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.trophy-highlight-panel img,
+.trophy-highlight-panel .cover-fallback {
+  width: 78px;
+  aspect-ratio: 3 / 4;
+  border: 1px solid rgba(214, 237, 255, 0.18);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.trophy-highlight-panel p,
+.trophy-empty-state p {
+  margin: 6px 0 0;
+  color: #9fb1ca;
+}
+
+.trophy-highlight-panel em {
+  display: block;
+  margin-top: 8px;
+  color: #d7e7f9;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.trophy-empty-state {
+  grid-column: 1 / -1;
 }
 
 .home-current-grid {
@@ -3239,6 +3354,7 @@ h3 {
     .steam-library-grid,
     .console-home-layout,
     .console-home-layout.lower,
+    .trophy-gaming-grid,
     .home-current-grid,
     .game-row,
     .player-notes-grid,
@@ -3419,6 +3535,7 @@ h3 {
     .steam-library-grid,
     .console-home-layout,
     .console-home-layout.lower,
+    .trophy-gaming-grid,
     .home-current-grid,
     .game-row,
   .player-notes-grid,
@@ -3497,6 +3614,19 @@ h3 {
   .achievement-feature-card img,
   .achievement-feature-card .cover-fallback {
     width: 82px;
+  }
+
+  .trophy-mini-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trophy-highlight-panel {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .trophy-highlight-panel img,
+  .trophy-highlight-panel .cover-fallback {
+    width: 72px;
   }
 
   .trophy-feature-layout {

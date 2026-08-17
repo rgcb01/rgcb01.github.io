@@ -9,6 +9,7 @@
     "sync:trophies": "node scripts/sync-trophies.mjs",
     "sync:steam": "node scripts/sync-steam.mjs",
     "validate:portfolio": "node scripts/validate-portfolio-data.mjs",
+    "validate:personal": "node scripts/validate-personal-data.mjs",
     "validate:trophies": "node scripts/validate-trophy-data.mjs",
     "validate:steam": "node scripts/validate-steam-data.mjs",
     "preview": "vite preview",

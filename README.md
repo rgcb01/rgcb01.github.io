@@ -93,6 +93,7 @@ The personal site is organized like a console home with dedicated apps/sections:
 The `/personal` home is intentionally short. It only shows the most important current information:
 
 - player identity and highest-value stats
+- compact Trophy Room / Gaming status
 - Continue widget
 - latest achievement
 - compact Currently Into preview
@@ -312,6 +313,7 @@ Validation commands:
 
 ```bash
 npm run validate:portfolio
+npm run validate:personal
 npm run validate:trophies
 npm run validate:steam
 npm run build

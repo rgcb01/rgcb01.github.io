@@ -67,6 +67,8 @@ jobs:
         run: npm run validate:steam
       - name: Validate portfolio data
         run: npm run validate:portfolio
+      - name: Validate personal data
+        run: npm run validate:personal
       - name: Build
         run: npm run build
       - name: Setup Pages
