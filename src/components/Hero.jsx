@@ -21,7 +21,7 @@ export default function Hero({ profile, badges }) {
           <a className="button primary" href="#projects">
             View Projects <ArrowRight size={18} />
           </a>
-          <a className="button secondary" href={profile.resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined}>
+          <a className="button secondary" href={profile.resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined} aria-label="Open Romulo Colorado resume PDF">
             {profile.resumeLabel || "View Resume"}
           </a>
           <a className="icon-link" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">

@@ -1,7 +1,6 @@
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./components/About.jsx";
-import Projects from "./components/Projects.jsx";
 import Publications from "./components/Publications.jsx";
 import GitHubActivity from "./components/GitHubActivity.jsx";
 import PersonalPage from "./components/PersonalPage.jsx";
@@ -15,7 +14,6 @@ import TrophyRoom from "./components/personal/trophies/TrophyRoom.jsx";
 import TrophyGamePage from "./components/personal/trophies/TrophyGamePage.jsx";
 import ProjectCaseStudy from "./components/projects/ProjectCaseStudy.jsx";
 import Highlights from "./components/Highlights.jsx";
-import PortfolioRoadmap from "./components/PortfolioRoadmap.jsx";
 import FeaturedGithub from "./components/FeaturedGithub.jsx";
 import Experience from "./components/Experience.jsx";
 import Education from "./components/Education.jsx";
@@ -43,10 +41,8 @@ import {
   profile,
   publications,
   recruiterSnapshot,
-  roadmap,
   siteMeta,
   skillGroups,
-  upcomingProjects,
 } from "./data.js";
 import { caseStudies } from "./data/caseStudies.js";
 
@@ -201,14 +197,12 @@ export default function App() {
         <Experience experiences={experiences} />
         <EngineeringNumbers metrics={engineeringMetrics} />
         <Publications publications={publications} />
-        <GitHubActivity activity={githubActivity} />
-        <PortfolioRoadmap roadmap={roadmap} />
-        <Projects upcomingProjects={upcomingProjects} />
         <Skills skillGroups={skillGroups} />
         <Education education={education} />
         <Certifications certifications={certifications} />
         <Awards awards={awards} />
         <CredlyBadges badges={credentialBadges} />
+        <GitHubActivity activity={githubActivity} />
         <Contact profile={profile} />
       </main>
       <Footer profile={profile} />

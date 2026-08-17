@@ -65,6 +65,8 @@ jobs:
         run: npm run validate:trophies
       - name: Validate Steam data
         run: npm run validate:steam
+      - name: Validate portfolio data
+        run: npm run validate:portfolio
       - name: Build
         run: npm run build
       - name: Setup Pages

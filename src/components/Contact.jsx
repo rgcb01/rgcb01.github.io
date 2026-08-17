@@ -16,13 +16,13 @@ export default function Contact({ profile }) {
         <div className="contact-panel">
           {showAvailability && <p>{availabilityText}</p>}
           <div className="contact-links">
-            <a href={`mailto:${profile.email}`}>
+            <a href={`mailto:${profile.email}`} aria-label={`Email ${profile.name}`}>
               <Mail size={18} /> {profile.email}
             </a>
             <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
               <Linkedin size={18} /> LinkedIn
             </a>
-            <a href={profile.resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined}>
+            <a href={profile.resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined} aria-label="Open resume PDF">
               <FileText size={18} /> {profile.resumeLabel || "View Resume"}
             </a>
             <a href={profile.github} target="_blank" rel="noopener noreferrer">

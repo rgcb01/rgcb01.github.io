@@ -30,6 +30,8 @@ The content is data-driven and highlights three flagship engineering projects:
 
 It also includes technical publications, reusable case study pages, GitHub engineering activity, credentials, engineering metrics, skills and recruiter-oriented role fit.
 
+The root `/` is the stable professional experience. The personal console lives separately under `/personal` and should not influence the recruiter-facing visual system.
+
 ## Tech Stack
 
 - React
@@ -53,6 +55,24 @@ npm run build
 ```
 
 The build creates `dist/404.html` from the compiled app so GitHub Pages can serve SPA routes such as `/personal` and `/projects/manufacturing-oee-dashboard`.
+
+## Professional Maintenance
+
+The professional side is maintained through local data and assets instead of redesigning components.
+
+- Main professional data: `src/data/portfolio.js`
+- Project case studies: `src/data/caseStudies.js`
+- Resume PDF: `public/assets/resume/romulo-colorado-resume.pdf`
+- Project images: `public/assets/projects/`
+- Certificate images: `public/assets/certificates/`
+- Maintenance guide: `docs/PORTFOLIO_MAINTENANCE.md`
+
+For professional content changes, run:
+
+```bash
+npm run validate:portfolio
+npm run build
+```
 
 ## Personal Console Routes
 
@@ -291,6 +311,7 @@ The deploy workflow runs on pushes, manual `workflow_dispatch`, and every 8 hour
 Validation commands:
 
 ```bash
+npm run validate:portfolio
 npm run validate:trophies
 npm run validate:steam
 npm run build

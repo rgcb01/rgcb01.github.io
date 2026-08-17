@@ -13,7 +13,7 @@ export default function Navbar({ navItems, resumePath }) {
               {item.label}
             </a>
           ))}
-          <a className="nav-resume" href={resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined}>
+          <a className="nav-resume" href={resumePath} target={hasResume ? "_blank" : undefined} rel={hasResume ? "noopener noreferrer" : undefined} aria-label="Open resume PDF">
             Resume
           </a>
         </div>

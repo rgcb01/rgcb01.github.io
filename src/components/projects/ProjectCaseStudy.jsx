@@ -55,7 +55,7 @@ export default function ProjectCaseStudy({ study }) {
             </div>
           </div>
           <div className="case-hero-media">
-            <img src={study.image} alt={study.imageAlt} />
+            <img src={study.image} alt={study.imageAlt} loading="eager" />
           </div>
         </div>
       </section>
