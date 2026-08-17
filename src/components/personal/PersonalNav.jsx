@@ -1,12 +1,12 @@
 const links = [
-  { label: "Home", href: "/personal" },
-  { label: "Gaming", href: "/personal/gaming" },
-  { label: "Trophies", href: "/personal/trophies" },
-  { label: "Activity", href: "/personal/activity" },
-  { label: "Media", href: "/personal/media" },
-  { label: "Thoughts", href: "/personal/thoughts" },
-  { label: "Builds", href: "/personal/builds" },
-  { label: "System", href: "/personal/system" },
+  { label: "HOME", href: "/personal" },
+  { label: "GAMING", href: "/personal/gaming" },
+  { label: "TROPHIES", href: "/personal/trophies" },
+  { label: "ACTIVITY", href: "/personal/activity" },
+  { label: "MEDIA", href: "/personal/media" },
+  { label: "THOUGHTS", href: "/personal/thoughts" },
+  { label: "BUILDS", href: "/personal/builds" },
+  { label: "SYSTEM", href: "/personal/system" },
 ];
 
 export default function PersonalNav() {
