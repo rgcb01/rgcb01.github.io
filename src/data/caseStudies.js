@@ -61,8 +61,8 @@ export const caseStudies = [
     summary:
       "A reproducible industrial-style quality inspection study using classical computer vision, dimensional measurement and quality metrics.",
     repository: "https://github.com/rgcb01/opencv-industrial-inspection",
-    paper: "https://doi.org/10.5281/zenodo.21883473",
-    doi: "10.5281/zenodo.21883473",
+    paper: "https://doi.org/10.5281/zenodo.21879822",
+    doi: "10.5281/zenodo.21879822",
     image: "/assets/projects/opencv-industrial-inspection.png",
     imageAlt: "Automated visual inspection dashboard with quality inspection summary metrics.",
     problem:
@@ -107,7 +107,7 @@ export const caseStudies = [
     technologies: ["Python", "OpenCV", "Classical Computer Vision", "Quality Engineering", "SPC", "Dimensional Inspection", "pytest"],
     evidence: [
       { label: "GitHub Repository", href: "https://github.com/rgcb01/opencv-industrial-inspection" },
-      { label: "DOI / Zenodo", href: "https://doi.org/10.5281/zenodo.21883473" },
+      { label: "DOI / Zenodo", href: "https://doi.org/10.5281/zenodo.21879822" },
     ],
     nextSteps: [],
   },
