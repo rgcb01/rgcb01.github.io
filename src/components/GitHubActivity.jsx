@@ -75,7 +75,7 @@ export default function GitHubActivity({ activity }) {
   const featuredRepos = useMemo(() => repos.filter((repo) => FLAGSHIP_REPOS.has(repo.name)), [repos]);
 
   return (
-    <section className="section compact-section" id="engineering-activity">
+    <section className="section section-wide compact-section" id="engineering-activity">
       <div className="section-heading">
         <p className="eyebrow">GitHub / Engineering Activity</p>
         <h2>Recent repository work behind the portfolio.</h2>

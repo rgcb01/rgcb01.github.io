@@ -4,7 +4,7 @@ export default function Hero({ profile, badges }) {
   const hasResume = profile.resumePath && !profile.resumePath.startsWith("#");
 
   return (
-    <section className="hero section" id="home">
+    <section className="hero section section-wide" id="home">
       <div className="hero-content">
         <p className="eyebrow">Mechatronics Engineering Portfolio</p>
         <h1>{profile.name}</h1>

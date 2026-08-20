@@ -1,6 +1,6 @@
 export default function Skills({ skillGroups }) {
   return (
-    <section className="section" id="skills">
+    <section className="section section-wide" id="skills">
       <div className="section-heading">
         <p className="eyebrow">Skills</p>
         <h2>Tools and concepts aligned with entry-level engineering roles.</h2>

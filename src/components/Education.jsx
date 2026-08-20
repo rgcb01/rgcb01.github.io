@@ -2,7 +2,7 @@ import { GraduationCap } from "lucide-react";
 
 export default function Education({ education }) {
   return (
-    <section className="section compact-section" id="education">
+    <section className="section section-standard compact-section" id="education">
       <div className="section-heading compact-heading">
         <p className="eyebrow">Education</p>
         <h2>Academic foundation in mechatronics engineering.</h2>

@@ -2,7 +2,7 @@ import { BadgeCheck } from "lucide-react";
 
 export default function Highlights({ highlights }) {
   return (
-    <section className="section compact-section" id="highlights">
+    <section className="section section-wide compact-section" id="highlights">
       <div className="section-heading">
         <p className="eyebrow">Professional Highlights</p>
         <h2>Compact signals for engineering recruiters and hiring managers.</h2>

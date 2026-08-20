@@ -2,7 +2,7 @@ import { ExternalLink, FileText, Github } from "lucide-react";
 
 export default function FeaturedGithub({ projects }) {
   return (
-    <section className="section" id="projects">
+    <section className="section section-wide" id="projects">
       <div className="section-heading">
         <p className="eyebrow">Featured Engineering Projects</p>
         <h2>Flagship portfolio work across manufacturing analytics, quality inspection and PLC automation.</h2>

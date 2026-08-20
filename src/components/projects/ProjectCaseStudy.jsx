@@ -17,7 +17,7 @@ export default function ProjectCaseStudy({ study }) {
   if (!study) {
     return (
       <main className="case-study-page">
-        <section className="section">
+        <section className="section section-reading">
           <a className="back-link" href="/">
             <ArrowLeft size={17} /> Back to Portfolio
           </a>
@@ -30,7 +30,7 @@ export default function ProjectCaseStudy({ study }) {
 
   return (
     <main className="case-study-page">
-      <section className="section case-hero">
+      <section className="section section-wide case-hero">
         <a className="back-link" href="/">
           <ArrowLeft size={17} /> Back to Portfolio
         </a>
@@ -60,7 +60,7 @@ export default function ProjectCaseStudy({ study }) {
         </div>
       </section>
 
-      <section className="section case-layout">
+      <section className="section section-wide case-layout">
         <CaseStudySection title="Engineering Problem">
           <p>{study.problem}</p>
         </CaseStudySection>

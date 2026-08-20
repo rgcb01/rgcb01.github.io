@@ -1,6 +1,6 @@
 export default function RecruiterSnapshot({ snapshot }) {
   return (
-    <section className="section compact-section" id="snapshot">
+    <section className="section section-standard compact-section" id="snapshot">
       <div className="section-heading compact-heading">
         <p className="eyebrow">Recruiter Snapshot</p>
         <h2>Role fit at a glance.</h2>

@@ -19,7 +19,7 @@ export default function CredlyBadges({ badges, badgeIds }) {
   }, []);
 
   return (
-    <section className="section" id="credentials">
+    <section className="section section-wide" id="credentials">
       <div className="section-heading">
         <p className="eyebrow">Verified Digital Credentials</p>
         <h2>Credly badges for verifiable training and certifications.</h2>

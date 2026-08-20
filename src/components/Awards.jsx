@@ -4,7 +4,7 @@ export default function Awards({ awards }) {
   if (!awards?.length) return null;
 
   return (
-    <section className="section compact-section" id="awards">
+    <section className="section section-standard compact-section" id="awards">
       <div className="section-heading compact-heading">
         <p className="eyebrow">Awards / Recognition</p>
         <h2>Academic and engineering recognition kept separate from certifications.</h2>

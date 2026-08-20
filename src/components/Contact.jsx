@@ -7,7 +7,7 @@ export default function Contact({ profile }) {
   const hasResume = profile.resumePath && !profile.resumePath.startsWith("#");
 
   return (
-    <section className="section contact-section" id="contact">
+    <section className="section section-standard contact-section" id="contact">
       <div className="section-heading">
         <p className="eyebrow">Contact</p>
         <h2>Open to New College Grad and entry-level engineering opportunities.</h2>

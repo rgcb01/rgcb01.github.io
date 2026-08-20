@@ -2,7 +2,7 @@ import { Award, ExternalLink } from "lucide-react";
 
 export default function Certifications({ certifications }) {
   return (
-    <section className="section" id="certifications">
+    <section className="section section-wide" id="certifications">
       <div className="section-heading">
         <p className="eyebrow">Certifications</p>
         <h2>Additional training in language, quality, robotics and engineering tools.</h2>

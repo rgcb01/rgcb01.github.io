@@ -2,7 +2,7 @@ import { ExternalLink, FileText, Github } from "lucide-react";
 
 export default function Publications({ publications }) {
   return (
-    <section className="section compact-section" id="publications">
+    <section className="section section-standard compact-section" id="publications">
       <div className="section-heading compact-heading">
         <p className="eyebrow">Engineering Publications</p>
         <h2>Technical writing that documents reproducible portfolio experiments.</h2>
