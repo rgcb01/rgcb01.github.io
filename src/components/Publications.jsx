@@ -10,13 +10,13 @@ export default function Publications({ publications }) {
       <div className="publication-grid">
         {publications.map((publication) => (
           <article className="publication-card" key={publication.title}>
-            <FileText size={24} />
-            <div>
+            <div className="publication-year">{publication.year}</div>
+            <div className="publication-record">
               <span className="publication-type">{publication.type}</span>
               <h3>{publication.title}</h3>
               <p>{publication.description}</p>
               <p className="publication-meta">
-                {publication.author} · {publication.year}
+                {publication.author}
                 {publication.doi ? ` · DOI ${publication.doi}` : ""}
               </p>
               <div className="card-actions">
@@ -31,6 +31,7 @@ export default function Publications({ publications }) {
                 </a>
               </div>
             </div>
+            <FileText className="publication-icon" size={22} aria-hidden="true" />
           </article>
         ))}
       </div>

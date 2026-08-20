@@ -82,7 +82,7 @@ export default function GitHubActivity({ activity }) {
         <p className="section-intro">{activity.description}</p>
       </div>
       <div className="github-activity-grid">
-        <article className="repo-panel activity-summary">
+        <div className="repo-panel activity-summary">
           <Github size={26} />
           <h3>Actively Maintained Engineering Repositories</h3>
           <p>
@@ -93,27 +93,33 @@ export default function GitHubActivity({ activity }) {
           <a href={activity.profileUrl} target="_blank" rel="noopener noreferrer">
             Full GitHub Profile <ExternalLink size={15} />
           </a>
-        </article>
+        </div>
 
-        <div className="repo-list">
+        <div className="repo-matrix" role="table" aria-label="Engineering repository matrix">
+          <div className="repo-matrix-header" role="row">
+            <span role="columnheader">Repository</span>
+            <span role="columnheader">Stack</span>
+            <span role="columnheader">Updated</span>
+            <span role="columnheader">Link</span>
+          </div>
           {featuredRepos.map((repo) => (
-            <article className="repo-activity-card" key={repo.name}>
-              <div className="card-topline">
+            <article className="repo-matrix-row" key={repo.name} role="row">
+              <div role="cell">
                 <h3>{repo.name}</h3>
-                <a href={repo.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${repo.name} on GitHub`}>
-                  <ExternalLink size={16} />
-                </a>
               </div>
-              <p>{repo.description}</p>
-              <div className="mini-tag-list">
-                {(repo.language ? [repo.language, ...repo.technologies] : repo.technologies).slice(0, 5).map((tag) => (
-                  <span className="mini-tag" key={tag}>{tag}</span>
+              <div className="repo-stack" role="cell">
+                {(repo.language ? [repo.language, ...repo.technologies] : repo.technologies).slice(0, 4).map((tag) => (
+                  <span key={tag}>{tag}</span>
                 ))}
               </div>
-              <span className="repo-meta">
-                {repo.updatedAt ? `Updated ${formatDate(repo.updatedAt)}` : "Curated portfolio repository"}
+              <span className="repo-meta" role="cell">
+                {repo.updatedAt ? formatDate(repo.updatedAt) : "Curated"}
                 {Number.isInteger(repo.stars) ? ` · ${repo.stars} stars` : ""}
               </span>
+              <a href={repo.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${repo.name} on GitHub`} role="cell">
+                <ExternalLink size={16} />
+              </a>
+              <p>{repo.description}</p>
             </article>
           ))}
         </div>

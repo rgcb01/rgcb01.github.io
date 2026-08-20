@@ -61,63 +61,67 @@ export default function ProjectCaseStudy({ study }) {
       </section>
 
       <section className="section section-wide case-layout">
-        <CaseStudySection title="Engineering Problem">
-          <p>{study.problem}</p>
-        </CaseStudySection>
-
-        <CaseStudySection title="Objectives">
-          <ListBlock items={study.objectives} />
-        </CaseStudySection>
-
-        <CaseStudySection title="Architecture / Approach">
-          <ArchitectureDiagram items={study.architecture} />
-          <ListBlock items={study.approach} />
-        </CaseStudySection>
-
-        <CaseStudySection title="Engineering Decisions">
-          <ListBlock items={study.decisions} />
-        </CaseStudySection>
-
-        <CaseStudySection title="Validation">
-          <ListBlock items={study.validation} />
-        </CaseStudySection>
-
-        <CaseStudySection title="Results">
-          <ListBlock items={study.results} />
-        </CaseStudySection>
-
-        <CaseStudySection title="Limitations">
-          <ListBlock items={study.limitations} />
-        </CaseStudySection>
-
-        <CaseStudySection title="What I Learned">
-          <ListBlock items={study.learned} />
-        </CaseStudySection>
-
-        <CaseStudySection title="Technologies">
-          <div className="tag-list">
-            {study.technologies.map((tag) => (
-              <span className="tag" key={tag}>{tag}</span>
-            ))}
-          </div>
-        </CaseStudySection>
-
-        <CaseStudySection title="Evidence">
-          <div className="case-evidence">
-            {study.evidence.map((item) => (
-              <a href={item.href} key={item.label} target="_blank" rel="noopener noreferrer">
-                {item.label} <ExternalLink size={15} />
-              </a>
-            ))}
-          </div>
-          {study.doi && <p className="project-note">DOI: {study.doi}</p>}
-        </CaseStudySection>
-
-        {study.nextSteps?.length > 0 && (
-          <CaseStudySection title="Next Steps">
-            <ListBlock items={study.nextSteps} />
+        <div className="case-report-main">
+          <CaseStudySection title="Engineering Problem">
+            <p>{study.problem}</p>
           </CaseStudySection>
-        )}
+
+          <CaseStudySection title="Objectives">
+            <ListBlock items={study.objectives} />
+          </CaseStudySection>
+
+          <CaseStudySection title="Architecture / Approach">
+            <ArchitectureDiagram items={study.architecture} />
+            <ListBlock items={study.approach} />
+          </CaseStudySection>
+
+          <CaseStudySection title="Engineering Decisions">
+            <ListBlock items={study.decisions} />
+          </CaseStudySection>
+
+          <CaseStudySection title="Validation">
+            <ListBlock items={study.validation} />
+          </CaseStudySection>
+
+          <CaseStudySection title="Results">
+            <ListBlock items={study.results} />
+          </CaseStudySection>
+        </div>
+
+        <aside className="case-report-aside" aria-label={`${study.title} technical details`}>
+          <CaseStudySection title="Technologies">
+            <div className="tag-list">
+              {study.technologies.map((tag) => (
+                <span className="tag" key={tag}>{tag}</span>
+              ))}
+            </div>
+          </CaseStudySection>
+
+          <CaseStudySection title="Evidence">
+            <div className="case-evidence">
+              {study.evidence.map((item) => (
+                <a href={item.href} key={item.label} target="_blank" rel="noopener noreferrer">
+                  {item.label} <ExternalLink size={15} />
+                </a>
+              ))}
+            </div>
+            {study.doi && <p className="project-note">DOI: {study.doi}</p>}
+          </CaseStudySection>
+
+          <CaseStudySection title="Limitations">
+            <ListBlock items={study.limitations} />
+          </CaseStudySection>
+
+          <CaseStudySection title="What I Learned">
+            <ListBlock items={study.learned} />
+          </CaseStudySection>
+
+          {study.nextSteps?.length > 0 && (
+            <CaseStudySection title="Next Steps">
+              <ListBlock items={study.nextSteps} />
+            </CaseStudySection>
+          )}
+        </aside>
       </section>
     </main>
   );

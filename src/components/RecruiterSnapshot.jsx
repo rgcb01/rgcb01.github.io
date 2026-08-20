@@ -5,26 +5,26 @@ export default function RecruiterSnapshot({ snapshot }) {
         <p className="eyebrow">Recruiter Snapshot</p>
         <h2>Role fit at a glance.</h2>
       </div>
-      <div className="snapshot-grid">
-        <article className="snapshot-card">
+      <div className="snapshot-scan">
+        <article className="snapshot-column">
           <h3>Available for</h3>
-          <div className="compact-chip-list">
+          <ul className="snapshot-list">
             {snapshot.availableFor.map((role) => (
-              <span className="compact-chip" key={role}>
+              <li key={role}>
                 {role}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </article>
-        <article className="snapshot-card">
+        <article className="snapshot-column">
           <h3>Strengths</h3>
-          <div className="compact-chip-list">
+          <ul className="snapshot-list">
             {snapshot.strengths.map((strength) => (
-              <span className="compact-chip" key={strength}>
+              <li key={strength}>
                 {strength}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </article>
       </div>
     </section>

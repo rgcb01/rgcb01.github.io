@@ -8,7 +8,7 @@ export default function FeaturedGithub({ projects }) {
         <h2>Flagship portfolio work across manufacturing analytics, quality inspection and PLC automation.</h2>
       </div>
       <div className="featured-projects-grid">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <article className="featured-project-card" key={project.title}>
             <div className="featured-media">
               {project.screenshot ? (
@@ -20,12 +20,23 @@ export default function FeaturedGithub({ projects }) {
               )}
             </div>
             <div className="featured-copy">
-              <div className="card-topline">
-                <h3>{project.title}</h3>
+              <div className="project-showcase-meta">
+                <span>{String(index + 1).padStart(2, "0")}</span>
                 <span className={`status ${project.statusClass}`}>{project.status}</span>
               </div>
+              <div className="card-topline">
+                <h3>{project.title}</h3>
+              </div>
+              <span className="project-field-label">Problem</span>
               <p className="project-problem">{project.problem}</p>
+              <span className="project-field-label">Solution</span>
               <p>{project.solution}</p>
+              <span className="project-field-label">Evidence</span>
+              <ul className="evidence-list" aria-label={`${project.title} evidence`}>
+                {project.evidence.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
               <div className="tag-list">
                 {project.tags.map((tag) => (
                   <span className="tag" key={tag}>
@@ -33,11 +44,6 @@ export default function FeaturedGithub({ projects }) {
                   </span>
                 ))}
               </div>
-              <ul className="evidence-list" aria-label={`${project.title} evidence`}>
-                {project.evidence.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
               <div className="card-actions">
                 <a className="button primary" href={project.github} target="_blank" rel="noopener noreferrer">
                   <Github size={17} />
