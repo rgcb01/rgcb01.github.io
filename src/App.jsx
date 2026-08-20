@@ -188,7 +188,7 @@ export default function App() {
   return (
     <>
       <Navbar navItems={navItems} resumePath={profile.resumePath} />
-      <main>
+      <main className="professional-main">
         <Hero profile={profile} badges={heroBadges} />
         <RecruiterSnapshot snapshot={recruiterSnapshot} />
         <About about={about} />
