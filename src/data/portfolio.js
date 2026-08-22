@@ -492,6 +492,7 @@ export const credentialBadges = [
   { id: "e997c114-bcf3-4e50-9fe3-ff944e308176", provider: "Credly" },
   { id: "df4c78a0-90f2-4091-ba3e-d6b32c8f87a8", provider: "Credly" },
   { id: "a80d7fc3-bde1-497b-a15b-a02014e161e9", provider: "Credly" },
+  { id: "e28c277e-2fa8-41ea-8b28-b0964e6e0f05", provider: "Credly" },
 ];
 
 export const credlyBadgeIds = credentialBadges.map((badge) => badge.id);
