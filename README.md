@@ -1,10 +1,10 @@
 # Romulo Colorado - Engineering Portfolio
 
-Recruiter-first professional portfolio for Romulo Giancarlo Colorado Balboa, a Mechatronics Engineer focused on manufacturing analytics, quality engineering, industrial computer vision, PLC automation, test and validation.
+Personal engineering portfolio for Rómulo Colorado, OPC Production Engineer at Micron Technology in Guadalajara, Mexico (October 2026–Present), with a multidisciplinary Mechatronics Engineering background.
 
 ## Release Status
 
-Professional Portfolio v1.0 is treated as stable / maintenance mode. The recruiter-facing root experience at `/` and the professional case studies under `/projects/*` should now receive content, asset and bug-fix updates rather than redesign work.
+Professional Portfolio 2.0 introduces a semiconductor-focused identity at `/` and `/projects/*`. This redesign supersedes the previous professional design freeze. All professional styling is scoped under `.pro-site` in `src/professional.css`.
 
 The personal console under `/personal` remains separate and is not part of the professional v1.0 freeze.
 
@@ -14,7 +14,7 @@ https://rgcb01.github.io
 
 ## Project Overview
 
-This React/Vite site presents a professional engineering portfolio for New College Graduate and entry-level roles across:
+This React/Vite site connects current semiconductor employment with prior experience and independently documented projects across:
 
 - Manufacturing engineering
 - Process engineering
@@ -32,7 +32,7 @@ The content is data-driven and highlights three flagship engineering projects:
 
 It also includes technical publications, reusable case study pages, GitHub engineering activity, credentials, engineering metrics, skills and recruiter-oriented role fit.
 
-The root `/` is the stable professional experience. The personal console lives separately under `/personal` and should not influence the recruiter-facing visual system.
+The personal console lives separately under `/personal`. Its components, styles, datasets, synchronization scripts, and deployment workflow are preserved. This is a personal portfolio; projects and opinions do not represent the employer.
 
 ## Tech Stack
 
@@ -60,7 +60,7 @@ The build creates `dist/404.html` from the compiled app so GitHub Pages can serv
 
 ## Professional Maintenance
 
-The professional side is maintained through local data and assets instead of redesigning components.
+The professional side is maintained through local data and assets. Presentation is in `src/components/ProfessionalPortfolio.jsx`, with existing case study components retained. See `docs/PORTFOLIO_2_AUDIT.md` for evidence, verification results, resume discrepancies, and open questions.
 
 - Main professional data: `src/data/portfolio.js`
 - Project case studies: `src/data/caseStudies.js`
@@ -74,6 +74,7 @@ For professional content changes, run:
 ```bash
 npm run validate:portfolio
 npm run build
+npm run validate:professional-build
 ```
 
 ## Personal Console Routes

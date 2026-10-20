@@ -83,7 +83,7 @@ export const caseStudies = [
       "A threshold study documents operating-point tradeoffs.",
     ],
     decisions: [
-      "Classical computer vision was chosen to keep the inspection logic explainable and appropriate for entry-level quality engineering discussion.",
+      "Classical computer vision was chosen to keep the inspection logic explainable and suitable for quality engineering analysis.",
       "The positive classification class is defective part, making recall/detection-rate terminology explicit.",
       "Frozen experiment parameters make the project reproducible: 240 images, seed 42, threshold 95, nominal 50.00 mm, LSL 49.80 mm, USL 50.20 mm.",
     ],

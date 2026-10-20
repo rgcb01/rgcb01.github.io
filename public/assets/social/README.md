@@ -1,15 +1,19 @@
 # Social Preview Assets
 
-Preferred future social preview image:
+The professional social preview is original code-drawn artwork (1200 × 630 PNG):
 
 ```txt
-public/assets/social/portfolio-preview.png
+public/assets/social/engineering-preview.png
 ```
 
-The current SEO fallback uses the professional profile image at:
+Source: `scripts/create-engineering-assets.py` (Python + Pillow). The original wafer illustration is at `public/assets/engineering/wafer.svg`. These conceptual graphics contain no company imagery, logos, process diagrams, or production data.
+
+Asset regeneration is optional and currently uses Windows Arial font paths. Normal Vite builds use the committed SVG and PNG and require no Python tooling.
+
+Personal console metadata retains the professional profile photo:
 
 ```txt
 public/assets/profile/romulo-colorado-profile.jpg
 ```
 
-Add a dedicated `portfolio-preview.png` here when a branded professional share image is available, then update `siteMeta.socialImage` in `src/data/portfolio.js`.
+`siteMeta.socialImage` in `src/data/portfolio.js` controls the professional preview. `index.html` provides initial source metadata; `scripts/copy-404.mjs` synchronizes build output from portfolio data and emits route-specific tags plus structured data. Run `npm run build` and `npm run validate:professional-build` after metadata edits.

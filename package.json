@@ -10,6 +10,7 @@
     "sync:steam": "node scripts/sync-steam.mjs",
     "sync:media": "node scripts/sync-media.mjs",
     "validate:portfolio": "node scripts/validate-portfolio-data.mjs",
+    "validate:professional-build": "node scripts/validate-professional-build.mjs",
     "validate:personal": "node scripts/validate-personal-data.mjs",
     "validate:media": "node scripts/validate-media-data.mjs",
     "validate:trophies": "node scripts/validate-trophy-data.mjs",

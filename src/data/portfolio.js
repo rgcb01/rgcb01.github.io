@@ -1,123 +1,104 @@
 export const profile = {
-  name: "Romulo Giancarlo Colorado Balboa",
-  location: "Puebla, Mexico",
-  email: "rgcb01@live.com.mx",
-  linkedin: "https://www.linkedin.com/in/rgcb",
-  github: "https://github.com/rgcb01",
-  resumePath: "/assets/resume/romulo-colorado-resume.pdf",
-  resumeLabel: "View Resume",
-  photo: "/assets/profile/romulo-colorado-profile.jpg",
-  photoAlt: "Professional portrait of Romulo Giancarlo Colorado Balboa.",
-  headline:
-    "Mechatronics Engineer | Manufacturing | Quality | Automation | Industrial Data & Vision",
-  summary:
-    "I build practical engineering systems that combine manufacturing data, quality engineering, computer vision, PLC automation and software tools to analyze production losses, automate industrial processes and support engineering decision-making.",
-  availability: {
-    visible: true,
-    text:
-      "Available for entry-level engineering opportunities in manufacturing, automation, quality, production, validation and process improvement.",
+  "name": "Rómulo Colorado",
+  "fullName": "Rómulo Giancarlo Colorado Balboa",
+  "location": "Guadalajara, Mexico",
+  "email": "rgcb01@live.com.mx",
+  "linkedin": "https://www.linkedin.com/in/rgcb",
+  "github": "https://github.com/rgcb01",
+  "resumePath": "/assets/resume/romulo-colorado-resume.pdf",
+  "resumeLabel": "Download Resume",
+  "resumeNote": "Previous resume edition; current role is reflected on this website.",
+  "photo": "/assets/profile/romulo-colorado-profile.jpg",
+  "photoAlt": "Professional portrait of Rómulo Colorado.",
+  "role": "OPC Production Engineer",
+  "employer": "Micron Technology",
+  "since": "October 2026–Present",
+  "headline": "OPC Production Engineer | Semiconductor Manufacturing | Mechatronics Engineering",
+  "summary": "Mechatronics Engineer working at the intersection of semiconductor manufacturing, automation, and software-driven engineering.",
+  "availability": {
+    "visible": false,
+    "text": ""
   },
-  heroPanel: {
-    label: "Target Roles",
-    title: "Entry-Level Engineering",
-    items: [
-      "Manufacturing Analytics",
-      "Quality Diagnostics",
-      "Industrial Computer Vision",
-      "PLC / Modbus Automation",
-      "Test & Validation",
-    ],
-  },
+  "heroPanel": {
+    "label": "Current role",
+    "title": "Semiconductor Engineering",
+    "items": [
+      "OPC Production Engineering",
+      "Micron Technology",
+      "Guadalajara, Mexico"
+    ]
+  }
 };
 
 export const siteMeta = {
-  siteUrl: "https://rgcb01.github.io",
-  title: "Romulo Colorado | Mechatronics, Manufacturing & Automation Engineer",
-  description:
-    "Mechatronics engineering portfolio focused on manufacturing analytics, quality engineering, industrial computer vision, PLC automation, test and validation.",
-  socialImage: "/assets/profile/romulo-colorado-profile.jpg",
-  twitterCard: "summary_large_image",
-  themeColor: "#1f4e79",
+  "siteUrl": "https://rgcb01.github.io",
+  "title": "Rómulo Colorado | OPC Production Engineer | Semiconductor Engineering",
+  "description": "Rómulo Colorado, OPC Production Engineer at Micron Technology in Guadalajara. Mechatronics background spanning computer vision, automation and manufacturing analytics. Personal engineering portfolio.",
+  "socialImage": "/assets/social/engineering-preview.png",
+  "twitterCard": "summary_large_image",
+  "themeColor": "#080B12"
 };
 
 export const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Publications", href: "#publications" },
-  { label: "Skills", href: "#skills" },
-  { label: "Credentials", href: "#certifications" },
-  { label: "Contact", href: "#contact" },
+  {
+    "label": "About",
+    "href": "/#about"
+  },
+  {
+    "label": "Experience",
+    "href": "/#experience"
+  },
+  {
+    "label": "Projects",
+    "href": "/#projects"
+  },
+  {
+    "label": "Research",
+    "href": "/#publications"
+  },
+  {
+    "label": "Contact",
+    "href": "/#contact"
+  }
 ];
 
 export const heroBadges = [
-  "Manufacturing",
-  "Quality",
-  "Automation",
-  "Python",
-  "C++",
-  "Industrial Vision",
-  "Test & Validation",
-  "English C2",
+  "Semiconductor Manufacturing",
+  "Mechatronics",
+  "Automation & Software"
 ];
 
 export const highlights = [
   {
-    label: "EF SET C2",
-    title: "English proficiency",
-    detail: "87/100",
+    "label": "EF SET C2",
+    "title": "English proficiency",
+    "detail": "87/100"
   },
   {
-    label: "Six Sigma White Belt",
-    title: "Process improvement credential",
-    detail: "Quality and problem-solving fundamentals",
-  },
-  {
-    label: "Manufacturing OEE Dashboard",
-    title: "Released manufacturing analytics project",
-    detail: "Synthetic data, KPI monitoring and loss analysis",
-  },
-  {
-    label: "Visual Quality Inspection",
-    title: "Published computer vision case study",
-    detail: "Classical OpenCV inspection with DOI and technical paper",
-  },
-  {
-    label: "Open to Relocation",
-    title: "Entry-level engineering opportunities",
-    detail: "Manufacturing, quality, automation and validation roles",
-  },
+    "label": "Six Sigma White Belt",
+    "title": "Process improvement credential",
+    "detail": "Quality and problem-solving fundamentals"
+  }
 ];
 
 export const about = {
-  eyebrow: "About",
-  title: "Practical engineering tools for production and quality teams.",
-  paragraphs: [
-    "I am a recently graduated Mechatronics Engineer with experience in industrial vision, automotive manufacturing support, technical documentation and cross-functional coordination. My work combines Python, OpenCV, manufacturing data analysis and structured problem solving to build practical tools for engineering decisions.",
-    "I am especially interested in entry-level roles where I can support production monitoring, quality analysis, automation projects, validation work and continuous improvement. My portfolio uses synthetic or portfolio datasets so every project is transparent, reproducible and safe to discuss in interviews.",
-  ],
+  "eyebrow": "Engineering background",
+  "title": "A multidisciplinary foundation. A semiconductor direction.",
+  "paragraphs": [
+    "I am a Mechatronics Engineer and OPC Production Engineer at Micron Technology in Guadalajara, Mexico. My engineering path connects automotive program support, industrial computer vision, and my current professional development in semiconductor manufacturing.",
+    "At FORVIA, I supported engineering coordination and automotive production programs. At Recyctum, I developed Python and OpenCV workflows for material inspection and classification. These experiences shaped how I approach software, manufacturing processes, validation, and technical collaboration.",
+    "My independent projects explore manufacturing analytics, explainable visual inspection, and industrial automation. As I begin my semiconductor career, I am building domain knowledge around OPC and photolithography while continuing to develop practical engineering software."
+  ]
 };
 
 export const recruiterSnapshot = {
-  availableFor: [
-    "Manufacturing Engineer Jr",
-    "Process Engineer Jr",
-    "Quality Engineer Jr",
-    "Automation Engineer Jr",
-    "Production Engineer",
-    "Test / Validation Engineer",
-    "Engineering Trainee",
-  ],
-  strengths: [
-    "Manufacturing analytics",
-    "Quality diagnostics",
+  "availableFor": [],
+  "strengths": [
+    "Semiconductor engineering",
     "Industrial computer vision",
-    "PLC / Modbus automation",
-    "Python & C++ engineering tools",
-    "Technical documentation",
-    "Cross-functional coordination",
-    "English C2",
-  ],
+    "Manufacturing analytics",
+    "Automation & software"
+  ]
 };
 
 export const featuredProjects = [
@@ -313,36 +294,63 @@ export const engineeringMetrics = [
 
 export const experiences = [
   {
-    company: "Recyctum",
-    role: "Industrial Vision Developer",
-    dates: "January 2025 - December 2025",
-    location: "Puebla, Mexico",
-    tags: ["Python", "OpenCV", "Industrial Vision", "Validation"],
-    bullets: [
-      "Improved automatic material inspection and classification, achieving approximately 95% accuracy through industrial vision systems developed with Python and OpenCV.",
-      "Reduced material classification time by approximately 40% using image processing algorithms, segmentation, edge detection and contour analysis.",
-      "Integrated cameras, lighting and acquisition hardware while documenting technical tests, validating results and following up on operational adjustments.",
+    "company": "Micron Technology",
+    "role": "OPC Production Engineer",
+    "dates": "October 2026–Present",
+    "location": "Guadalajara, Mexico",
+    "tags": [
+      "Semiconductor Manufacturing",
+      "OPC",
+      "Professional Development"
     ],
+    "bullets": [
+      "Beginning my role in OPC Production Engineering within the semiconductor manufacturing industry.",
+      "The technical domain involves optical proximity correction: computational adjustments to mask patterns that account for pattern-transfer effects in photolithography.",
+      "Developing semiconductor domain knowledge on a foundation of mechatronics, manufacturing, software, and engineering validation."
+    ]
   },
   {
-    company: "FORVIA",
-    role: "Program Management Assistant - Lucid Air Serial Life Program",
-    dates: "January 2024 - December 2024",
-    location: "Puebla, Mexico",
-    tags: ["Program Management", "Engineering Changes", "Suppliers", "Dashboards"],
-    bullets: [
+    "company": "Recyctum",
+    "role": "Industrial Vision Developer",
+    "dates": "January 2025 - December 2025",
+    "location": "Puebla, Mexico",
+    "tags": [
+      "Python",
+      "OpenCV",
+      "Industrial Vision",
+      "Validation"
+    ],
+    "bullets": [
+      "Improved automatic material inspection and classification, achieving approximately 95% accuracy through industrial vision systems developed with Python and OpenCV.",
+      "Reduced material classification time by approximately 40% using image processing algorithms, segmentation, edge detection and contour analysis.",
+      "Integrated cameras, lighting and acquisition hardware while documenting technical tests, validating results and following up on operational adjustments."
+    ]
+  },
+  {
+    "company": "FORVIA",
+    "role": "Program Management Assistant - Lucid Air Serial Life Program",
+    "dates": "January 2024 - December 2024",
+    "location": "Puebla, Mexico",
+    "tags": [
+      "Program Management",
+      "Engineering Changes",
+      "Suppliers",
+      "Dashboards"
+    ],
+    "bullets": [
       "Supported automotive program execution by managing schedules, engineering releases, prototype manufacturing, validations and delivery milestones.",
       "Coordinated 40 to 60 part numbers and 80 to 100 engineering changes with internal teams, suppliers and cross-functional stakeholders.",
-      "Reduced prototype delivery time by 15% through control dashboards, daily follow-up, priority tracking and escalation of risks.",
-    ],
-  },
+      "Reduced prototype delivery time by 15% through control dashboards, daily follow-up, priority tracking and escalation of risks."
+    ]
+  }
 ];
 
 export const education = {
-  school: "Universidad Anahuac Puebla",
-  degree: "Bachelor's Degree in Mechatronics Engineering",
-  dates: "2019 - 2025",
-  location: "Puebla, Mexico",
+  "school": "Universidad Anáhuac México",
+  "degree": "Bachelor's Degree in Mechatronics Engineering",
+  "dates": "2019–2025",
+  "location": "Puebla, Mexico",
+  "sourceNote": "Current brief specifies Anáhuac México. Existing resume and repository record Anáhuac Puebla, 2019–2025; campus confirmation requested."
 };
 
 export const awards = [
@@ -359,80 +367,64 @@ export const awards = [
 
 export const skillGroups = [
   {
-    title: "Programming & Data",
-    skills: ["Python", "C++", "pandas", "NumPy", "SQLite", "MATLAB", "Simulink", "Excel", "Linux command line"],
+    "title": "Semiconductor Engineering",
+    "context": "Current professional domain · developing knowledge",
+    "skills": [
+      "Optical Proximity Correction",
+      "Semiconductor Manufacturing",
+      "Photolithography",
+      "Semiconductor Process Engineering"
+    ]
   },
   {
-    title: "Manufacturing & Quality",
-    skills: [
-      "OEE",
-      "SPC",
-      "Pareto Analysis",
-      "Scrap Analysis",
-      "Downtime Analysis",
-      "Six Sigma",
+    "title": "Software & Computing",
+    "context": "Professional experience & independent projects",
+    "skills": [
+      "Python",
+      "C++",
+      "Data Analysis",
+      "Software Development",
+      "Technical Automation",
+      "pandas",
+      "SQLite"
+    ]
+  },
+  {
+    "title": "Manufacturing & Quality",
+    "context": "Experience, project evidence & foundational certification",
+    "skills": [
       "Process Improvement",
-      "Dimensional Inspection",
-      "Technical Documentation",
-    ],
+      "Six Sigma White Belt",
+      "OEE",
+      "Statistical Process Control",
+      "Engineering Validation",
+      "Pareto Analysis"
+    ]
   },
   {
-    title: "Computer Vision",
-    skills: [
+    "title": "Computer Vision",
+    "context": "Professional experience & reproducible project evidence",
+    "skills": [
       "OpenCV",
       "Image Processing",
-      "Segmentation",
-      "Edge Detection",
-      "Contour Analysis",
-      "Classical Computer Vision",
       "Industrial Inspection",
-      "Camera / Lighting Setup",
-    ],
+      "Dimensional Analysis",
+      "Segmentation",
+      "Camera & Lighting Setup"
+    ]
   },
   {
-    title: "Automation & Controls",
-    skills: [
+    "title": "Industrial Automation",
+    "context": "Independent prototype & technical practice",
+    "skills": [
       "PLC",
-      "OpenPLC",
-      "IEC 61131-3",
-      "Ladder Logic",
+      "Industrial Control",
       "Modbus TCP",
-      "Sensors",
-      "Actuators",
-      "Interlocks",
-      "Fault Handling",
-      "State Machines",
-      "TIA Portal",
-      "Siemens PLC",
-    ],
-  },
-  {
-    title: "Test & Validation",
-    skills: [
-      "Test Data Analysis",
-      "Pass/Fail Analysis",
-      "Engineering Validation",
-      "Measurement Limits",
-      "Reproducible Experiments",
-      "Automated Testing",
-    ],
-  },
-  {
-    title: "Engineering Tools & Systems",
-    skills: [
-      "SolidWorks",
-      "Fusion 360",
-      "CATIA",
-      "AutoCAD",
-      "ANSYS",
-      "Simscape",
-      "SAP",
-      "Teamcenter",
-      "MES",
-      "FANUC",
-      "RobotStudio",
-    ],
-  },
+      "Sensors and Actuators",
+      "Process Automation",
+      "IEC 61131-3"
+    ]
+  }
 ];
 
 export const certifications = [
@@ -496,3 +488,30 @@ export const credentialBadges = [
 ];
 
 export const credlyBadgeIds = credentialBadges.map((badge) => badge.id);
+
+export const semiconductorInterests = [
+  {
+    "title": "Optical Proximity Correction",
+    "description": "Current professional direction; developing knowledge of OPC and its role in pattern transfer."
+  },
+  {
+    "title": "Computational Lithography",
+    "description": "Exploring the relationship between computation, mask patterns, and lithographic imaging."
+  },
+  {
+    "title": "Semiconductor Process Optimization",
+    "description": "An area of ongoing learning, connecting process behavior, variation, and structured problem solving."
+  },
+  {
+    "title": "Manufacturing Data Analysis",
+    "description": "Extending an existing interest in reproducible manufacturing analytics toward semiconductor applications."
+  },
+  {
+    "title": "Semiconductor Test & Yield Analysis",
+    "description": "Future independent project direction; no completed semiconductor yield study is claimed."
+  },
+  {
+    "title": "Engineering Automation",
+    "description": "Exploring opportunities for software to support repeatable analysis and technical workflows."
+  }
+];

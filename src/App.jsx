@@ -1,8 +1,4 @@
-import Navbar from "./components/Navbar.jsx";
-import Hero from "./components/Hero.jsx";
-import About from "./components/About.jsx";
-import Publications from "./components/Publications.jsx";
-import GitHubActivity from "./components/GitHubActivity.jsx";
+import ProfessionalPortfolio, { ProfessionalNav, ProfessionalFooter } from "./components/ProfessionalPortfolio.jsx";
 import PersonalPage from "./components/PersonalPage.jsx";
 import ActivityPage from "./components/personal/ActivityPage.jsx";
 import BuildLogPage from "./components/personal/BuildLogPage.jsx";
@@ -13,37 +9,7 @@ import ThoughtsPage from "./components/personal/ThoughtsPage.jsx";
 import TrophyRoom from "./components/personal/trophies/TrophyRoom.jsx";
 import TrophyGamePage from "./components/personal/trophies/TrophyGamePage.jsx";
 import ProjectCaseStudy from "./components/projects/ProjectCaseStudy.jsx";
-import Highlights from "./components/Highlights.jsx";
-import FeaturedGithub from "./components/FeaturedGithub.jsx";
-import Experience from "./components/Experience.jsx";
-import Education from "./components/Education.jsx";
-import Skills from "./components/Skills.jsx";
-import Certifications from "./components/Certifications.jsx";
-import CredlyBadges from "./components/CredlyBadges.jsx";
-import Awards from "./components/Awards.jsx";
-import EngineeringNumbers from "./components/EngineeringNumbers.jsx";
-import RecruiterSnapshot from "./components/RecruiterSnapshot.jsx";
-import Contact from "./components/Contact.jsx";
-import Footer from "./components/Footer.jsx";
-import {
-  about,
-  awards,
-  certifications,
-  credentialBadges,
-  education,
-  engineeringMetrics,
-  experiences,
-  featuredProjects,
-  githubActivity,
-  heroBadges,
-  highlights,
-  navItems,
-  profile,
-  publications,
-  recruiterSnapshot,
-  siteMeta,
-  skillGroups,
-} from "./data.js";
+import { profile, siteMeta } from "./data.js";
 import { caseStudies } from "./data/caseStudies.js";
 
 function upsertMeta(selector, attributes) {
@@ -67,7 +33,8 @@ function setCanonical(href) {
 
 function setPageMeta(title, description, options = {}) {
   const canonicalUrl = `${siteMeta.siteUrl}${options.path || window.location.pathname}`;
-  const imageUrl = `${siteMeta.siteUrl}${options.image || siteMeta.socialImage}`;
+  const isPersonal = (options.path || window.location.pathname).startsWith('/personal');
+  const imageUrl = `${siteMeta.siteUrl}${options.image || (isPersonal ? profile.photo : siteMeta.socialImage)}`;
 
   document.title = title;
   upsertMeta("meta[name='description']", { name: "description", content: description });
@@ -79,7 +46,7 @@ function setPageMeta(title, description, options = {}) {
   upsertMeta("meta[name='twitter:title']", { name: "twitter:title", content: title });
   upsertMeta("meta[name='twitter:description']", { name: "twitter:description", content: description });
   upsertMeta("meta[name='twitter:image']", { name: "twitter:image", content: imageUrl });
-  upsertMeta("meta[name='theme-color']", { name: "theme-color", content: siteMeta.themeColor });
+  upsertMeta("meta[name='theme-color']", { name: "theme-color", content: isPersonal ? '#1f4e79' : siteMeta.themeColor });
   setCanonical(canonicalUrl);
 }
 
@@ -174,9 +141,9 @@ export default function App() {
     setPageMeta(
       study ? `${study.title} | Romulo Colorado Case Study` : "Project Case Study | Romulo Colorado",
       study?.summary || "Engineering project case study from Romulo Colorado's mechatronics portfolio.",
-      { path, image: study?.image }
+      { path }
     );
-    return <ProjectCaseStudy study={study} />;
+    return <div className="pro-site pro-case"><a className="pro-skip" href="#case-content">Skip to content</a><ProfessionalNav/><div id="case-content"><ProjectCaseStudy study={study} /></div><ProfessionalFooter/></div>;
   }
 
   setPageMeta(
@@ -185,27 +152,5 @@ export default function App() {
     { path: "/" }
   );
 
-  return (
-    <>
-      <Navbar navItems={navItems} resumePath={profile.resumePath} />
-      <main className="professional-main">
-        <Hero profile={profile} badges={heroBadges} />
-        <RecruiterSnapshot snapshot={recruiterSnapshot} />
-        <About about={about} />
-        <Highlights highlights={highlights} />
-        <FeaturedGithub projects={featuredProjects} />
-        <Experience experiences={experiences} />
-        <EngineeringNumbers metrics={engineeringMetrics} />
-        <Publications publications={publications} />
-        <Skills skillGroups={skillGroups} />
-        <Education education={education} />
-        <Certifications certifications={certifications} />
-        <Awards awards={awards} />
-        <CredlyBadges badges={credentialBadges} />
-        <GitHubActivity activity={githubActivity} />
-        <Contact profile={profile} />
-      </main>
-      <Footer profile={profile} />
-    </>
-  );
+  return <ProfessionalPortfolio />;
 }

@@ -1,0 +1,51 @@
+"""Original code-drawn artwork, with no company imagery or process data."""
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont
+import math
+
+assets = Path('public/assets')
+(assets/'engineering').mkdir(exist_ok=True)
+(assets/'social').mkdir(exist_ok=True)
+svg = '''<svg xmlns="http://www.w3.org/2000/svg" width="680" height="680" viewBox="0 0 680 680">
+<defs>
+<radialGradient id="base"><stop stop-color="#334871"/><stop offset=".6" stop-color="#192641"/><stop offset="1" stop-color="#0b1425"/></radialGradient>
+<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#63d8ed" stop-opacity=".75"/><stop offset=".3" stop-color="#4da6ff" stop-opacity=".08"/><stop offset=".53" stop-color="#8758f5" stop-opacity=".65"/><stop offset=".74" stop-color="#63d8ed" stop-opacity=".16"/><stop offset="1" stop-color="#8758f5" stop-opacity=".6"/></linearGradient>
+<pattern id="dies" width="47" height="54" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="42" height="49" rx="1" fill="none" stroke="#80a5d0" stroke-opacity=".65" stroke-width=".7"/><path d="M7 9h12v12H7zM23 9h15v5H23zM23 18h15v4H23zM7 27h31v17H7zM11 31h23v9H11zM3 24h40M20 3v20M3 46h40" fill="none" stroke="#85a9de" stroke-opacity=".5" stroke-width=".7"/><path d="M10 4v4m5-4v4m10 15v4m5-4v4m-24 7h4m-4 5h4m24-5h9m-9 5h9" stroke="#b4a0fa" stroke-width=".8"/></pattern>
+<clipPath id="wafer"><path d="M340 79a245 245 0 1 1-16 489l16-12 16 12A245 245 0 0 1 340 79Z"/></clipPath>
+</defs>
+<g stroke="#253043" fill="none" stroke-width=".7"><path d="M25 340h630M340 25v630"/><circle cx="340" cy="324" r="278" stroke-dasharray="2 7"/><circle cx="340" cy="324" r="268"/><path d="M27 35h25M39 23v25M628 35h25m-12-12v25M27 630h25m-13-12v25m589-13h25m-12-12v25"/></g>
+<g transform="rotate(-18 340 324)"><g clip-path="url(#wafer)"><circle cx="340" cy="324" r="245" fill="url(#base)"/><rect x="90" y="75" width="500" height="500" fill="url(#dies)"/><rect x="90" y="75" width="500" height="500" fill="url(#sheen)"/><path d="M110 200 540 520M100 205 535 530M190 100 580 400" stroke="#b4a0fa" opacity=".17" stroke-width="17"/></g><circle cx="340" cy="324" r="245" fill="none" stroke="#7da3cb" stroke-width="1.4"/><circle cx="340" cy="324" r="240" fill="none" stroke="#63d8ed" stroke-opacity=".4" stroke-width=".7"/></g>
+<g stroke="#63d8ed" fill="none" stroke-width=".7"><path d="M477 156h105l35-35M168 468H65l-27 27"/><circle cx="477" cy="156" r="3"/><circle cx="168" cy="468" r="3"/></g>
+<g font-family="monospace" font-size="8" letter-spacing="1" fill="#92a1b8"><text x="495" y="145">PATTERN / REPEAT</text><text x="40" y="517">DIE GRID</text><text x="281" y="636">CONCEPTUAL STUDY</text></g></svg>'''
+(assets/'engineering/wafer.svg').write_text(svg, encoding='utf8')
+
+# A raster social card is supported by LinkedIn and other social crawlers.
+image = Image.new('RGB', (1200,630), '#080b12')
+d = ImageDraw.Draw(image)
+fontdir = Path('C:/Windows/Fonts')
+regular = str(fontdir/'arial.ttf')
+bold = str(fontdir/'arialbd.ttf')
+def text(pos, value, size, color, weight=False):
+    d.text(pos, value, font=ImageFont.truetype(bold if weight else regular,size), fill=color)
+d.rectangle((0,0,1199,629),outline='#253043',width=2)
+d.line((65,86,1135,86),fill='#253043',width=1)
+text((65,43),'RC  /  ENGINEERING PORTFOLIO',17,'#63d8ed')
+text((65,154),'Rómulo',68,'#f5f7fb',True)
+text((65,226),'Colorado.',68,'#b5c0d0',True)
+text((68,337),'OPC Production Engineer',30,'#f5f7fb')
+text((68,385),'at Micron Technology',24,'#b5c0d0')
+text((68,461),'Semiconductors · Mechatronics · Automation',19,'#92a1b8')
+text((68,548),'GUADALAJARA, MEXICO  /  RGCB01.GITHUB.IO',15,'#63d8ed')
+cx,cy,r=947,302,180
+d.ellipse((cx-r-17,cy-r-17,cx+r+17,cy+r+17),outline='#253043',width=1)
+d.ellipse((cx-r,cy-r,cx+r,cy+r),fill='#101827',outline='#4da6ff',width=2)
+for x in range(cx-r,cx+r,30):
+    for y in range(cy-r,cy+r,34):
+        if all((xx-cx)**2+(yy-cy)**2<(r-7)**2 for xx,yy in [(x,y),(x+25,y+29)]):
+            color = '#8758f5' if (x+y)%3 == 0 else '#4b759b'
+            d.rectangle((x,y,x+25,y+29),outline=color,width=1)
+            d.rectangle((x+5,y+5,x+19,y+13),outline='#31445f',width=1)
+            d.line((x+4,y+20,x+20,y+20),fill='#4b759b',width=1)
+d.line((765,550,1134,550),fill='#253043',width=1)
+text((772,568),'PERSONAL ENGINEERING PORTFOLIO',12,'#92a1b8')
+image.save(assets/'social/engineering-preview.png',optimize=True)

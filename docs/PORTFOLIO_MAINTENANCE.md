@@ -1,12 +1,14 @@
 # Professional Portfolio Maintenance
 
-The professional site at `/` is treated as a stable v1.0 content system. Future changes should normally update data and assets, not redesign components.
+The professional site at `/` and `/projects/*` uses the Portfolio 2.0 semiconductor visual identity. The redesign supersedes the former v1.0 freeze. Continue to update centralized data and assets for routine content changes.
 
 ## Main Files
 
 - Professional content: `src/data/portfolio.js`
 - Project case studies: `src/data/caseStudies.js`
 - Professional components: `src/components/*.jsx`
+- Current professional presentation: `src/components/ProfessionalPortfolio.jsx`
+- Scoped professional design tokens and responsive styling: `src/professional.css`
 - Case study components: `src/components/projects/`
 - Resume: `public/assets/resume/romulo-colorado-resume.pdf`
 - Project images: `public/assets/projects/`
@@ -48,7 +50,7 @@ Do not imply production impact when a project uses synthetic or portfolio data.
 
 Edit `experiences` in `src/data/portfolio.js`.
 
-Keep bullets outcome-oriented and engineering-specific. Metrics should include enough context to be defensible in an interview.
+Keep bullets specific to verified experience. For newly started roles, describe the position and technical context without inventing achievements or responsibilities. Metrics should include enough context to be defensible in an interview. Distinguish developing domain knowledge from demonstrated skills using `skillGroups[].context`. Keep future topics in `semiconductorInterests` and planned projects in `upcomingProjects`.
 
 ## Add a Certification
 
@@ -88,7 +90,7 @@ The visual embed layer reads from the badge ID list; keep formal certifications 
 
 ## Update Resume
 
-Replace this file without changing component code:
+Replace this file only with an approved, verified resume source. The current PDF is a previous edition; keep the visible `profile.resumeNote` until it is updated:
 
 ```txt
 public/assets/resume/romulo-colorado-resume.pdf
@@ -112,7 +114,13 @@ Update these fields in `src/data/portfolio.js`:
 - `about`
 - `recruiterSnapshot`
 
-These fields are intentionally centralized so the site can evolve from new graduate positioning without redesign.
+These fields are intentionally centralized. Employment, independent project evidence, and exploratory interests should remain distinct. The current resume and education source differences are documented in `PORTFOLIO_2_AUDIT.md`.
+
+## Social and Search Metadata
+
+`siteMeta` supplies production metadata. Keep the source `index.html` consistent for development. The build script `scripts/copy-404.mjs` emits crawler-readable title, description, canonical, Open Graph, Twitter, and JSON-LD for the home and case study routes, while preserving personal direct-route pages and the 404 fallback. Run `npm run validate:professional-build` after building. The original social card is `public/assets/social/engineering-preview.png`.
+
+Never add global selectors or change root CSS variables for the professional visual system. New styles belong inside `.pro-site`; `src/styles.css` remains the personal console's existing style source.
 
 ## Validation Checklist
 
