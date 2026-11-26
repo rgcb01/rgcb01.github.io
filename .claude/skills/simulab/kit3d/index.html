@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+/*FONTS*/
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #ecebe8; font-family: Inter, sans-serif; }
+body.render, body.embed { background: #fff; }
+#wrap { display: flex; flex-direction: column; align-items: center; padding: 12px 12px 0; }
+body.render #wrap, body.embed #wrap { padding: 0; }
+#stage { display: block; background: #fff; box-shadow: 0 10px 40px rgba(20, 20, 30, 0.12); cursor: pointer; }
+body.render #stage, body.embed #stage { box-shadow: none; }
+#bar { display: flex; gap: 10px; align-items: center; padding: 10px 4px; width: min(100%, 760px); font: 12px "JetBrains Mono", monospace; color: #55575c; }
+#bar button { border: 1px solid #d7d4ce; background: #fff; border-radius: 6px; padding: 5px 12px; cursor: pointer; font: inherit; }
+#bar input { flex: 1; accent-color: #ec7a2f; }
+body.render #bar { display: none; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="stage"></canvas>
+  <div id="bar"><button id="play">❚❚</button><input id="scrub" type="range" min="0" max="1000" value="0"><!-- __NOTE__ --></div>
+</div>
+<script>
+const _q = new URLSearchParams(location.search); if (_q.has('render')) document.body.classList.add('render'); if (_q.has('embed')) document.body.classList.add('embed');
+</script>
+<script>
+/*SCRIPTS*/
+</script>
+</body>
+</html>

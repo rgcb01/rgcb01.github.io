@@ -1,0 +1,10 @@
+{
+  "title": "KAPRI LAB · Lab 02 · MULTÍMETRO: sus 10 funciones",
+  "note": "Lecturas simuladas con valores típicos: pila 9 V nueva 9.42 V; contacto de México 127 V~ a 60 Hz; resistencia de 220 Ω ±5 %; LED rojo en prueba de diodo ≈ 1.8 V (típico 1.8-2.2 V); capacitor de 100 µF ±20 %; pin 9 del Arduino UNO con analogWrite(9, 128): ≈ 490 Hz (arduino.cc) y 128/255 = 50.2 %; corriente del LED (5 - 2.0) / 220 = 13.6 mA. El umbral de continuidad cambia según el modelo (decenas de Ω). Multímetro de diseño propio, no es una marca real. Hecho por @0xKapri.",
+  "files": [
+    "model.js",
+    "story.js",
+    "demo.js"
+  ],
+  "cover": 13.5
+}

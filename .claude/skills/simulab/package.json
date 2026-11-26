@@ -1,0 +1,16 @@
+{
+  "name": "simulab",
+  "version": "1.0.0",
+  "description": "Claude Code skill: turn any idea into an interactive isometric 3D lab and a 60 fps video",
+  "license": "MIT",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "stills": "node tools/stills.mjs",
+    "new": "node tools/new-demo.mjs",
+    "catalog": "node tools/catalog.mjs",
+    "video": "bash tools/video.sh"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

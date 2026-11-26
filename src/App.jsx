@@ -9,8 +9,15 @@ import ThoughtsPage from "./components/personal/ThoughtsPage.jsx";
 import TrophyRoom from "./components/personal/trophies/TrophyRoom.jsx";
 import TrophyGamePage from "./components/personal/trophies/TrophyGamePage.jsx";
 import ProjectCaseStudy from "./components/projects/ProjectCaseStudy.jsx";
+import { lazy, Suspense } from "react";
+import LabsIndex from "./components/labs/LabsIndex.jsx";
 import { profile, siteMeta } from "./data.js";
 import { caseStudies } from "./data/caseStudies.js";
+import { findLab, labsIndexMeta } from "./labs/registry.js";
+
+const LabPage = lazy(() => import("./components/labs/LabPage.jsx"));
+const LabShareCard = lazy(() => import("./components/labs/LabShareCard.jsx"));
+const labFallback = <div className="pro-site" style={{ minHeight: "100vh" }} />;
 
 function upsertMeta(selector, attributes) {
   let element = document.querySelector(selector);
@@ -54,6 +61,30 @@ export default function App() {
   const path = window.location.pathname.replace(/\/$/, "") || "/";
   const projectMatch = path.match(/^\/projects\/([^/]+)$/);
   const trophyGameMatch = path.match(/^\/personal\/trophies\/([^/]+)$/);
+  const labCardMatch = path.match(/^\/labs(?:\/([^/]+))?\/card$/);
+  const labMatch = path.match(/^\/labs\/([^/]+)$/);
+
+  if (labCardMatch) {
+    const format = new URLSearchParams(window.location.search).get("format") || "og";
+    document.title = "Publication card | Interactive Labs";
+    upsertMeta("meta[name='robots']", { name: "robots", content: "noindex" });
+    return <Suspense fallback={labFallback}><LabShareCard slug={labCardMatch[1]} format={format} /></Suspense>;
+  }
+
+  if (path === "/labs") {
+    setPageMeta(labsIndexMeta.title, labsIndexMeta.description, { path: "/labs", image: labsIndexMeta.socialImage });
+    return <LabsIndex />;
+  }
+
+  if (labMatch) {
+    const lab = findLab(labMatch[1]);
+    setPageMeta(
+      lab ? `${lab.title} | Interactive Labs | Rómulo Colorado` : "Lab not found | Interactive Labs",
+      lab ? `${lab.question} ${lab.summary}` : labsIndexMeta.description,
+      { path, image: lab?.socialImage || labsIndexMeta.socialImage }
+    );
+    return <Suspense fallback={labFallback}><LabPage lab={lab} /></Suspense>;
+  }
 
   if (path === "/personal") {
     setPageMeta(

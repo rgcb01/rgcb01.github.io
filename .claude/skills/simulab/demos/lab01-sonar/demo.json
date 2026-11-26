@@ -1,0 +1,5 @@
+{
+  "title": "KAPRI LAB · Lab 01 · SONAR: un robot que escucha paredes",
+  "note": "Modelo: HC-SR04 (pulso TRIG de 10 µs, 8 ciclos a 40 kHz, 2-400 cm, 15°, ≥ 60 ms entre lecturas), sonido a 343 m/s (20 °C), ruedas de 65 mm, motores TT 1:48. Supuesto: 25 cm/s a PWM 150. Mueve el UMBRAL y el robot frena en otro punto. Hecho por @0xKapri.",
+  "files": ["model.js", "sketch.js", "story.js", "demo.js"]
+}

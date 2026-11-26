@@ -1,0 +1,10 @@
+{
+  "title": "KAPRI LAB · Lab 03 · CAUTÍN: cómo soldar bien",
+  "note": "Datos: la soldadura Sn63Pb37 funde a 183 °C (eutéctica; datasheets de MG Chemicals y Kester). Punta de 315-371 °C para 63/37, calentar pad y pata y no poner el alambre en la punta (datasheet Kester 245); aquí la punta va a 340 °C. Calentar pad y pata 1-2 s y llevar la soldadura a la unión (Adafruit, iFixit, allPCB). Ángulo de mojado menor a 90° = buena unión (IPC-A-610). Contacto ideal 2-3 s (JLCPCB, iFixit), menos de 5 s (onsemi); más de 10 s arriesga el pad (iFixit, onsemi). Supuestos del modelo: la unión se calienta hacia la temperatura de la punta con constante de 1.0 s y se enfría con 1.5 s; alambre de 0.8 mm alimentado a 3 mm/s; unión completa con 1.5-4.5 mm de alambre en un pad de 2 mm; el flux se quema más rápido con más calor y el daño al pad crece con (T - 200 °C) hasta levantarlo cerca de 10 s a 340 °C. El tiempo del capítulo 4 va adelantado ×4. Estación y herramientas de diseño propio, no son una marca real. Hecho por @0xKapri.",
+  "files": [
+    "model.js",
+    "story.js",
+    "demo.js"
+  ],
+  "cover": 21.6
+}

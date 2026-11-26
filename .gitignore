@@ -4,3 +4,7 @@ dist/
 .DS_Store
 Thumbs.db
 npm-debug.log*
+
+# Interactive Labs: generated publication exports and SimuLab staging (re-create with npm run labs:publish)
+exports/
+.claude/skills/simulab/package-lock.json

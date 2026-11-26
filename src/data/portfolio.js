@@ -53,6 +53,10 @@ export const navItems = [
     "href": "/#projects"
   },
   {
+    "label": "Labs",
+    "href": "/labs"
+  },
+  {
     "label": "Research",
     "href": "/#publications"
   },

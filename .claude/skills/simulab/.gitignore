@@ -1,0 +1,10 @@
+node_modules
+*/dist/
+*/shots/
+*/render/
+demos/*/dist/
+demos/*/shots/
+demos/*/render/
+__pycache__/
+.DS_Store
+stickers/.sticker.html

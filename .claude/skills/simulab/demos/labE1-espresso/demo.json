@@ -1,0 +1,6 @@
+{
+  "cover": 41,
+  "title": "SIMULAB · Lab E1 · ESPRESSO: por qué sale agrio o amargo",
+  "note": "Datos: receta base 18 g de café para 36 g de espresso (1:2) en 25-30 s (Clive Coffee; Equator Coffees). Presión de 9 bar ± 1 y 25 ± 5 s de percolación (Istituto Nazionale Espresso Italiano). Menos de 20 s sale agrio, rápido y aguado; más de 35 s sale amargo y oscuro; agrio se corrige moliendo más fino y amargo más grueso (Clive Coffee, guía de troubleshooting). Supuestos del modelo: la molienda 1-10 equivale a partículas de 200 + 40 × ajuste µm; el flujo crece con el tamaño de partícula al cuadrado (Darcy y Kozeny-Carman); el ajuste 5 (400 µm) llena 36 g en 28 s; 5 s de preinfusión a 3 bar; un shot ahogado se corta a los 60 s. Los capítulos van adelantados ×2, ×5 y ×2.5. Máquina de diseño propio, no es una marca real.",
+  "files": ["model.js", "demo.js"]
+}

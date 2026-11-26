@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+/*FONTS*/
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #0d0e10; color: #d9dce3; font-family: 'JetBrains Mono', monospace; }
+body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 12px 18px; }
+canvas#stage { display: block; border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+#bar { width: min(100%, 1600px); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-size: 12px; letter-spacing: .04em; }
+#bar button { font: 700 12px 'JetBrains Mono', monospace; letter-spacing: .04em; color: #e8eaee; background: #1b1d22; border: 1.5px solid #34373e; border-radius: 999px; padding: 7px 11px; cursor: pointer; }
+#bar button:hover { border-color: #ff7a1a; color: #fff; }
+#bar #play { min-width: 46px; background: #ff7a1a; border-color: #ff7a1a; color: #1d1205; }
+#scrub { flex: 1 1 120px; min-width: 120px; accent-color: #ff7a1a; }
+#steps { display: flex; gap: 6px; flex-wrap: wrap; }
+.knob { display: flex; align-items: center; gap: 8px; color: #8b909a; }
+.knob input { accent-color: #c8f04a; width: 100px; }
+.knob .v { color: #c8f04a; min-width: 48px; }
+#clock { color: #8b909a; min-width: 52px; text-align: right; }
+#live { display: flex; gap: 8px; }
+#bar #live .hold { background: #24262d; border-color: #c8f04a; color: #e8eaee; touch-action: none; user-select: none; -webkit-user-select: none; padding: 8px 14px 8px 8px; }
+#live .hold kbd { font: 700 11px 'JetBrains Mono', monospace; background: #c8f04a; color: #1d2033; border-radius: 5px; padding: 2px 6px; margin-right: 8px; }
+#bar #live .hold.on { background: #c8f04a; color: #1d2033; }
+#bar #livebtn { border-color: #c8f04a; color: #c8f04a; }
+#bar #livebtn.on { background: #c8f04a; color: #1d2033; }
+#note { width: min(100%, 1600px); font-size: 11px; color: #5d626c; line-height: 1.6; }
+/* ?embed: paper and ink, for an iframe on your site */
+body.embed { min-height: 0; padding: 0; gap: 0; background: #f3eee3; color: #1d2033; align-items: stretch; }
+body.embed canvas#stage { border-radius: 0; box-shadow: none; }
+body.embed #bar { width: 100%; padding: 10px 12px 12px; gap: 8px; background: #fffdf8; border-top: 1px solid rgba(29,32,51,.14); }
+body.embed #bar button { font-weight: 700; color: #1d2033; background: #fffdf8; border: 1px solid rgba(29,32,51,.22); border-radius: 6px; padding: 7px 10px; min-height: 34px; }
+body.embed #bar button:hover { border-color: #1d2033; color: #1d2033; }
+body.embed #bar button:focus-visible { outline: 2px solid #3a46aa; outline-offset: 2px; }
+body.embed #bar #play { background: #1d2033; border-color: #1d2033; color: #fffdf8; }
+body.embed #scrub, body.embed .knob input { accent-color: #3a46aa; }
+body.embed .knob, body.embed #clock { color: #545867; }
+body.embed .knob .v { color: #3a46aa; }
+body.embed #note { display: none; }
+body.embed #play { order: 1; } body.embed #restart { order: 2; } body.embed #scrub { order: 3; } body.embed #clock { order: 4; } body.embed #spd { order: 5; } body.embed .knob { order: 6; }
+body.embed #live { order: 7; }
+body.embed #bar #live .hold { background: #fffdf8; color: #1d2033; border: 1.5px solid #1d2033; }
+body.embed #live .hold kbd { background: #1d2033; color: #fffdf8; }
+body.embed #bar #live .hold.on { background: #3a46aa; color: #fffdf8; border-color: #3a46aa; }
+body.embed #bar #livebtn { color: #3a46aa; border-color: #3a46aa; }
+body.embed #bar #livebtn.on { background: #3a46aa; color: #fffdf8; }
+body.embed #steps { order: 9; flex: 1 1 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 1px; }
+body.embed #steps::-webkit-scrollbar { display: none; }
+body.embed #steps button { flex: 0 0 auto; font-weight: 400; }
+body.render { padding: 0; gap: 0; background: #000; }
+body.render #bar, body.render #note { display: none; }
+body.render canvas#stage { border-radius: 0; box-shadow: none; }
+</style>
+</head>
+<body>
+<canvas id="stage" width="1600" height="1280"></canvas>
+<div id="bar">
+  <button id="play" title="Reproducir / pausar (espacio)">❚❚</button>
+  <button id="restart" title="Desde el inicio">↺</button>
+  <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Línea de tiempo">
+  <span id="clock">0.0 s</span>
+  <div id="steps"></div>
+  <div id="live"></div>
+  <label id="knob" class="knob"><span class="k"></span><input type="range"><span class="v"></span></label>
+  <button id="spd" title="Velocidad">×1</button>
+</div>
+<div id="note">__NOTE__</div>
+<script>
+/*SCRIPTS*/
+</script>
+</body>
+</html>

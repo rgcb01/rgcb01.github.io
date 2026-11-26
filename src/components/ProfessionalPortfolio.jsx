@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowUpRight, ArrowDown, Download, Github, Linkedin, Mail, MapPin, Menu, X, Cpu, Code2, ScanLine, Workflow, ChartNoAxesCombined } from 'lucide-react';
+import LabsTeaser from './labs/LabsTeaser.jsx';
 import { profile, navItems, about, experiences, featuredProjects, skillGroups, semiconductorInterests, upcomingProjects, publications, education, certifications, awards, credentialBadges } from '../data/portfolio.js';
 
 export function ProfessionalNav() {
@@ -79,19 +80,21 @@ export default function ProfessionalPortfolio() {
         {upcomingProjects.map(project => <article className="pro-planned" key={project.title}><div><span className="pro-status">PLANNED / INDEPENDENT PROJECT</span><h3>{project.title}</h3><p>{project.focus}</p></div><div><Tags items={project.tags}/><p>Concept stage · implementation and validation have not started.</p></div></article>)}
       </div></section>
 
+      <LabsTeaser number="06" SectionHeading={SectionHeading}/>
+
       <section className="pro-section pro-width" id="publications">
-        <SectionHeading number="06" label="RESEARCH & PUBLICATIONS" title="Methods made reproducible.">Public technical writing supporting the independent engineering projects.</SectionHeading>
+        <SectionHeading number="07" label="RESEARCH & PUBLICATIONS" title="Methods made reproducible.">Public technical writing supporting the independent engineering projects.</SectionHeading>
         <div className="pro-publications">{publications.map((paper,i) => <article key={paper.doi}><span className="pro-paper-index">0{i+1}</span><div><p className="pro-mono">{paper.type} / {paper.year}</p><h3><a href={paper.doiUrl}>{paper.title} <ArrowUpRight size={19}/></a></h3><p>{paper.description}</p><span className="pro-paper-author">{paper.author} · Independent technical publication</span><div className="pro-project-links"><a href={paper.doiUrl}>DOI: {paper.doi} <ArrowUpRight size={14}/></a><a href={paper.repository}>Repository <Github size={14}/></a></div></div></article>)}</div>
       </section>
 
       <section className="pro-section pro-width" id="certifications">
-        <SectionHeading number="07" label="EDUCATION & RECOGNITION" title="Foundations for what comes next."/>
+        <SectionHeading number="08" label="EDUCATION & RECOGNITION" title="Foundations for what comes next."/>
         <div className="pro-education"><div><p className="pro-mono">EDUCATION / {education.dates}</p><h3>Mechatronics Engineering</h3><p>{education.school}</p></div><div>{awards.map(award => <div key={award.title}><p className="pro-mono">ACADEMIC RECOGNITION / {award.issued}</p><h3>CENEVAL Academic Excellence Award</h3><p>{award.title}</p></div>)}</div></div>
         <div className="pro-credential-feature">{certifications.slice(0,2).map(cert => <a href={cert.credentialUrl || cert.image} key={cert.title}><span className="pro-mono">{cert.issuer} / {cert.issued}</span><h3>{cert.title}<ArrowUpRight size={20}/></h3><span>View credential</span></a>)}</div>
         <details className="pro-credentials"><summary>Technical certifications & digital credentials <span>+</span></summary><div className="pro-cert-list">{certifications.slice(2).map(cert => <article key={cert.title}><h4>{cert.title}</h4><p>{cert.issuer} · {cert.issued}</p><a href={cert.credentialUrl || cert.image}>Verify credential <ArrowUpRight size={14}/></a><a href={cert.image}>Certificate image</a></article>)}</div><div className="pro-badges">{credentialBadges.map((badge,i) => <a href={`https://www.credly.com/badges/${badge.id}/public_url`} key={badge.id}>Credly credential {String(i+1).padStart(2,'0')} <ArrowUpRight size={13}/></a>)}</div></details>
       </section>
 
-      <section className="pro-contact-band" id="contact"><div className="pro-width pro-section"><p className="pro-eyebrow">08 / CONNECT</p><div className="pro-contact-grid"><div><h2>Let’s talk<br/><span>engineering.</span></h2><p>For professional connections, technical conversations,<br/>and exchanges across engineering disciplines.</p></div><div className="pro-contact-links"><a href={`mailto:${profile.email}`}><Mail size={21}/><span>{profile.email}</span><ArrowUpRight/></a><a href={profile.linkedin}><Linkedin size={21}/><span>Connect on LinkedIn</span><ArrowUpRight/></a><a href={profile.github}><Github size={21}/><span>Explore GitHub</span><ArrowUpRight/></a><a href={profile.resumePath} download><Download size={21}/><span>Download Resume</span><ArrowUpRight/></a><p className="pro-resume-note">{profile.resumeNote}</p></div></div></div></section>
+      <section className="pro-contact-band" id="contact"><div className="pro-width pro-section"><p className="pro-eyebrow">09 / CONNECT</p><div className="pro-contact-grid"><div><h2>Let’s talk<br/><span>engineering.</span></h2><p>For professional connections, technical conversations,<br/>and exchanges across engineering disciplines.</p></div><div className="pro-contact-links"><a href={`mailto:${profile.email}`}><Mail size={21}/><span>{profile.email}</span><ArrowUpRight/></a><a href={profile.linkedin}><Linkedin size={21}/><span>Connect on LinkedIn</span><ArrowUpRight/></a><a href={profile.github}><Github size={21}/><span>Explore GitHub</span><ArrowUpRight/></a><a href={profile.resumePath} download><Download size={21}/><span>Download Resume</span><ArrowUpRight/></a><p className="pro-resume-note">{profile.resumeNote}</p></div></div></div></section>
     </main><ProfessionalFooter/>
   </div>;
 }
