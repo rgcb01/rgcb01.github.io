@@ -14,6 +14,7 @@ The professional site at `/` and `/projects/*` uses the Portfolio 2.0 semiconduc
 - Project images: `public/assets/projects/`
 - Certificate images: `public/assets/certificates/`
 - Profile image: `public/assets/profile/`
+- Interactive Labs: `src/labs/` (registry, models, content) and `docs/LABS.md`
 
 ## Add a Featured Project
 

@@ -1,0 +1,11 @@
+{
+  "title": "Apex 1 · Lab 25 · KAPRI LAB",
+  "kit": "poster3d",
+  "files": [
+    "demo.js"
+  ],
+  "cover": 33.0,
+  "coverY": 340,
+  "fps": 24,
+  "note": "Auto de F1 con reglas 2026: V6 turbo de 1.6 L hasta 400 kW, MGU-K de 350 kW (entrega y recuperacion), hasta 8.5 MJ recuperados por vuelta, sin MGU-H, combustible 100% sustentable, aero activa (modo recta y modo curva), entre ejes 3.4 m, ancho 1.9 m, rines de 18 in, peso minimo 768 kg. Supuestos del video (no son datos oficiales): velocidades 0-330 km/h, angulo del flap 28 grados en curva y 8 en recta, bateria entre 2.0 y 3.6 MJ dentro de la ventana de 4 MJ, frenada de 3 s a 350 kW = 1.05 MJ, diametro de llanta ~72 cm. Giro de ruedas y turbo mostrado mas lento. Escala: 1 unidad = 5 cm."
+}

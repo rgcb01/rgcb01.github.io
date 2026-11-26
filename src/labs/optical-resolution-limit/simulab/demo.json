@@ -1,0 +1,6 @@
+{
+  "cover": 21,
+  "title": "Interactive Labs · Lab 01 · The Optical Resolution Limit",
+  "note": "Model: scalar, thin-mask, aberration-free partially coherent imaging (Abbe source integration) of an infinite equal line/space binary chrome grating; wafer-side nm; ArF wavelength 193 nm. Chapters: 300 nm and 180 nm at NA 0.93 on axis; 180 nm and 120 nm at NA 1.35 (water immersion, n ≈ 1.44 at 193 nm, Lin 2004) on axis; 120 nm with dipole illumination sigma 0.6; 70 nm with dipole sigma 0.9, below lambda / (2 NA) = 71.5 nm. Order m of pitch p lands at m lambda / p in the pupil (Abbe 1873; Hopkins 1953). 'Prints' means aerial-image contrast >= 0.2, a teaching heuristic: no resist, polarization, mask 3D, aberrations or defocus are modeled. Bench, laser and lens are an own schematic design, not a real tool or brand. Full math, references and limitations: rgcb01.github.io/labs/optical-resolution-limit",
+  "files": ["model.gen.js", "bench.js", "demo.js"]
+}

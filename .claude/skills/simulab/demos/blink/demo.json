@@ -1,0 +1,6 @@
+{
+  "cover": 8.6,
+  "title": "KAPRI LAB · Lab 00 · BLINK: tu primer programa",
+  "note": "Modelo: pin 13 a 5 V (HIGH) o 0 V (LOW), LED rojo con caída típica de 2.0 V y resistencia de 220 Ω: (5 − 2.0) / 220 = 13.6 mA. Plantilla base de KAPRI LAB. Hecho por @0xKapri.",
+  "files": ["sketch.js", "demo.js"]
+}

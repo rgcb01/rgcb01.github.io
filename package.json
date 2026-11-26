@@ -15,11 +15,16 @@
     "validate:media": "node scripts/validate-media-data.mjs",
     "validate:trophies": "node scripts/validate-trophy-data.mjs",
     "validate:steam": "node scripts/validate-steam-data.mjs",
+    "labs:setup": "npm --prefix .claude/skills/simulab install --no-audit --no-fund && python3 -m pip install -r .claude/skills/simulab/requirements.txt",
+    "labs:validate": "node scripts/labs/validate-labs.mjs",
+    "labs:explainer": "node scripts/labs/simulab.mjs",
+    "labs:publish": "node scripts/labs/publish.mjs",
     "preview": "vite preview",
     "deploy": "npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.0.0",
+    "katex": "^0.16.22",
     "lucide-react": "^0.468.0",
     "psn-api": "^2.18.0",
     "react": "^19.0.0",

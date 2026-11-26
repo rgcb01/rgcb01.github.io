@@ -68,6 +68,7 @@ The professional side is maintained through local data and assets. Presentation 
 - Project images: `public/assets/projects/`
 - Certificate images: `public/assets/certificates/`
 - Maintenance guide: `docs/PORTFOLIO_MAINTENANCE.md`
+- Interactive Labs guide: `docs/LABS.md`
 
 For professional content changes, run:
 
@@ -76,6 +77,20 @@ npm run validate:portfolio
 npm run build
 npm run validate:professional-build
 ```
+
+## Interactive Labs
+
+Educational simulations at `/labs`, integrated into the professional design (nav item "Labs" and home section 06). Each lab has its own URL (`/labs/<slug>`, with shareable simulation state in the query string), an interactive simulation driven by one pure model, a mathematical explanation, verified references and documented model limitations.
+
+First lab: [The Optical Resolution Limit](https://rgcb01.github.io/labs/optical-resolution-limit), on diffraction and optical resolution in semiconductor lithography.
+
+```bash
+npm run labs:validate                                   # registry, content, references, assets, model checks
+npm run labs:setup                                      # once, for explainers/videos: SimuLab deps (+ ffmpeg on PATH)
+npm run labs:publish -- <slug> [--video] [--preview]    # Open Graph image, LinkedIn/X images and videos, post drafts
+```
+
+The SimuLab skill (MIT, by @0xKapri) is vendored in `.claude/skills/simulab/` and powers the guided explainer and videos. See `docs/LABS.md` for the architecture, how to add a lab, and the publication pipeline.
 
 ## Personal Console Routes
 
