@@ -1,0 +1,9 @@
+{
+  "cover": 33,
+  "title": "Interactive Labs · Lab 02 · Why We Intentionally Distort Photomasks",
+  "note": "Simulated, not measured. Model: scalar Abbe imaging of a thin bright-field binary mask (chrome on glass), dry ArF 193 nm, NA 0.93, conventional illumination sigma 0.5 sampled at 97 points; positive-tone resist modelled as a constant threshold (dose-to-size, 0.341) after a 12 nm Gaussian blur; printed feature = region below the threshold. Synthetic clip: three dense lines, one isolated line and an L-shaped elbow, 100 nm lines and spaces (k1 0.48). EPE at 644 edge sites (10 nm apart, 0.4 CD clear of corners). Model-based OPC: 86 edge fragments moved against their EPE by a fixed-gain loop with mask-rule-like limits; serifs and hammerheads are not coded, they emerge. Errors are drawn 4x longer on the wafer and the terrain is interpolated between exact 5 % strength steps during the morph. Stack, plates and light are an own schematic design. Educational model, not industrial OPC: no polarization, mask 3D, resist calibration, process window or assist features. Math, references and limitations: rgcb01.github.io/labs/optical-proximity-correction",
+  "files": ["model.gen.js", "data.gen.js", "stack.js", "demo.js"],
+  "modelGlobal": "OPCM",
+  "prepare": "prepare.mjs",
+  "stills": [3, 9, 14.5, 19, 24, 29.5, 33, 37.5, 42, 47, 50, 54]
+}

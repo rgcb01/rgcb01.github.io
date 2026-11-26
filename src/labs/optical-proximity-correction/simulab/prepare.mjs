@@ -1,0 +1,75 @@
+// Build step for the SimuLab explainer (run by scripts/labs/simulab.mjs): runs model.js once and writes
+// data.gen.js with 21 OPC-strength states (0 %, 5 %, ... 100 %). Each state has the corrected mask, the blurred
+// aerial image sampled as a terrain, the printed contour and per-site EPE. A frame-exact video cannot afford a
+// 0.1 s image per frame, so the explainer reads these exact states and interpolates only the terrain heights
+// between neighbouring 5 % steps during the mask morph.
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { opcAerialImage, opcContours, opcExperiment, opcFragmentMask, opcIntensity, opcIsoDenseBias, opcMetrics, opcSites } from '../model.js';
+
+const STEPS = 20, TX = 96, TY = 52;   // strength steps; terrain samples (whole clip window)
+const round = (v, q) => Math.round(v / q) * q;
+const i16 = (arr, k) => Buffer.from(Int16Array.from(arr.map(v => Math.round(v * k))).buffer).toString('base64');
+const u8 = (arr) => Buffer.from(Uint8Array.from(arr)).toString('base64');
+
+// chain marching-squares segments into polylines, then Douglas-Peucker simplify (tolerance in nm)
+function polylines(segs, tol = 0.35) {
+  const key = (x, y) => `${x.toFixed(4)},${y.toFixed(4)}`, ends = new Map(), used = new Set(), out = [];
+  segs.forEach((s, i) => { for (const k of [key(s[0], s[1]), key(s[2], s[3])]) { if (!ends.has(k)) ends.set(k, []); ends.get(k).push(i); } });
+  for (let i = 0; i < segs.length; i++) {
+    if (used.has(i)) continue;
+    used.add(i); const line = [[segs[i][0], segs[i][1]], [segs[i][2], segs[i][3]]];
+    for (const dir of [1, -1]) {
+      for (;;) {
+        const tip = dir === 1 ? line[line.length - 1] : line[0], next = (ends.get(key(tip[0], tip[1])) || []).find(j => !used.has(j));
+        if (next == null) break;
+        used.add(next); const s = segs[next], a = [s[0], s[1]], b = [s[2], s[3]], far = key(a[0], a[1]) === key(tip[0], tip[1]) ? b : a;
+        if (dir === 1) line.push(far); else line.unshift(far);
+      }
+    }
+    out.push(dp(line, tol));
+  }
+  return out.filter(l => l.length > 2);
+}
+function dp(pts, tol) {
+  if (pts.length < 3) return pts;
+  if (Math.hypot(pts[0][0] - pts[pts.length - 1][0], pts[0][1] - pts[pts.length - 1][1]) < 1e-6) {   // closed loop:
+    let far = 1, best = 0;                                                                              // split at the
+    pts.forEach((q, i) => { const d = Math.hypot(q[0] - pts[0][0], q[1] - pts[0][1]); if (d > best) { best = d; far = i; } }); // farthest point
+    return [...dp(pts.slice(0, far + 1), tol).slice(0, -1), ...dp(pts.slice(far), tol)];
+  }
+  const [a, b] = [pts[0], pts[pts.length - 1]], dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
+  let worst = 0, at = 0;
+  for (let i = 1; i < pts.length - 1; i++) { const d = Math.abs((pts[i][0] - a[0]) * dy - (pts[i][1] - a[1]) * dx) / L; if (d > worst) { worst = d; at = i; } }
+  return worst <= tol ? [a, b] : [...dp(pts.slice(0, at + 1), tol).slice(0, -1), ...dp(pts.slice(at), tol)];
+}
+
+export default function prepare({ stageDir }) {
+  const t0 = Date.now();
+  const e = opcExperiment({}), p = e.params, polys = e.polys, thr = e.thr, sites = opcSites(polys, p.cd), win = e.bounds;
+  const states = [];
+  for (let k = 0; k <= STEPS; k++) {
+    const g = k / STEPS, mask = k === 0 ? e.target : opcFragmentMask(polys, e.model.frags, g), img = k === 0 ? e.imgBefore : opcAerialImage(mask, p), m = opcMetrics(img, sites, thr);
+    const terrain = [];
+    for (let j = 0; j < TY; j++) for (let i = 0; i < TX; i++) terrain.push(round(opcIntensity(img, win[0] + (win[2] - win[0]) * i / (TX - 1), win[1] + (win[3] - win[1]) * j / (TY - 1)), 0.001));
+    const contours = polylines(opcContours(img, thr, win));
+    states.push({
+      g,
+      mask: i16(mask.flat(), 10),                                             // nm x 10
+      terrain: u8(terrain.map(v => Math.max(0, Math.min(255, Math.round(v / 1.4 * 255))))), // intensity / 1.4 * 255
+      contours: i16(contours.flatMap(l => [l.length, ...l.flatMap(q => [q[0] * 10, q[1] * 10])]), 1), // [n, x, y, ...] nm x 10
+      epe: i16(m.sites.map(s => s.epe * 20), 1),                              // nm x 20
+      metrics: { rms: m.rms, maxAbs: m.maxAbs, within: m.within, lineEnd: m.lineEnd, outerCorner: m.outerCorner, endCorner: m.endCorner, isoDense: opcIsoDenseBias(m), pinched: m.pinched, bridged: m.bridged },
+    });
+  }
+  const data = {
+    generated: 'scripts/labs/simulab.mjs -> src/labs/optical-proximity-correction/simulab/prepare.mjs (model.js)',
+    params: { wavelength: p.wavelength, na: p.na, sigma: p.sigma, cd: p.cd, space: p.space, blur: p.blur }, thr, win, terrain: { nx: TX, ny: TY },
+    polys: polys.map(q => ({ id: q.id, tag: q.tag, pts: q.pts })),
+    sites: sites.map(s => [round(s.x, 0.01), round(s.y, 0.01), round(s.nx, 0.0001), round(s.ny, 0.0001), s.kind]),
+    states,
+  };
+  writeFileSync(join(stageDir, 'data.gen.js'), `// GENERATED by prepare.mjs from model.js. Do not edit.\nconst OPCD = ${JSON.stringify(data)};\n`);
+  const kb = (JSON.stringify(data).length / 1024).toFixed(0);
+  console.log(`prepare: ${kb} KB, ${states.length} states in ${((Date.now() - t0) / 1000).toFixed(1)} s, RMS EPE ${states[0].metrics.rms.toFixed(2)} -> ${states[STEPS].metrics.rms.toFixed(2)} nm`);
+}

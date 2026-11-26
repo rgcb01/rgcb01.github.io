@@ -10,7 +10,7 @@
 import { spawnSync } from 'node:child_process';
 import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 export const SKILL = join(ROOT, '.claude/skills/simulab');
@@ -53,9 +53,18 @@ export function stage(slug) {
   if (meta.files.includes('model.gen.js')) writeFileSync(join(dir, 'model.gen.js'), wrapModel(readFileSync(join(ROOT, 'src/labs', slug, 'model.js'), 'utf8'), meta.modelGlobal || 'ORL'));
   return dir;
 }
+// optional build step: demo.json "prepare": "prepare.mjs" exports default ({ stageDir, root }) and writes generated
+// files (for example precomputed model states) into the staging folder before the bundle is built.
+async function runPrepare(slug, dir) {
+  const meta = JSON.parse(readFileSync(join(dir, 'demo.json'), 'utf8'));
+  if (!meta.prepare) return;
+  const mod = await import(pathToFileURL(join(ROOT, 'src/labs', slug, 'simulab', meta.prepare)).href);
+  await mod.default({ stageDir: dir, root: ROOT });
+}
 
-export function buildExplainer(slug) {
+export async function buildExplainer(slug) {
   const dir = stage(slug);
+  await runPrepare(slug, dir);
   run('node', [join(SKILL, 'tools/build.mjs'), dir]);
   const out = join(ROOT, 'public/assets/labs', slug);
   mkdirSync(out, { recursive: true });
@@ -76,7 +85,7 @@ async function writeEvents(dir) {
 }
 
 export async function renderVideo(slug, { preview = false } = {}) {
-  const dir = buildExplainer(slug), R = join(dir, 'render');
+  const dir = await buildExplainer(slug), R = join(dir, 'render');
   rmSync(R, { recursive: true, force: true }); mkdirSync(R, { recursive: true });
   const fps = preview ? 30 : 60, w = preview ? 750 : 1500;
   run('node', [join(SKILL, 'tools/record.mjs'), dir, '--lang=en', `--fps=${fps}`, `--w=${w}`]);
@@ -92,9 +101,10 @@ export async function renderVideo(slug, { preview = false } = {}) {
   return join(out, `${name}.mp4`);
 }
 
-export function stills(slug, times) {
-  const dir = buildExplainer(slug);
-  run('node', [join(SKILL, 'tools/stills.mjs'), dir, '--w=640', '--cols=3', ...(times.length ? times : ['3', '9', '14', '19', '24', '29', '33', '36', '40'])]);
+export async function stills(slug, times) {
+  const dir = await buildExplainer(slug);
+  const meta = JSON.parse(readFileSync(join(dir, 'demo.json'), 'utf8'));
+  run('node', [join(SKILL, 'tools/stills.mjs'), dir, '--w=640', '--cols=3', ...(times.length ? times : (meta.stills || ['3', '9', '14', '19', '24', '29', '33', '36', '40']).map(String))]);
   const out = join(ROOT, 'exports/labs', slug);
   mkdirSync(out, { recursive: true });
   copyFileSync(join(dir, 'shots/sheet.jpg'), join(out, 'stills.jpg'));
@@ -104,8 +114,8 @@ export function stills(slug, times) {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const [slug, cmd = 'build', ...rest] = process.argv.slice(2);
   if (!slug) { console.error('usage: node scripts/labs/simulab.mjs <slug> build|stills|video [--preview]'); process.exit(1); }
-  if (cmd === 'build') buildExplainer(slug);
-  else if (cmd === 'stills') stills(slug, rest);
+  if (cmd === 'build') await buildExplainer(slug);
+  else if (cmd === 'stills') await stills(slug, rest);
   else if (cmd === 'video') await renderVideo(slug, { preview: rest.includes('--preview') });
   else { console.error(`unknown command ${cmd}`); process.exit(1); }
 }

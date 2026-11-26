@@ -14,7 +14,7 @@
 //   exports/labs/<slug>/<slug>-x-1920x1080.mp4            X native video
 // --preview renders the video at 750 px / 30 fps (about 4x faster) for checking before the final render.
 import { spawn, spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { CARD_FORMATS } from '../../src/labs/cards.js';
@@ -120,7 +120,14 @@ await withPreview(async base => {
     await capture(b, base, labPath(lab), 'og', join(pub, 'og.png'));
     await capture(b, base, labPath(lab), 'linkedin', join(exportsDir, `${lab.slug}-linkedin.png`));
     await capture(b, base, labPath(lab), 'x', join(exportsDir, `${lab.slug}-x.png`));
-    writeFileSync(join(exportsDir, 'post.md'), postText(lab, await lab.loadContent()));
+    const custom = join(ROOT, 'src/labs', lab.slug, 'posts.js'), pubFile = join(ROOT, 'src/labs', lab.slug, 'published.json');
+    if (existsSync(custom)) {
+      const { posts } = await import(pathToFileURL(custom).href), url = `${siteMeta.siteUrl}${labPath(lab)}`;
+      const t = posts({ lab, url, content: await lab.loadContent(), published: existsSync(pubFile) ? JSON.parse(readFileSync(pubFile, 'utf8')) : null });
+      const xLen = t.x.split(url).join('x'.repeat(23)).length;   // X counts every link as 23 characters
+      if (xLen > 280) throw new Error(`X draft is ${xLen} characters as X counts them (limit 280)`);
+      writeFileSync(join(exportsDir, 'post.md'), `# Post drafts: ${lab.title}\n\nEdit before posting. Numbers come from published.json, which the validators check against the model.\n\n## LinkedIn\n\n${t.linkedin}\n\n## X (${xLen} / 280 characters as X counts them; the link counts as 23)\n\n${t.x}\n\n## Attachments\n\n- Image post: ${lab.slug}-linkedin.png (LinkedIn, 1080x1350), ${lab.slug}-x.png (X, 1600x900)\n- Video: ${lab.slug}-linkedin-1080x1350.mp4 (LinkedIn), ${lab.slug}-x-1920x1080.mp4 (X)\n- Link previews use public/assets/labs/${lab.slug}/og.png automatically.\n`);
+    } else writeFileSync(join(exportsDir, 'post.md'), postText(lab, await lab.loadContent()));
     if (master) {
       const sfx = flag('preview') ? '-preview' : '';
       for (const [format, name] of [['video-linkedin', `${lab.slug}-linkedin-1080x1350${sfx}.mp4`], ['video-x', `${lab.slug}-x-1920x1080${sfx}.mp4`]]) {
