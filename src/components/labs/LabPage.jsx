@@ -46,16 +46,16 @@ function Explainer({ lab }) {
   if (!lab.explainer) return null;
   return (
     <section className="lab-section" id="explainer" aria-labelledby="explainer-title">
-      <div className="lab-section-head"><p className="pro-mono">02 / GUIDED EXPLAINER</p><h2 id="explainer-title">Watch the limit appear.</h2><p>An isometric bench that builds itself and steps through the same six states as the guided tour. Turn the knobs at the end to drive it yourself.</p></div>
+      <div className="lab-section-head"><p className="pro-mono">02 / GUIDED EXPLAINER</p><h2 id="explainer-title">{lab.page.explainerTitle}</h2><p>{lab.page.explainerIntro}</p></div>
       {open ? (
         <iframe ref={frame} className="lab-explainer" title={`${lab.title}, guided explainer`} src={`${lab.explainer}?embed&lang=en`} style={height ? { height } : undefined} loading="lazy" />
       ) : (
         <button type="button" className="lab-explainer-poster" onClick={() => setOpen(true)}>
           <img src={lab.socialImage} alt="" loading="lazy" width="1200" height="630" />
-          <span><PlayCircle size={22} /> Load the guided explainer <small>about 0.5 MB, runs offline in the page</small></span>
+          <span><PlayCircle size={22} /> Load the guided explainer <small>{lab.page.explainerSize}, runs offline in the page</small></span>
         </button>
       )}
-      <p className="lab-small">Explainer built with SimuLab (MIT, engine and assets by @0xKapri), adapted with a lithography bench of my own design. Open it <a href={`${lab.explainer}?lang=en`}>full screen</a>.</p>
+      <p className="lab-small">Explainer built with SimuLab (MIT, engine and assets by @0xKapri), {lab.page.explainerCredit} Open it <a href={`${lab.explainer}?lang=en`}>full screen</a>.</p>
     </section>
   );
 }
@@ -92,7 +92,7 @@ export default function LabPage({ lab }) {
 
         <section className="lab-section lab-section-sim" id="simulation" aria-labelledby="sim-title">
           <div className="pro-width">
-            <div className="lab-section-head"><p className="pro-mono">01 / INTERACTIVE SIMULATION</p><h2 id="sim-title">Shrink the pattern. Catch the orders.</h2><p>Scalar partially coherent imaging of an equal line/space grating. Every figure and number below comes from one model.</p></div>
+            <div className="lab-section-head"><p className="pro-mono">01 / INTERACTIVE SIMULATION</p><h2 id="sim-title">{lab.page.simTitle}</h2><p>{lab.page.simIntro}</p></div>
             {error ? <p className="lab-small">The simulation could not load. Reload the page to try again.</p> : Simulation ? <Simulation /> : <div className="lab-loading" role="status">Loading simulation…</div>}
           </div>
         </section>
@@ -101,7 +101,7 @@ export default function LabPage({ lab }) {
           <Explainer lab={lab} />
 
           <section className="lab-section" id="math" aria-labelledby="math-title">
-            <div className="lab-section-head"><p className="pro-mono">03 / MATHEMATICAL EXPLANATION</p><h2 id="math-title">Why the limit exists.</h2><p className="lab-bigidea">{lab.bigIdea}</p></div>
+            <div className="lab-section-head"><p className="pro-mono">03 / MATHEMATICAL EXPLANATION</p><h2 id="math-title">{lab.page.mathTitle}</h2><p className="lab-bigidea">{lab.bigIdea}</p></div>
             {content ? content.mathSections.map(s => (
               <article className="lab-math" key={s.id} id={`math-${s.id}`}>
                 <h3>{s.title}</h3>
@@ -117,6 +117,7 @@ export default function LabPage({ lab }) {
           <section className="lab-section" id="limitations" aria-labelledby="lim-title">
             <div className="lab-section-head"><p className="pro-mono">04 / MODEL LIMITATIONS</p><h2 id="lim-title">What this model leaves out.</h2><p>Read the numbers as physics teaching values, not process predictions.</p></div>
             <div className="lab-limitations">{content?.limitations.map((l, i) => <article key={l.title}><span className="pro-mono">{String(i + 1).padStart(2, '0')}</span><h3>{l.title}</h3><p>{l.text}</p></article>)}</div>
+            {content?.educationalVsIndustrial && <div className="lab-compare-wrap"><table className="lab-compare"><caption className="pro-mono">Educational model versus industrial practice</caption><thead><tr><th scope="col">Aspect</th><th scope="col">This lab</th><th scope="col">Industrial OPC</th></tr></thead><tbody>{content.educationalVsIndustrial.map(r => <tr key={r[0]}><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody></table></div>}
           </section>
 
           <section className="lab-section" id="references" aria-labelledby="ref-title">
@@ -134,8 +135,8 @@ export default function LabPage({ lab }) {
             <div className="lab-section-head"><p className="pro-mono">06 / REPRODUCE &amp; CITE</p><h2 id="rep-title">Check it yourself.</h2></div>
             <div className="lab-reproduce">
               <div>
-                <p>The model is a single file of plain JavaScript with no dependencies. An automated check compares it with closed-form results: the J₁ Bessel values, the 26.5 % Rayleigh dip, the λ/NA cut-off, the exact coherent three-beam image, and the λ/(2NA) wall.</p>
-                <pre><code>node scripts/labs/check-optical-resolution-model.mjs</code></pre>
+                {lab.page.reproduce.map(t => <p key={t}>{t}</p>)}
+                <pre><code>{lab.page.checks.join('\n')}</code></pre>
                 <a className="lab-card-link" href={lab.source} target="_blank" rel="noopener noreferrer"><Github size={15} /> Source on GitHub <ArrowUpRight size={14} /></a>
               </div>
               <div>

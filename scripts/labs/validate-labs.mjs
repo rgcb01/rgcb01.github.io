@@ -7,10 +7,13 @@ import { spawnSync } from 'node:child_process';
 import { labDomains, labs, labsIndexMeta, labPath } from '../../src/labs/registry.js';
 import { siteMeta } from '../../src/data/portfolio.js';
 
-const required = ['slug', 'number', 'title', 'subtitle', 'question', 'summary', 'bigIdea', 'domains', 'level', 'published', 'updated', 'status', 'socialImage', 'source', 'load', 'loadContent'];
+const required = ['slug', 'number', 'title', 'subtitle', 'question', 'summary', 'bigIdea', 'domains', 'level', 'published', 'updated', 'status', 'socialImage', 'source', 'load', 'loadContent', 'page'];
+const pageKeys = ['simTitle', 'simIntro', 'explainerTitle', 'explainerIntro', 'explainerSize', 'explainerCredit', 'mathTitle', 'reproduce', 'checks'];
 const slugs = new Set(), numbers = new Set();
 for (const lab of labs) {
   for (const key of required) assert(lab[key] !== undefined && lab[key] !== '', `${lab.slug || '?'}: missing ${key}`);
+  for (const key of pageKeys) assert(lab.page[key] !== undefined, `${lab.slug}: page.${key} missing`);
+  for (const cmd of lab.page.checks) assert(existsSync(cmd.split(' ')[1]), `${lab.slug}: check script ${cmd} not found`);
   assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lab.slug), `${lab.slug}: slug must be kebab-case (it is the shareable URL)`);
   assert(!slugs.has(lab.slug) && !numbers.has(lab.number), `${lab.slug}: duplicate slug or number`);
   slugs.add(lab.slug); numbers.add(lab.number);
@@ -37,7 +40,7 @@ for (const lab of labs) {
   }
   if (existsSync(join('src/labs', lab.slug, 'simulab/demo.json'))) {
     const meta = JSON.parse(readFileSync(join('src/labs', lab.slug, 'simulab/demo.json'), 'utf8'));
-    for (const f of meta.files) if (f !== 'model.gen.js') assert(existsSync(join('src/labs', lab.slug, 'simulab', f)), `${lab.slug}: SimuLab file ${f} missing`);
+    for (const f of meta.files) if (!f.endsWith('.gen.js')) assert(existsSync(join('src/labs', lab.slug, 'simulab', f)), `${lab.slug}: SimuLab file ${f} missing`);
   }
 }
 assert(existsSync(join('public', labsIndexMeta.socialImage)), `${labsIndexMeta.socialImage} missing (npm run labs:publish -- index)`);

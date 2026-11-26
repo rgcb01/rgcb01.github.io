@@ -82,7 +82,10 @@ npm run validate:professional-build
 
 Educational simulations at `/labs`, integrated into the professional design (nav item "Labs" and home section 06). Each lab has its own URL (`/labs/<slug>`, with shareable simulation state in the query string), an interactive simulation driven by one pure model, a mathematical explanation, verified references and documented model limitations.
 
-First lab: [The Optical Resolution Limit](https://rgcb01.github.io/labs/optical-resolution-limit), on diffraction and optical resolution in semiconductor lithography.
+Labs:
+
+- [The Optical Resolution Limit](https://rgcb01.github.io/labs/optical-resolution-limit): diffraction and optical resolution in semiconductor lithography.
+- [Why We Intentionally Distort Photomasks](https://rgcb01.github.io/labs/optical-proximity-correction): optical proximity correction with 2D partially coherent imaging, a threshold resist and an emergent model-based OPC loop.
 
 ```bash
 npm run labs:validate                                   # registry, content, references, assets, model checks
