@@ -8,7 +8,7 @@ import PUBLISHED from './published.json';
 const Q = { wavelength: 'lambda', na: 'na', illumination: 'illum', sigmaIn: 'sin', sigmaOut: 'sout', cd: 'cd', bars: 'bars', barWidth: 'bw', barSpace: 'bs', barPitch: 'bp', defocus: 'focus', dose: 'dose' };
 const fmt = (v, d = 0) => (Number.isFinite(v) ? v.toFixed(d) : '–');
 const pct = (v) => (Number.isFinite(v) ? `${v >= 0 ? '+' : '−'}${Math.abs(v * 100).toFixed(1)} %` : '–');
-const VERDICT = { safe: ['SAFE', 'is-good', 'Every assist stays at least 10 % above the printing threshold across the whole CD window.'], marginal: ['MARGINAL', 'is-warn', 'Nothing prints, but an assist comes within 10 % of the threshold somewhere in the CD window.'], prints: ['PRINTS', 'is-bad', 'An assist prints inside the CD window: it would become a defect.'], none: ['NO ASSISTS', 'is-neutral', 'The bare isolated line.'] };
+const VERDICT = { safe: ['SAFE', 'is-good', 'Every assist stays at least 10 % above the printing threshold across the whole CD window.'], marginal: ['MARGINAL', 'is-warn', 'Nothing prints, but an assist comes within 10 % of the threshold somewhere in the CD window.'], prints: ['PRINTS', 'is-bad', 'An assist prints inside the CD window: it would become a defect.'], none: ['NO ASSISTS', 'is-neutral', 'The bare isolated line.'], nowindow: ['NO WINDOW', 'is-warn', 'No dose keeps the line within ±10 % at 5 % EL at any focus, so assist printability cannot be judged.'] };
 
 export const SRAF_CHAPTERS = [
   { id: 'isolated', short: 'The isolated feature', tip: 'With no neighbours, the isolated line loses its CD quickly through focus. The dashed blue outline is the window of dense lines at 200 nm pitch.', params: { bars: 0, defocus: 0, dose: null }, ui: { dense: true } },
@@ -53,7 +53,8 @@ function explain(r) {
   if (d.verdict === 'prints') {
     const w = d.windows.cdOnly, bad = d.rows.filter(row => row.ok && row.z >= w.z0 && row.z <= w.z1 && row.Eprint > w.e0).sort((x, y) => y.Eprint - x.Eprint)[0];
     notes.push(`The assists print${bad ? ` (worst at ${fmt(bad.z)} nm focus, ${fmt(bad.onsetX)} nm from the line)` : ''} at the low-dose edge of the CD window. Narrow them or move them away.`);
-  } else if (d.verdict === 'marginal') notes.push(`Nothing prints, but the margin is only ${pct(d.marginCdWindow)}: too close to the threshold for comfort.`);
+  } else if (d.verdict === 'nowindow') notes.push('There is no CD window at 5 % EL with these optics, so the assists cannot be judged. Reset the optics or the line width.');
+  else if (d.verdict === 'marginal') notes.push(`Nothing prints, but the margin is only ${pct(d.marginCdWindow)}: too close to the threshold for comfort.`);
   if (free > base + 1) notes.push(`Defect-free DOF ${fmt(free)} nm against ${fmt(base)} nm without assists.`);
   else if (free > 0) notes.push(`These assists do not widen the window (${fmt(free)} versus ${fmt(base)} nm). Try another spacing: the bars help when they sit roughly one dense pitch from the line.`);
   return notes;
@@ -70,14 +71,20 @@ export function Simulation() {
   const [error, setError] = useState(null);
   const [challenge, setChallenge] = useState(null);
   const [copied, setCopied] = useState(false);
-  const worker = useRef(null), seq = useRef(0), narrow = useNarrow(), fw = narrow ? 400 : 720;
+  const worker = useRef(null), seq = useRef(0), running = useRef(false), pending = useRef(null), narrow = useNarrow(), fw = narrow ? 400 : 720;
 
   useEffect(() => {
     const w = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
-    w.onmessage = (e) => { const { id, result: r, progress, error: err } = e.data; if (id !== seq.current) return; if (progress) setBusy(progress); if (err) { setError(err); setBusy(null); } if (r) { setResult(r); setBusy(null); setError(null); } };
+    w.onmessage = (e) => {
+      const { id, result: r, progress, error: err } = e.data;
+      if (r || err) { running.current = false; const next = pending.current; pending.current = null; if (next) send(next); }   // worker free: run only the latest setup
+      if (id !== seq.current) return; if (progress) setBusy(progress); if (err) { setError(err); setBusy(null); } if (r) { setResult(r); setBusy(null); setError(null); }
+    };
     worker.current = w; return () => w.terminate();
   }, []);
-  useEffect(() => { const id = ++seq.current, t = setTimeout(() => worker.current?.postMessage({ id, params, reference: dense }), 90); return () => clearTimeout(t); }, [params, dense]);
+  // one analysis at a time; while it runs, keep only the newest request (intermediate setups are dropped, not queued)
+  const send = (msg) => { if (running.current) { pending.current = msg; return; } running.current = true; worker.current?.postMessage(msg); };
+  useEffect(() => { const id = ++seq.current, t = setTimeout(() => send({ id, params, reference: dense }), 90); return () => clearTimeout(t); }, [params, dense]);
   useEffect(() => { const t = setTimeout(() => writeUrl(params, advanced, chapter), 250); return () => clearTimeout(t); }, [params, advanced, chapter]);
   useEffect(() => { const c = SRAF_CHAPTERS.find(x => x.id === init.chapter); if (c) setDense(!!c.ui.dense); }, [init]);
   useEffect(() => {

@@ -338,7 +338,7 @@ html.is-card, html.is-card body {margin:0;background:#080b12}
 .sraf-epe {color:var(--pro-muted)}
 .sraf-bars button {flex:1;min-height:34px;font-size:11px}
 .sraf-tag {font-weight:500;font-size:10px;letter-spacing:.06em;padding:1px 5px;border-radius:3px;border:1px solid}
-.sraf-tag.is-safe {color:#3ddc84}.sraf-tag.is-marginal {color:var(--lab-warn)}.sraf-tag.is-prints {color:#ff4d5e}.sraf-tag.is-none {color:#ff9f43}
+.sraf-tag.is-safe {color:#3ddc84}.sraf-tag.is-marginal {color:var(--lab-warn)}.sraf-tag.is-prints {color:#ff4d5e}.sraf-tag.is-none {color:#ff9f43}.sraf-tag.is-nowindow {color:var(--lab-warn)}
 .opc-attempts li.is-worse:has(.is-prints) {color:#ff4d5e}
 .sraf-share {width:100%}
 .sraf-share-pair {display:grid;grid-template-columns:1fr 1fr;gap:20px}

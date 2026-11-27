@@ -5,7 +5,7 @@
 // ---------------------------------------------------------------------------------------------
 const SR0 = srExact(0), SR30 = srExact(30), SR60 = srExact(60), SRD = SRFD.dense.windows.cdOnly;
 const srN = (v) => `${Math.round(v)}`, srPct = (v) => (v == null ? '—' : `${v >= 0 ? '+' : '−'}${(Math.abs(v) * 100).toFixed(1)}`);
-const SR_VERDICT = { none: ['NO ASSISTS', '#e6e2d8', '#545867'], safe: ['SAFE', '#c8f04a', SR_COL.good], marginal: ['MARGINAL', '#ffcf6b', '#b07a12'], prints: ['PRINTS', '#ff9e93', SR_COL.bad] };
+const SR_VERDICT = { none: ['NO ASSISTS', '#e6e2d8', '#545867'], safe: ['SAFE', '#c8f04a', SR_COL.good], marginal: ['MARGINAL', '#ffcf6b', '#b07a12'], prints: ['PRINTS', '#ff9e93', SR_COL.bad], nowindow: ['NO WINDOW', '#ffcf6b', '#b07a12'] };
 
 function srInsts() { return [place('srafWindow', 'win', { at: SRK.L.win, code: 'process_window();' }), place('srafTerrain', 'terrain', { at: SRK.L.terrain, code: 'aerial_image();' }), place('srafMask', 'mask', { at: SRK.L.mask, code: 'photomask();' })]; }
 function srPlate(layer, h = 0) { return [[SRK.X0, SRK.Y0], [SRK.X1, SRK.Y0], [SRK.X0, SRK.Y1], [SRK.X1, SRK.Y1]].map(q => srL(layer, q[0], q[1], h)); }

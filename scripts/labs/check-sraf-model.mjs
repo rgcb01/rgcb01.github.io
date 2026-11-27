@@ -92,6 +92,8 @@ console.log('6. Accepted windows re-checked point by point (CD in tolerance, not
   const extra = srafPrinted(img, 1 / w.e0).length - 1;
   log('oversizedPrints', extra, `oversized (2 x 60 nm): at best focus and the low-dose edge of its CD-only window, ${extra} extra features print; defect-free DOF ${o.windows.defectFree.dof.toFixed(0)} nm`);
   assert(extra > 0 && o.verdict === 'prints');
+  // assists with no CD window at all are 'nowindow', never 'none' (which is reserved for layouts without assists)
+  { const nw = srafAnalyze({ wavelength: 365, na: 0.5 }); assert.equal(nw.mask.bars.length, 4); assert.equal(nw.windows.cdOnly.dof, 0); assert.equal(nw.verdict, 'nowindow'); }
 }
 
 console.log('7. Consistency with Labs 001 and 002');

@@ -230,7 +230,8 @@ export function srafAnalyze(params = {}, opts = {}) {
   const dose = p.dose ?? E0, imgZ = p.defocus === 0 ? img0 : srafImage(mask.all, p, p.defocus, opts), tz = 1 / dose;
   const printed = srafPrinted(imgZ, tz), mainIdx = printed.findIndex(([a, b]) => a <= 0 && b >= 0), cdZ = srafCd(imgZ, tz);
   const marginCdWindow = marginIn(cdOnly), marginAccepted = marginIn(safe.dof ? safe : defectFree);
-  const verdict = !mask.bars.length ? 'none' : (marginCdWindow == null ? 'none' : marginCdWindow >= p.safeMargin ? 'safe' : marginCdWindow >= 0 ? 'marginal' : 'prints');
+  // 'none': no assists; 'nowindow': assists, but no CD window to judge their printability in
+  const verdict = !mask.bars.length ? 'none' : marginCdWindow == null ? 'nowindow' : marginCdWindow >= p.safeMargin ? 'safe' : marginCdWindow >= 0 ? 'marginal' : 'prints';
   return {
     params: p, mask, t0, E0, rows,
     nilsAerial: srafNils(aerial0, p.cd), nilsResist: srafNils(img0, p.cd), elBestFocus: (row0.Ehi - row0.Elo) / ((row0.Ehi + row0.Elo) / 2),
