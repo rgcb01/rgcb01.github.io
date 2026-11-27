@@ -316,6 +316,43 @@ html.is-card, html.is-card body {margin:0;background:#080b12}
 @media(max-width:1100px) {.opc-main {grid-template-columns:1fr}.opc-stages {grid-template-columns:repeat(3,1fr)}}
 @media(max-width:640px) {.opc-stages {display:none}.opc-figure {padding:10px}.opc-gain {margin-left:0}.opc-layers button,.opc-views button {font-size:10.5px;padding:6px 9px}}
 
+/* Lab 003: sub-resolution assist features */
+.sraf-main {display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}
+.sraf-figs {display:flex;flex-direction:column;gap:16px;min-width:0}
+.sraf-figs figure {margin:0}
+.sraf-figs figcaption {font-size:11px;color:var(--pro-muted);line-height:1.6;margin-bottom:10px}
+.sraf-figs figcaption .pro-mono {display:block;color:var(--pro-white);margin-bottom:3px}
+.sraf-figs .lab-svg {display:block;width:100%;height:auto}
+.sraf-fig-cross .sraf-strip {margin:4px 0}
+.sraf-sim .opc-gain {font-size:12px;color:var(--pro-muted);margin-top:8px}
+.lab-svg .sraf-glass {fill:#0c1424}
+.lab-svg .sraf-wafer {fill:#1a1f2b}
+.sraf-verdict {display:flex;flex-direction:column;gap:4px;border:1px solid var(--pro-line);border-left:3px solid;border-radius:var(--pro-radius);padding:10px 12px;font-size:11.5px;color:var(--pro-text);line-height:1.55}
+.sraf-verdict strong {font:13px var(--pro-mono);letter-spacing:.08em}
+.sraf-verdict em {font-style:normal;font:11px var(--pro-mono);color:var(--pro-muted)}
+.sraf-verdict.is-good {border-left-color:#3ddc84}.sraf-verdict.is-good strong {color:#3ddc84}
+.sraf-verdict.is-warn {border-left-color:var(--lab-warn)}.sraf-verdict.is-warn strong {color:var(--lab-warn)}
+.sraf-verdict.is-bad {border-left-color:#ff4d5e}.sraf-verdict.is-bad strong {color:#ff4d5e}
+.sraf-verdict.is-neutral {border-left-color:#ff9f43}.sraf-verdict.is-neutral strong {color:#ff9f43}
+.opc-row .is-bad {color:#ff4d5e}
+.sraf-epe {color:var(--pro-muted)}
+.sraf-bars button {flex:1;min-height:34px;font-size:11px}
+.sraf-tag {font-weight:500;font-size:10px;letter-spacing:.06em;padding:1px 5px;border-radius:3px;border:1px solid}
+.sraf-tag.is-safe {color:#3ddc84}.sraf-tag.is-marginal {color:var(--lab-warn)}.sraf-tag.is-prints {color:#ff4d5e}.sraf-tag.is-none {color:#ff9f43}.sraf-tag.is-nowindow {color:var(--lab-warn)}
+.opc-attempts li.is-worse:has(.is-prints) {color:#ff4d5e}
+.sraf-share {width:100%}
+.sraf-share-pair {display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sraf-share-pair>div {border:1px solid var(--pro-line);border-radius:var(--pro-radius);padding:12px;background:rgba(16,24,39,.7);min-width:0}
+.sraf-share-pair .pro-mono {font-size:12px!important;margin-bottom:8px!important}
+.sraf-share-pair .lab-svg {display:block;width:100%;height:auto}
+.sraf-share-num {font:15px var(--pro-mono);color:var(--pro-text);margin-top:12px!important}
+.sraf-share-num em {font-style:normal;font-size:19px}
+.sraf-share.is-tall .sraf-share-pair {grid-template-columns:1fr;gap:16px}
+.sraf-share.is-og .sraf-share-num {font-size:12px;margin-top:6px!important}
+.sraf-share.is-og .sraf-share-num em {font-size:15px}
+@media(max-width:1100px) {.sraf-main {grid-template-columns:1fr}}
+@media(max-width:640px) {.sraf-bars button {font-size:10px;padding:6px 4px}.sraf-sim .opc-gain {font-size:11px}}
+
 @media(max-width:1100px) {
   .lab-sim-grid {grid-template-columns:1fr}
   .lab-controls {display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}

@@ -1,0 +1,8 @@
+{
+  "cover": 46,
+  "title": "Interactive Labs · Lab 03 · How Can Features That Never Print Help Us Print Better?",
+  "note": "Simulated, not measured. Model: 1D scalar Abbe imaging of a thin bright-field binary mask (chrome on glass), dry ArF 193 nm, NA 0.85, annular illumination sigma 0.55-0.85 sampled at 601 point-symmetric source points, exact scalar defocus; positive-tone resist modelled as a constant threshold after a 12 nm Gaussian blur; dose in units of the dose to clear, threshold = 1/dose. Synthetic layout: one isolated 90 nm line with 0 or 2 assist bars per side (110 nm from the line, 200 nm bar pitch, width 0 or 10-60 nm in exact 5 nm steps; 10 nm is the model minimum), dense 90 nm lines at 200 nm pitch for comparison. Process window: CD within +-10 %, 5 % exposure latitude, DOF by the exposure-defocus method; defect-free = nothing but the line prints; safe = every assist at least 10 % above threshold (educational heuristic). The drawing is interpolated between exact width steps while a width animates; every number shown is the exact step. Stack, plates and light are an own schematic design. Educational model, not industrial assist placement: no 2D effects, polarization, mask 3D, resist calibration or mask error. Math, references and limitations: rgcb01.github.io/labs/sub-resolution-assist-features",
+  "files": ["data.gen.js", "stack.js", "demo.js"],
+  "prepare": "prepare.mjs",
+  "stills": [6, 10, 14, 19, 24, 28, 33, 37, 42, 46, 50, 55]
+}

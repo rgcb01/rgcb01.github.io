@@ -107,6 +107,27 @@ When reviewing an explainer, follow the skill's checklist on stills, never from 
 - OPC at independent evaluation sites;
 - the pitch study where the simple feedback loop stops converging.
 
+## Lab 003: verified numbers and definitions
+
+`src/labs/sub-resolution-assist-features/published.json` holds every number quoted outside the live simulation (video, cards, posts, the challenge reference). `node scripts/labs/check-sraf-published.mjs` recomputes it from `model.js` and compares it with the `summary` embedded in the committed explainer; `--write` regenerates it. The explainer's `prepare.mjs` packs 12 exact assist-width states (no assists, then 10 to 60 nm in 5 nm steps; 10 nm is the model minimum) with their through-focus intensity and full window analysis; only the drawing is interpolated between steps.
+
+Definitions used throughout Lab 003:
+
+- dose E in units of the dose to clear; threshold t = 1/E; printed = blurred intensity below t (bright-field mask, positive resist);
+- EL = (E_b − E_a) / E_mid; DOF at 5 % EL by the exposure-defocus method (Lin 1994);
+- three nested windows: CD-only (main line within ±10 %), defect-free (also nothing else prints), safe (every unwanted dip at least 10 % above threshold, an educational heuristic);
+- NILS on the aerial image at x = CD/2; the blurred-image value is also reported.
+
+`node scripts/labs/check-sraf-model.mjs [--report]` is the validation suite:
+
+- dose and EL definitions;
+- exact ±z defocus symmetry and an exact two-beam image;
+- analytic contour, NILS and print-onset tests;
+- a synthetic process window with a closed-form DOF;
+- grid, field, source, focus-step and dose-grid convergence;
+- a point-by-point recheck that nothing prints inside the accepted windows;
+- cross-checks against the Lab 001 and Lab 002 imaging models.
+
 ## Writing standards
 
 - Every number on screen comes from the lab's model, including the video and the cards.
