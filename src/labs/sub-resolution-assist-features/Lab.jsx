@@ -7,7 +7,7 @@ import PUBLISHED from './published.json';
 
 const Q = { wavelength: 'lambda', na: 'na', illumination: 'illum', sigmaIn: 'sin', sigmaOut: 'sout', cd: 'cd', bars: 'bars', barWidth: 'bw', barSpace: 'bs', barPitch: 'bp', defocus: 'focus', dose: 'dose' };
 const fmt = (v, d = 0) => (Number.isFinite(v) ? v.toFixed(d) : '–');
-const pct = (v) => (Number.isFinite(v) ? `${v >= 0 ? '+' : '−'}${Math.abs(v * 100).toFixed(0)} %` : '–');
+const pct = (v) => (Number.isFinite(v) ? `${v >= 0 ? '+' : '−'}${Math.abs(v * 100).toFixed(1)} %` : '–');
 const VERDICT = { safe: ['SAFE', 'is-good', 'Every assist stays at least 10 % above the printing threshold across the whole CD window.'], marginal: ['MARGINAL', 'is-warn', 'Nothing prints, but an assist comes within 10 % of the threshold somewhere in the CD window.'], prints: ['PRINTS', 'is-bad', 'An assist prints inside the CD window: it would become a defect.'], none: ['NO ASSISTS', 'is-neutral', 'The bare isolated line.'] };
 
 export const SRAF_CHAPTERS = [

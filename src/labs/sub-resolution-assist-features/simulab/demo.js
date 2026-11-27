@@ -4,7 +4,7 @@
 // bare line is SRS[0], 2 x 30 nm assists the state at 30 nm, 2 x 60 nm the last state.
 // ---------------------------------------------------------------------------------------------
 const SR0 = srExact(0), SR30 = srExact(30), SR60 = srExact(60), SRD = SRFD.dense.windows.cdOnly;
-const srN = (v) => `${Math.round(v)}`, srPct = (v) => (v == null ? '—' : `${v >= 0 ? '+' : '−'}${Math.round(Math.abs(v) * 100)}`);
+const srN = (v) => `${Math.round(v)}`, srPct = (v) => (v == null ? '—' : `${v >= 0 ? '+' : '−'}${(Math.abs(v) * 100).toFixed(1)}`);
 const SR_VERDICT = { none: ['NO ASSISTS', '#e6e2d8', '#545867'], safe: ['SAFE', '#c8f04a', SR_COL.good], marginal: ['MARGINAL', '#ffcf6b', '#b07a12'], prints: ['PRINTS', '#ff9e93', SR_COL.bad] };
 
 function srInsts() { return [place('srafWindow', 'win', { at: SRK.L.win, code: 'process_window();' }), place('srafTerrain', 'terrain', { at: SRK.L.terrain, code: 'aerial_image();' }), place('srafMask', 'mask', { at: SRK.L.mask, code: 'photomask();' })]; }
@@ -92,7 +92,7 @@ const DEMO = {
   intro: { seconds: 5, lines: ['The most useful features on a mask', 'are the ones we never want to print.'], pill: 'LAB 03 · SUB-RESOLUTION ASSIST FEATURES' },
   major: ['mask', 'terrain', 'win'],
   params: { width: 30 },
-  knob: { key: 'width', label: 'ASSIST WIDTH', min: 0, max: 60, step: 5, live: true, fmt: (v) => (v ? `2 × ${v} nm` : 'none') },
+  knob: { key: 'width', label: 'ASSIST WIDTH', min: 0, max: 60, step: 10, live: true, fmt: (v) => (v ? `2 × ${v} nm` : 'none') },
   live: { label: '▶ Try it yourself', controls: [] },
   timeline: (p) => srTimeline(p || {}),
   steps: (TL) => [['0 · Build', 0], ...SR_CH.map(([id, name]) => [name, TL.T[id] - 0.05])],
@@ -124,7 +124,7 @@ const DEMO = {
       const u = st.t - T.ch2;
       tipCard(c, CARD.x + 30, 146, u < 6.4 ? ['Add thin bars beside the line,', 'below the size that prints.'] : ['They reshape the light', 'but never reach the sheet.'], hold('ch2', 0.4, 11.0), '2 · INVISIBLE HELPERS');
       callout(c, P('mask', SRK.X1, srY(170), 0), 140, 40, '2 × 30 nm ASSIST BARS', hold('ch2', 2.2, 6.4), '#e6d6ff');
-      callout(c, P('terrain', SRK.X1, srY(-170), SRK.hT * 0.3), 150, 80, `BUMPS STAY ≥ ${Math.round(SR30.margin * 100)} % BELOW THE SHEET`, hold('ch2', 7.4, 11.0), '#e6d6ff');
+      callout(c, P('terrain', SRK.X1, srY(-170), SRK.hT * 0.3), 150, 80, `BUMPS STAY ≥ ${(SR30.margin * 100).toFixed(1)} % BELOW THE SHEET`, hold('ch2', 7.4, 11.0), '#e6d6ff');
       srDrawSpectrum(c, CARD.x + 30, 640, 400, 200, st.specOn ?? 0);
     }
     if (k === 2) {
@@ -137,7 +137,7 @@ const DEMO = {
     if (k === 3) {
       const u = st.t - T.ch4;
       tipCard(c, CARD.x + 30, 146, u < 6.8 ? ['Make the helpers bigger', 'to push the window further?'] : ['They print. The CD window grows,', 'the defect-free window collapses.'], hold('ch4', 0.4, 11.0), '4 · HELPERS BECOME DEFECTS');
-      pill(c, CARD.x + CARD.w - 28, 112, `ASSISTS 2 × ${Math.round(st.ww / 5) * 5} nm`, { align: 'right', bg: '#e6d6ff', size: 11, padY: 6, alpha: hold('ch4', 1.2, 11.0) });
+      pill(c, CARD.x + CARD.w - 28, 112, `ASSISTS 2 × ${srExact(st.ww).w} nm`, { align: 'right', bg: '#e6d6ff', size: 11, padY: 6, alpha: hold('ch4', 1.2, 11.0) });
       const a = hold('ch4', 7.0, 11.0), g = SR60.windows.cdOnly;
       callout(c, P('terrain', SRK.X0, srY(-185), SRK.hT * (1 - SR60.t0)), -140, 70, 'ASSISTS POKE THROUGH: THEY PRINT', a, '#ff9e93');
       callout(c, winPt(g.z1, g.e1), 120, -90, `CD-ONLY ${srN(g.dof)} nm · DEFECT-FREE ${srN(SR60.windows.defectFree.dof)} nm`, a, '#ff9e93');

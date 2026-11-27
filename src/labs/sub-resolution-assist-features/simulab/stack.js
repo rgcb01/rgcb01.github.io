@@ -6,7 +6,7 @@
 // World cm, z up. Focus: 1 cm = 50 nm (-400..400 nm along x). Position across the line: 1 cm = 35 nm (-450..450 nm
 // along y). The middle plate is drawn as 1 - I (resist that remains stands up), so anything that prints pokes up
 // through the threshold sheet. Dose on the window plate: 1.1..3.5 along y. Everything drawn reads SRFD (precomputed by prepare.mjs from
-// model.js); between two exact 5 nm width steps only the drawing is interpolated.
+// model.js); between two exact width steps only the drawing is interpolated.
 // ---------------------------------------------------------------------------------------------
 const SRK = { nm: 50, nmY: 35, hT: 8, hBlock: 1.3, X0: -8, X1: 8, Y0: -SRFD.terrain.xs / 35, Y1: SRFD.terrain.xs / 35, E0: 1.1, E1: 3.5, L: { win: [0, 0, 0], terrain: [19, -19, 19], mask: [38, -38, 38] } };
 const SR_COL = { target: '#2f6fe0', mask: '#ffffff', assist: '#9b5cff', base: '#ff8a1f', good: '#1fae5c', bad: '#e5303f', dense: '#6f7ea3', glass: '#283149' };
@@ -16,9 +16,12 @@ const srL = (layer, X, Y, h = 0) => { const o = SRK.L[layer]; return [o[0] + X, 
 // ---- decode the precomputed states ------------------------------------------------------------------
 function srB64(s) { const b = atob(s), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
 const SRS = SRFD.states.map(s => { const u = srB64(s.terrain), T = new Float32Array(u.length); for (let i = 0; i < u.length; i++) T[i] = u[i] / 255 * SRFD.terrain.scale; return { ...s, T }; });
-const SRN = SRS.length - 1, SR_STEP = SRFD.widths[1] - SRFD.widths[0];
-const srExact = (w) => SRS[Math.max(0, Math.min(SRN, Math.round(w / SR_STEP)))];        // numbers: nearest exact state
-function srPair(w) { const f = Math.max(0, Math.min(SRN, w / SR_STEP)), a = Math.floor(f), b = Math.min(SRN, a + 1); return [SRS[a], SRS[b], f - a]; }
+const SRN = SRS.length - 1, SRW = SRFD.widths;
+function srPair(w) {    // the two exact states around width w (the width list is not evenly spaced) and the fraction between them
+  if (w <= SRW[0]) return [SRS[0], SRS[0], 0]; if (w >= SRW[SRN]) return [SRS[SRN], SRS[SRN], 0];
+  let a = 0; while (SRW[a + 1] < w) a++; return [SRS[a], SRS[a + 1], (w - SRW[a]) / (SRW[a + 1] - SRW[a])];
+}
+const srExact = (w) => { const [A, B, f] = srPair(w); return f < 0.5 ? A : B; };        // numbers: nearest exact state
 const srLerp = (a, b, f) => a + (b - a) * f;
 function srTerrain(w) { const [A, B, f] = srPair(w); if (f < 1e-6) return A.T; const o = new Float32Array(A.T.length); for (let i = 0; i < o.length; i++) o[i] = A.T[i] + (B.T[i] - A.T[i]) * f; return o; }
 const srThr = (w) => { const [A, B, f] = srPair(w); return srLerp(A.t0, B.t0, f); };

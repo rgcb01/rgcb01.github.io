@@ -109,7 +109,7 @@ When reviewing an explainer, follow the skill's checklist on stills, never from 
 
 ## Lab 003: verified numbers and definitions
 
-`src/labs/sub-resolution-assist-features/published.json` holds every number quoted outside the live simulation (video, cards, posts, the challenge reference). `node scripts/labs/check-sraf-published.mjs` recomputes it from `model.js` and compares it with the `summary` embedded in the committed explainer; `--write` regenerates it. The explainer's `prepare.mjs` packs 13 exact assist-width states (0 to 60 nm in 5 nm steps) with their through-focus intensity and full window analysis; only the drawing is interpolated between steps.
+`src/labs/sub-resolution-assist-features/published.json` holds every number quoted outside the live simulation (video, cards, posts, the challenge reference). `node scripts/labs/check-sraf-published.mjs` recomputes it from `model.js` and compares it with the `summary` embedded in the committed explainer; `--write` regenerates it. The explainer's `prepare.mjs` packs 12 exact assist-width states (no assists, then 10 to 60 nm in 5 nm steps; 10 nm is the model minimum) with their through-focus intensity and full window analysis; only the drawing is interpolated between steps.
 
 Definitions used throughout Lab 003:
 

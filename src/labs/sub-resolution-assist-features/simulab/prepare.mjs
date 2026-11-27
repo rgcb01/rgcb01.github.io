@@ -1,15 +1,15 @@
 // Build step for the Lab 003 explainer (run by scripts/labs/simulab.mjs): runs model.js and writes data.gen.js.
 // States: the isolated 90 nm line with two assist bars per side (110 nm from the line, 200 nm bar pitch) whose
-// width goes 0, 5, ... 60 nm (0 = no assists), plus dense 90 nm lines at 200 nm pitch for comparison. Each state
+// width goes 0, 10, 15, ... 60 nm (0 = no assists; 10 nm is the model's minimum), plus dense 90 nm lines at 200 nm pitch for comparison. Each state
 // carries the full analysis (focus scan, three DOF windows, verdict, margin) and the blurred intensity sampled
 // through focus as a terrain. A frame-exact video cannot afford a 1 s analysis per frame, so the explainer reads
-// these exact states and interpolates only the drawing between neighbouring 5 nm steps while a width animates;
+// these exact states and interpolates only the drawing between neighbouring width steps while a width animates;
 // every number on screen is the exact state at the nearest step. `summary` is checked by check-sraf-published.mjs.
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { SRAF_DESIGNS, srafAnalyze, srafAt, srafDenseMask, srafImage, srafMask, srafNormalize, srafSpectrum } from '../model.js';
 
-const WIDTHS = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+const WIDTHS = [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];   // 10 nm is the model's smallest assist width
 const XS = 450, DX = 7.5, ZS = 400, DZ = 20;    // terrain: position -450..450 nm, focus -400..400 nm
 const r3 = (v) => Math.round(v * 1000) / 1000, r1 = (v) => Math.round(v * 10) / 10;
 const u8 = (arr) => Buffer.from(Uint8Array.from(arr)).toString('base64');
@@ -33,6 +33,7 @@ export default function prepare({ stageDir }) {
   const t0 = Date.now(), P = srafNormalize({}), nx = 2 * XS / DX + 1, nz = 2 * ZS / DZ + 1, states = [];
   for (const w of WIDTHS) {
     const d = w ? { bars: 2, barWidth: w, barSpace: 110, barPitch: 200 } : { bars: 0 }, a = srafAnalyze(d), m = srafMask(a.params);
+    if (w && a.params.barWidth !== w) throw new Error(`assist width ${w} nm was changed to ${a.params.barWidth} nm by srafNormalize`);
     const half = [];                                // I(x, z) = I(x, -z) exactly (checked in check-sraf-model.mjs)
     for (let j = 0; j <= ZS / DZ; j++) { const img = srafImage(m.all, a.params, j * DZ); half.push(Array.from({ length: nx }, (_, i) => srafAt(img, -XS + i * DX))); }
     const terrain = [];
