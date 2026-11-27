@@ -86,6 +86,7 @@ Labs:
 
 - [The Optical Resolution Limit](https://rgcb01.github.io/labs/optical-resolution-limit): diffraction and optical resolution in semiconductor lithography.
 - [Why We Intentionally Distort Photomasks](https://rgcb01.github.io/labs/optical-proximity-correction): optical proximity correction with 2D partially coherent imaging, a threshold resist and an emergent model-based OPC loop.
+- [How Can Features That Never Print Help Us Print Better?](https://rgcb01.github.io/labs/sub-resolution-assist-features): sub-resolution assist features, through-focus imaging and focus-exposure process windows, with safe, marginal and printing assists.
 
 ```bash
 npm run labs:validate                                   # registry, content, references, assets, model checks
